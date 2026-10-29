@@ -17,6 +17,8 @@
     "@neon/env": "^1.6.5",
     "@neondatabase/serverless": "^0.10.4",
     "@types/three": "^0.186.0",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "bcryptjs": "^3.0.3",
     "csv-parse": "^5.6.0",
     "dotenv": "^16.4.7",
