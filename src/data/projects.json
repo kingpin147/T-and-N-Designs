@@ -1,0 +1,1646 @@
+[
+  {
+    "id": "3e128f35-d7e5-4610-a59c-77f4e620ee65",
+    "wixId": "3e128f35-d7e5-4610-a59c-77f4e620ee65",
+    "title": "Energt Gurus Online",
+    "slug": "energt-gurus-online",
+    "category": "custom",
+    "shortDescription": "Overview:",
+    "fullDescription": "Overview:\n\nA comprehensive B2B/B2C clean energy marketplace and community platform connecting EPC solar contractors, global solar manufacturers, and residential/commercial clients in Pakistan’s emerging renewable market. The platform centralizes discovery, installer verification, direct client lead generation, monitoring & O&M service requests, and interactive community engagement via podcasts and live Q&A sessions.\n\nKey Highlights & Architecture:\n\nMulti-Tenant Role-Based Dashboards: Granular access-controlled portals for Super Admins, EPC Installers, and Solar Manufacturers with custom profile managers, lead inboxes, product catalogs, and review moderation.\n\nInstaller & Brand Discovery Engine: High-performance searchable directory with advanced multi-criteria filtering, geo-targeting, verified badge badging, and project portfolio showcases.\n\nMonitoring & O&M Service Pipelines: Interactive service request and pricing engine allowing property owners to request system monitoring, operation & maintenance, and quote estimations.\n\nInteractive Community & Live Q&A: Real-time engagement hub featuring YouTube livestream integrations, countdown timers, upvotable community question feeds, and video podcast archives.\n\nCloud Media & Asset Pipeline: Direct-to-cloud asset storage leveraging Cloudflare R2 for project portfolios, manufacturer datasheets, and high-res media.\n\nMultilingual & Transactional Automation: Dual-language localization (English & Urdu via next-intl) paired with Brevo-powered transactional email triggers for automated lead routing and inquiry notifications.\n\nTech Stack:\n\nNext.js (App Router) · TypeScript · React · PostgreSQL (Neon) · Drizzle ORM · Clerk Auth · Tailwind CSS · Radix UI / shadcn/ui · Cloudflare R2 · next-intl · Brevo API · PostHog",
+    "tags": [
+      "Next js"
+    ],
+    "coverImageUrl": "/api/media/portfolio/energt-gurus-online.png",
+    "originalWixImage": "wix:image://v1/c5af70_5aac40c671924c4984869888ea17601d~mv2.png/energy%20gurus.PNG#originWidth=1408&originHeight=924",
+    "projectUrl": "https://www.energygurus.online/",
+    "featured": true,
+    "sortOrder": 1,
+    "createdAt": "2026-09-23T09:44:05Z"
+  },
+  {
+    "id": "6b66e719-e21a-4dc4-b505-6335f7a9c2d9",
+    "wixId": "6b66e719-e21a-4dc4-b505-6335f7a9c2d9",
+    "title": "The Mothers",
+    "slug": "the-mothers",
+    "category": "custom",
+    "shortDescription": "Overview:",
+    "fullDescription": "Overview:\n\nAn exclusive digital members club and community platform tailored for modern motherhood. The platform connects members through curated in-person events, private community discussions via La Gazette, credit-based ticket reservations, and an integrated referral reward system.\n\nKey Highlights & Architecture\n\nSecure 2FA Onboarding & Auth: Multi-step passwordless OTP verification, credential hashing with bcrypt, role-based access control (Members vs. Multi-Tier Admin), and rate-limited API protection.\nEvent Booking & Credit Engine: Dynamic RSVP management system allowing members and guests to reserve seats, hold spots, join waitlists, and manage ticketing quotas in real-time.\nFull Bilingual Experience: Seamless English and Spanish (en / es) localization across the entire client and admin portal.\nTransactional Email Automation: Integrated Brevo engine delivering transactional 2FA codes, booking confirmations, and membership welcome packs.\nComprehensive Admin \n\nCMS: Complete back-office dashboard for event publishing, member tier management, reporting, and editorial CMS management.\n\nTech Stack\nNext.js (App Router) · TypeScript · React · PostgreSQL · Drizzle ORM · NextAuth.js · Tailwind CSS / Custom CSS · Brevo API · Zod",
+    "tags": [
+      "Next js"
+    ],
+    "coverImageUrl": "/api/media/portfolio/the-mothers.png",
+    "originalWixImage": "wix:image://v1/c5af70_e6a27a0d1a5b451c8c8a57ef36d267b3~mv2.png/the%20mothers.PNG#originWidth=1489&originHeight=963",
+    "projectUrl": "https://www.themothers.cc/",
+    "featured": true,
+    "sortOrder": 2,
+    "createdAt": "2026-09-23T09:43:25Z"
+  },
+  {
+    "id": "b2d5a195-40a3-4729-b86a-523912999f6c",
+    "wixId": "b2d5a195-40a3-4729-b86a-523912999f6c",
+    "title": "YLN Team HUB",
+    "slug": "yln-team-hub",
+    "category": "custom",
+    "shortDescription": "Overview:",
+    "fullDescription": "Overview:\n\nA full-stack, enterprise-grade internal operations and leadership enablement portal built for Your Leadership Network (YLN). Originally a static repository of static links and rigid pages, the platform was re-architected into a high-performance, dynamic workspace centralizing role-governed training resources, interactive calendar scheduling with Microsoft Outlook sync, audience-segmented knowledgebases, custom quick-access dashboards, and granular permission controls.\n\nKey Highlights & Architecture:\nDynamic Resource Explorer & Asset Pipeline (Resources V2): Replaced static file lists with a 4-level deep hierarchical asset manager (Resource Boxes → Folders → Files & Media) backed by Cloudinary cloud storage, featuring real-time search, breadcrumb navigation, and in-app file/video previews.\n\nMulti-Tier RBAC & Granular Permission Engine: Architected a zero-trust Role-Based Access Control system supporting fine-grained visibility rules (Super Admin, YLN Staff, Leadership, and Public), complete with dynamic permission matrix management and JWT token-authenticated API endpoints.\n\nAudience-Aware FAQ & Knowledgebase System: Dynamic category manager with zero-orphan deletion cascades, live tag/keyword search, drag-and-drop order repositioning, and audience-level filtering (Public vs. YLN Staff Only) with real-time UI synchronization.\n\nInteractive Training Calendar & Microsoft Outlook Integration: Bi-directional event synchronization engine integrating Microsoft Graph API / Outlook Calendar with RSVP tracking, live date-range filtering, time-zone management, and dynamic event management dashboards.\n\nDynamic Navigation & Quick Access Hub: Custom sidebar and quick-action engine that dynamically renders shortcuts, external tools (Follow Up Boss, Ylopo), and pinned resources based on the user's role and recent updates via custom event-driven cache invalidation.\n\nOptimistic UI & Modern Glassmorphic Design: Modernized user experience built on React 19 and Tailwind CSS with custom glassmorphism design tokens, micro-interactions, skeleton loaders, global confirmation dialogs, and toast notification contexts.\n\nTech Stack:\nReact 19 · Vite · Node.js · Express.js · MongoDB (Mongoose) · Tailwind CSS · JWT Auth & RBAC · Microsoft Graph API (Outlook Calendar) · Cloudinary Media API · React Router v7 · Axios Interceptors · React Icons",
+    "tags": [
+      "Next js"
+    ],
+    "coverImageUrl": "/api/media/portfolio/yln-team-hub.png",
+    "originalWixImage": "wix:image://v1/c5af70_332c8607da644154979f3e4116a48117~mv2.png/yln.PNG#originWidth=1919&originHeight=997",
+    "projectUrl": "https://ylnteam.com/hub/",
+    "featured": true,
+    "sortOrder": 3,
+    "createdAt": "2026-09-23T09:46:05Z"
+  },
+  {
+    "id": "bc9df914-105e-42e9-90cd-b29665a9deac",
+    "wixId": "bc9df914-105e-42e9-90cd-b29665a9deac",
+    "title": "Energy Gurus Crm",
+    "slug": "energy-gurus-crm",
+    "category": "custom",
+    "shortDescription": "Overview:",
+    "fullDescription": "Overview:\n\nAn enterprise-grade Customer Relationship Management (CRM) and operations platform tailored for solar energy companies (EnergyGurus). The platform streamlines end-to-end solar lifecycle operations—from lead onboarding and multi-tier technical profiling to a 3-stage managerial approval pipeline, dynamic billing and ledger adjustments, automated ticket escalations, and inventory tracking.\n\nKey Highlights & Architecture Unified Customer & Solar Technical Profiling: \n\nCentralized customer records indexed by numeric IDs and standardized CRF numbers, capturing granular technical solar assets (DISCO, Net Metering specs, inverter/panel/battery configurations, earthing resistance, and safety breaker ratings).\n3-Stage Workflow Approval Pipeline: Sequential approval workflow across departments—Sales Manager (lead review), Billing Manager (advance security deposit & invoice verification), and O&M/Installation Manager (installation sign-off and service activation).\n\nBilling & Change Process Management (CPM): Dynamic plan upgrading/downgrading with automated debit/credit ledger adjustments, maker-checker approval queues for manual debit/credit notes & payment entries, and multi-ID bulk customer status operations.\n\nMulti-Tier Ticket & Grievance Escalation: Departmental routing (O&M, Billing, Sales, Support) for technical and billing issues with fault code tagging, full audit timelines, and multi-tier escalation tracking (Level-1 to Level-3).\n\nService Delivery & Inventory Control: Real-time warehouse stock tracking for inverters, panels, batteries, breakers, and cabling with min-stock threshold triggers and movement audit logs.\n\nAnalytics & Financial Reporting Engine: High-performance data tables with real-time filtering, summaries, and Excel/CSV export across 6 operational areas (Customer Status, Sales, Receivables, Adjustments, Payments, and Customer Register).\n\nRole-Based Access Control (RBAC): Granular access tiers safeguarding sensitive operations for Super Admins, Sales Managers, Billing Managers, O&M Managers, Installation Leads, and Support Specialists.\n\nTech Stack:\n\nNext.js 16 (App Router) · React 19 · TypeScript · PostgreSQL (Supabase) · Prisma ORM (@prisma/adapter-pg) · Supabase Auth · Tailwind CSS v4 · Radix UI / shadcn/ui · TanStack Table & React Query · Zustand · Zod · React Hook Form · React PDF",
+    "tags": [
+      "Next js"
+    ],
+    "coverImageUrl": "/api/media/portfolio/energy-gurus-crm.png",
+    "originalWixImage": "wix:image://v1/c5af70_1f13529d441b48498671388aef375887~mv2.png/crm%20energy%20gurus.PNG#originWidth=1565&originHeight=813",
+    "projectUrl": "https://crm.energygurus.online/",
+    "featured": true,
+    "sortOrder": 4,
+    "createdAt": "2026-09-23T09:43:51Z"
+  },
+  {
+    "id": "060c9cb2-87e5-4062-8ed4-5b3f327207ab",
+    "wixId": "060c9cb2-87e5-4062-8ed4-5b3f327207ab",
+    "title": "Marcus Reilly Property Listing",
+    "slug": "marcus-reilly-property-listing",
+    "category": "wix-migration",
+    "shortDescription": "Apex27 API Integration for Seamless Property Management – Built with Wix Velo! ✨",
+    "fullDescription": "🏡 Apex27 API Integration for Seamless Property Management – Built with Wix Velo! ✨\n\nI integrated the Apex27 API into Wix, delivering a powerful and dynamic property management system for Marcus Reilly Lettings.\n\n✅ Real-Time Property Listings – Instantly updates and syncs data for accurate availability.\n✅ Seamless Data Syncing – Ensures smooth communication between Apex27 & Wix CMS.\n✅ Enhanced UX & Visual Appeal – A streamlined, modern, and user-friendly interface.\n\n🔹 Why It Matters?\nThis integration boosts efficiency, automates updates, and enhances the user experience for both property managers and clients! 🚀\n\nCheck it out: marcusreilly.co.uk/lettings\n\n#WixVelo #Apex27 #PropertyManagement #APIIntegration #RealEstateTech #Automation #WebDevelopment #UXDesign",
+    "tags": [
+      "Wix Velo",
+      "API Integration"
+    ],
+    "coverImageUrl": "/api/media/portfolio/marcus-reilly-property-listing.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_134df026f78a48368e4d08545173432e~mv2.jpg/467618101_539617542323554_7933220764969946038_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Marcus Reilly Property Listing",
+    "projectUrl": null,
+    "featured": true,
+    "sortOrder": 5,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "0642ece6-f217-4ed4-ba92-f57b351d64f5",
+    "wixId": "0642ece6-f217-4ed4-ba92-f57b351d64f5",
+    "title": "Shop Mini Collector",
+    "slug": "shop-mini-collector",
+    "category": "web-design",
+    "shortDescription": "Shop Mini Collector SEO + Accessibility + Google AdSense Integration – All Set for Growth! 🚀🔍",
+    "fullDescription": "🛍️ Shop Mini Collector SEO + Accessibility + Google AdSense Integration – All Set for Growth! 🚀🔍\n\n✅ SEO Optimization – Implemented a keyword-rich SEO strategy tailored for organic growth. Targeted high-intent keywords to help Shop Mini Collector rank better in search engines.\n✅ Product Accessibility – Enhanced accessibility for 300+ products, ensuring the website meets best practices for inclusive design and user experience.\n✅ Google AdSense Integration – Seamlessly integrated the site with Google AdSense. Handled all compliance and layout adjustments to meet policy, resulting in full AdSense approval!\n✅ Monetization Ready – The site is now not only search-optimized and accessible but also monetized, opening a passive income stream through approved ad placements.\n\n📢 This project blends smart SEO, inclusive design, and monetization—built to grow traffic and revenue.\n",
+    "tags": [
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/shop-mini-collector.png",
+    "originalWixImage": "wix:image://v1/c5af70_5254ad9e647447a49a6abe96b33a4a36~mv2.png/Shop%20Mini%20Collector%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Shop Mini Collector",
+    "projectUrl": null,
+    "featured": true,
+    "sortOrder": 6,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "06e5f470-b569-4b0c-a5e9-89fd70ec5c34",
+    "wixId": "06e5f470-b569-4b0c-a5e9-89fd70ec5c34",
+    "title": "Drone Control",
+    "slug": "drone-control",
+    "category": "wix-migration",
+    "shortDescription": "Custom Popup Lightbox for Secure Drone Stream Access – Built with Wix Velo! ✨",
+    "fullDescription": "🔐 Custom Popup Lightbox for Secure Drone Stream Access – Built with Wix Velo! ✨\n\n✅ Exclusive Access System – Users enter a special 4-digit code to unlock a personalized drone stream.\n✅ Dynamic Lightbox Popup – Designed with Wix Velo (JavaScript) for a smooth, interactive experience.\n✅ Keystroke Functionality – Supports Enter key submission for seamless access.\n✅ Custom Redirection – Instantly takes users to their specialized drone feed based on their unique code.\n\n📊 Why It Matters?\nA secure & dynamic access system ensures a personalized and seamless experience for drone control operations! 🚀",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/drone-control.png",
+    "originalWixImage": "wix:image://v1/c5af70_e2440bd5fa2a4509920cccb6a3f95640~mv2.png/Drone%20Control%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Drone Control",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 7,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "07690bcf-39f6-4258-8b34-0e9df7f5439b",
+    "wixId": "07690bcf-39f6-4258-8b34-0e9df7f5439b",
+    "title": "AI Capitalist",
+    "slug": "ai-capitalist",
+    "category": "wix-migration",
+    "shortDescription": "AI Capitalist – Complete Website Redesign + Intelligent Contact System 🚀",
+    "fullDescription": "💻 AI Capitalist – Complete Website Redesign + Intelligent Contact System 🚀\nWe transformed AI Capitalist into a sleek, modern platform with a smart contact experience — all custom-coded in Wix Velo.\n\n✅ What We Delivered:\n\n🎨 Full Website Redesign – A bold, clean UI aligned with the AI-first brand — responsive across all devices with high-conversion layout.\n\n📬 Smart Contact Form – Custom-built to collect user inputs, validate in real-time, and send lead data directly to Google Sheets/API.\n\n📍 Live Location Tracking – Used Wix Location API + OpenGate API to auto-detect the user’s city and country on page load — no input required.\n\n🔗 Google API Integration – Every submission is pushed instantly to Google, enabling live data monitoring and lead tracking.\n\n🧠 No Third-Party Apps – 100% Wix Velo – All logic and automation built natively in Wix Studio using custom JavaScript.\n\n",
+    "tags": [
+      "Wix Velo",
+      "API Integration"
+    ],
+    "coverImageUrl": "/api/media/portfolio/ai-capitalist.png",
+    "originalWixImage": "wix:image://v1/c5af70_39236a2b63344590bdfad82df66e6ecf~mv2.png/AI%20Capitalist%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "AI Capitalist",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 8,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "085ff4ba-1f25-46b8-85b1-7db16fd48e04",
+    "wixId": "085ff4ba-1f25-46b8-85b1-7db16fd48e04",
+    "title": "The Ramp Rack",
+    "slug": "the-ramp-rack",
+    "category": "web-design",
+    "shortDescription": "Ramp Rack – Custom Checkout & Shipping Solution – Built for Seamless E-commerce Transactions! 🚚💳",
+    "fullDescription": "🌟 Ramp Rack – Custom Checkout & Shipping Solution – Built for Seamless E-commerce Transactions! 🚚💳\n\nWe’ve crafted a fully interactive checkout system for Ramp Rack, designed to offer a smooth and dynamic purchasing experience for every customer. Here’s what we’ve optimized:\n\n✅ What We Built:\n🛒 Dynamic Cart Updates – Real-time tracking of cart items, quantities, and total prices for instant feedback.\n🚚 Tailored Shipping Options – Multiple shipping methods (from \"Self Pickup\" to \"Residential + Liftgate Service\") to fit the needs of every customer and product.\n💸 Streamlined Payment Integration – Quick and secure checkout process with Wix Pay, ensuring seamless transactions and smooth order processing.\n🔄 Custom Checkout Button – Replaced the default button with a sleek custom one, making sure customers are directed to the perfect checkout page.\n📊 Accurate Shipping Freight Calculation – Shipping costs are dynamically adjusted based on the product’s weight and destination.",
+    "tags": [
+      "Web Development"
+    ],
+    "coverImageUrl": "/api/media/portfolio/the-ramp-rack.png",
+    "originalWixImage": "wix:image://v1/c5af70_813fc8c503cd44699526392129f89de3~mv2.png/RampRack%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "The Ramp Rack",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 9,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "09aa91ce-7ca9-4cb3-a1c9-29f8b0cbc184",
+    "wixId": "09aa91ce-7ca9-4cb3-a1c9-29f8b0cbc184",
+    "title": "Stella Supplements",
+    "slug": "stella-supplements",
+    "category": "wix-migration",
+    "shortDescription": "E-Commerce Boost for Stella Supplements – Seamless Stripe Payments & SEO Optimization for",
+    "fullDescription": "🌟 E-Commerce Boost for Stella Supplements – Seamless Stripe Payments & SEO Optimization for\n\n✅ What We Implemented:\n🔌 Stripe Payment Integration via Wix Velo JavaScript – Effortless checkout with one-click subscriptions, dynamic pricing for supplement bundles, and fraud protection – all coded in Velo for lightning-fast, mobile-optimized transactions.\n📈 SEO Meta Enhancements – Crafted compelling meta titles like \"Stella Vegan Supplements: Natural Hormonal Balance for Women | Shop Now\" and descriptions such as \"Discover Stella's premium, non-GMO vegan supplements designed for Black women's wellness. Support hormonal health naturally – fast, free shipping on orders over €50.\"\n🔍 Keyword Mastery & Google Indexing – Integrated high-impact keywords (e.g., \"vegan women's supplements,\" \"hormonal balance vitamins,\" \"natural wellness for Black women\") using Yoast-inspired best practices, plus sitemap submission and robots.txt tweaks for instant Google crawling and top SERP rankings.",
+    "tags": [
+      "Wix Velo",
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/stella-supplements.png",
+    "originalWixImage": "wix:image://v1/c5af70_7091f78d6ea24822941208e6ad9f24e5~mv2.png/Stella%20Suplement%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Stella Supplements",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 10,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "0b060666-4c37-4cbb-b447-e5c601994c9f",
+    "wixId": "0b060666-4c37-4cbb-b447-e5c601994c9f",
+    "title": "Lelo Metals",
+    "slug": "lelo-metals",
+    "category": "wix-migration",
+    "shortDescription": "Multi-Level Form & API Integration for Accurate Vehicle Scrapping! ✨",
+    "fullDescription": "🚗 Multi-Level Form & API Integration for Accurate Vehicle Scrapping! ✨\n\nI built a dynamic multi-level form using Wix Velo JavaScript, allowing users to input data in a streamlined and efficient way.\n\n✅ Seamless API Integrations – Integrated SendGrid, Postcodes API, and UK Vehicle Data API.\n✅ Accurate Scrap Price Calculation – Fetches real-time vehicle data and calculates scrap value.\n✅ Dynamic Pick-Up Cost Estimation – Calculates pick-up costs based on distance to the client’s location.\n✅ Enhanced User Experience – Ensures a smooth, accurate, and transparent pricing process.\n\n🔹 Why It Matters?\nThis integration provides accurate pricing, automated calculations, and a seamless booking experience! 🚀",
+    "tags": [
+      "Wix Velo",
+      "API Integration"
+    ],
+    "coverImageUrl": "/api/media/portfolio/lelo-metals.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_3ce69a2076ce4dc09d7bf8a946c2aab2~mv2.jpg/470140896_556812003937441_8774495198589045556_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Lelo Metals",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 11,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "0bd3fa39-e814-4626-9e55-6b2115fb3f54",
+    "wixId": "0bd3fa39-e814-4626-9e55-6b2115fb3f54",
+    "title": "Bliss Mobile Sunless Tanning",
+    "slug": "bliss-mobile-sunless-tanning",
+    "category": "web-design",
+    "shortDescription": "Bliss Mobile Sunless Tanning – Fresh New Landing Page is LIVE! ✨",
+    "fullDescription": "🌞 Bliss Mobile Sunless Tanning – Fresh New Landing Page is LIVE! ✨\nWe just launched a sleek, sun-kissed redesign that radiates beauty, confidence, and clarity — all built in Wix Studio! 💻📱\n\n✅ What We Created:\n\n🎬 Animated Hero Section – Warm golden glow transitions, soft scroll effects, and a glowing CTA to book your perfect tan.\n\n📸 Glow Gallery – Beautiful before & after images displayed in a smooth carousel with soft transitions and touch support.\n\n🎨 Aesthetic Color Palette – Peach, sand, and bronze tones with modern serif + sans-serif fonts that reflect your brand’s elegance.\n\n📍 Service Highlight Section – Mobile-focused layout showcasing service areas and benefits in clean icon-based blocks.\n\n🖼️ Responsive & Lightweight – Designed to shine on both mobile and desktop without slowing down the experience.\n\n💫 Whether you’re offering mobile tans, beauty treatments, or skin glow services — your website should look as flawless as your work.\n\n👉 Let’s make your brand unforgettable:\n🔗 www.tnndesigns.com",
+    "tags": [
+      "Web Development"
+    ],
+    "coverImageUrl": "/api/media/portfolio/bliss-mobile-sunless-tanning.png",
+    "originalWixImage": "wix:image://v1/c5af70_53881a308dc44b26944efc63fffd1e63~mv2.png/Bliss%20Mobile%20Sunless%20Tanning%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Bliss Mobile Sunless Tanning",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 12,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "0beab982-1a27-41f0-b3ff-c4ead6c6c6f2",
+    "wixId": "0beab982-1a27-41f0-b3ff-c4ead6c6c6f2",
+    "title": "Sophia Property Listings",
+    "slug": "sophia-property-listings",
+    "category": "wix-migration",
+    "shortDescription": "Dynamic iFrame Integration via CMS – Wix Velo Solution!",
+    "fullDescription": "✅ Dynamic iFrame Integration via CMS – Wix Velo Solution!\n\nI implemented a CMS-driven iFrame system to dynamically populate iFrames on each page for a seamless and automated experience.\n\n🔹 CMS-Integrated iFrames – Each dynamic page now loads a unique iFrame effortlessly.\n🔹 Wix Velo Automation – Ensures smooth rendering without manual updates.\n🔹 Enhanced Flexibility – Ideal for embedding external content dynamically.\n\n🚀 Smart automation for a better user experience!\n\n#WixVelo #JavaScript #WebDevelopment #CMSIntegration #DynamicContent #Automation #WixExperts\n\n\n\n\n\n\n\n",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/sophia-property-listings.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_7ae0b1a7ae0f44eab8bcf9f5cb883b7a~mv2.jpg/428607299_359638880321422_626094949994835219_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Sophia Property Listings",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 13,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "0cc6d952-fee0-4b55-8293-4d905e9cffe8",
+    "wixId": "0cc6d952-fee0-4b55-8293-4d905e9cffe8",
+    "title": "Nordic Chic France",
+    "slug": "nordic-chic-france",
+    "category": "wix-migration",
+    "shortDescription": "Nordic Chic France – Stunning Redesign from Classic Wix to Wix Studio! ✨",
+    "fullDescription": "🎨 Nordic Chic France – Stunning Redesign from Classic Wix to Wix Studio! ✨\n\nI transformed the Nordic Chic France website, upgrading it from Classic Wix to Wix Studio with pixel-perfect precision for a sleek, modern, and high-performing design.\n\n✅ Upgraded to Wix Studio – More flexibility, better performance, and enhanced design capabilities.\n✅ Pixel-Perfect Precision – Ensuring a flawless and visually stunning user experience.\n✅ Improved UX & Responsiveness – Optimized for seamless navigation across all devices.\n\n🔹 Why It Matters?\nThis upgrade provides better aesthetics, smoother performance, and a future-proof website! 🚀\n\nCheck it out: nordicchic.fr\n\n#WixStudio #WebRedesign #PixelPerfect #NordicChic #UXDesign #ResponsiveDesign #WebDevelopment #WixUpgrade",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/nordic-chic-france.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_1b8f489909344021a31de0e32d947850~mv2.jpg/467395864_539626132322695_4209536479397219951_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Nordic Chic France",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 14,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "140eb84f-e979-4b3c-a2ef-c3e9fe8fd2ae",
+    "wixId": "140eb84f-e979-4b3c-a2ef-c3e9fe8fd2ae",
+    "title": "Sara Wasio Property Listing",
+    "slug": "sara-wasio-property-listing",
+    "category": "wix-migration",
+    "shortDescription": "Custom Property Listing for Sara Washio – Powered by Wix Velo!",
+    "fullDescription": "🏡 Custom Property Listing for Sara Washio – Powered by Wix Velo!\n\nI developed a custom property listing system using Wix Velo JavaScript and repeaters, ensuring a seamless browsing experience for potential buyers and renters.\n\n🔹 Dynamic Property Listings – Auto-updates based on CMS data.\n🔹 User-Friendly Repeaters – Smooth, responsive, and visually appealing.\n🔹 Custom Velo Coding – Optimized for performance and scalability.\n\n🚀 Helping real estate professionals showcase properties effortlessly!\n\n🔗 Check it out: www.sarawashio.com\n\n#WixVelo #RealEstateWebsite #WebDevelopment #PropertyListings #CMSIntegration #WixExperts\n\n\n\n\n\n\n\n",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/sara-wasio-property-listing.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_0a1595e3b82549be9b37583d87ed074c~mv2.jpg/395453407_290809400537704_3961807387328391674_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Sara Wasio Property Listing",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 15,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "15733f49-9061-4022-b67f-9adb6f075056",
+    "wixId": "15733f49-9061-4022-b67f-9adb6f075056",
+    "title": "Jefferson Communications",
+    "slug": "jefferson-communications",
+    "category": "wix-migration",
+    "shortDescription": "Interactive Quiz Development for an Upwork Client! ✨",
+    "fullDescription": "🧠 Interactive Quiz Development for an Upwork Client! ✨\n\nI built a dynamic and engaging quiz using JavaScript Velo, seamlessly integrated with a CMS database for effortless response tracking.\n\n✅ Custom Wix Velo Development – Ensuring smooth & responsive quiz functionality.\n✅ CMS Database Integration – Securely stores and manages user responses.\n✅ Interactive & Engaging UX – Designed for an immersive experience.\n✅ Optimized Performance – Fast-loading and user-friendly interface.\n\n🔹 Why It Matters?\nA well-crafted quiz boosts engagement, keeps users hooked, and enhances your brand’s interactive appeal! 🚀\n\nCheck it out: jeffersoncommunications.co.uk/testyourself\n\n#WixVelo #InteractiveQuiz #WebDevelopment #CMSIntegration #JavaScript #UserEngagement #WixSolutions #Upwork",
+    "tags": [
+      "Wix Velo",
+      "E-Commerce"
+    ],
+    "coverImageUrl": "/api/media/portfolio/jefferson-communications.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_bf20411bf56b483eac045c3f14506ecf~mv2.jpg/441521821_406421522309824_5520483781485905105_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Jefferson Communications",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 16,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "1675ee89-4ddd-462c-8aa0-c72bb9e867e5",
+    "wixId": "1675ee89-4ddd-462c-8aa0-c72bb9e867e5",
+    "title": " Phantom Auto Club",
+    "slug": "phantom-auto-club",
+    "category": "wix-migration",
+    "shortDescription": "Custom Galleries for Phantom Auto Club – Powered by Wix Velo!",
+    "fullDescription": "🚗 Custom Galleries for Phantom Auto Club – Powered by Wix Velo!\n\nI designed and developed dynamic custom galleries for Phantom Auto Club, ensuring a sleek and interactive way to showcase their premium vehicles.\n\n✅ Dynamic Image Display – Pulls content from the CMS for easy updates.\n✅ Smooth & Responsive Layout – Optimized for all devices.\n✅ Custom Velo JavaScript Coding – Enhancing functionality and user experience.\n\n🚀 Helping automotive brands shine online with cutting-edge web solutions!\n\n🔗 Check it out: www.phantomautoclub.co.uk\n\n#WixVelo #CustomGalleries #WebDevelopment #AutoClub #LuxuryCars #WixExperts #PhantomAutoClub\n\n\n\n\n\n\n\n",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/phantom-auto-club.png",
+    "originalWixImage": "wix:image://v1/c5af70_1a8849eff1134e229316bf771cf0ffee~mv2.png/Phantom%20Auto%20Club%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Phantom Auto Club",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 17,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "2492e605-b573-4676-a6fa-4f2d590d323c",
+    "wixId": "2492e605-b573-4676-a6fa-4f2d590d323c",
+    "title": "SL Property Management",
+    "slug": "sl-property-management",
+    "category": "wix-migration",
+    "shortDescription": "Complete Redesign of a Property Management Website for a UK Client! ✨",
+    "fullDescription": "🏡 Complete Redesign of a Property Management Website for a UK Client! ✨\n\nI transformed a Property Management website, giving it a modern, user-friendly, and high-performing design.\n\n✅ Revamped UX & UI – A sleek, intuitive interface for seamless navigation.\n✅ Optimized for Performance – Faster load times & enhanced responsiveness.\n✅ Property Listings & Management – Integrated dynamic content for real-time updates.\n\n🔹 Why It Matters?\nA well-designed property management website enhances user experience, improves engagement, and boosts conversions! 🚀\n\n#WixVelo #WebRedesign #PropertyManagement #UXDesign #WixStudio #WebOptimization #RealEstateTech #WebDevelopment",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/sl-property-management.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_0d19ba526f3840a5a8e1ebaa8b47e2d2~mv2.jpg/448162997_428419723443337_6776240032962584259_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "SL Property Management",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 18,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "2be09a50-4b77-428e-940f-c5babc681d16",
+    "wixId": "2be09a50-4b77-428e-940f-c5babc681d16",
+    "title": "Legendary Makeup By  Becky Howard",
+    "slug": "legendary-makeup-by-becky-howard",
+    "category": "wix-migration",
+    "shortDescription": "Custom Email-Triggered System for Legendary Makeup – Built with Wix Velo!",
+    "fullDescription": "💄 Custom Email-Triggered System for Legendary Makeup – Built with Wix Velo!\n\nI developed a bespoke email automation system for Legendary Makeup, the website of Cambridge-based makeup artist Becky Howard.\n\n✨ Key Features:\n✅ Automated Email Triggers – Seamless communication with clients.\n✅ Wix Velo & JavaScript Integration – Custom-coded for precision.\n✅ Enhanced Client Engagement – Ensuring a smooth and professional booking experience.\n\n🚀 Powering beauty businesses with smart web solutions!\n\n🔗 Explore the site: www.legendarymakeup.co.uk\n\n#WixVelo #EmailAutomation #WebDevelopment #MakeupArtist #CambridgeBeauty #CustomWebSolutions #LegendaryMakeup",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/legendary-makeup-by-becky-howard.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_3e40464ead8e4335a20f6d82c80f59d5~mv2.jpg/356246263_218630461088932_5595684462710581645_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Legendary Makeup By  Becky Howard",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 19,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "2f9a6b85-c8ec-447b-a2d6-f81075b11d5d",
+    "wixId": "2f9a6b85-c8ec-447b-a2d6-f81075b11d5d",
+    "title": "Time-Wise Website ",
+    "slug": "time-wise-website",
+    "category": "wix-migration",
+    "shortDescription": "Revolutionizing Time Management & Productivity – Built for a UK Client! 🇬🇧✨",
+    "fullDescription": "⏳ Revolutionizing Time Management & Productivity – Built for a UK Client! 🇬🇧✨\n\nDesigned and developed a bespoke scheduling solution to enhance time management and efficiency.\n\n✅ Seamless Scheduling – Intuitive system for effortless time tracking & appointments.\n✅ Optimized Workflows – Streamlined processes to maximize productivity.\n✅ User-Friendly Navigation – Ensures a smooth and hassle-free experience.\n\n🔹 Why It Matters?\nThis custom-built solution empowers users to stay organized, efficient, and ahead of the clock! 🚀",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/time-wise-website.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_d3a1c05dbab8466f881477e8c043366e~mv2.jpg/467559972_540195812265727_4702198502441213339_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Time-Wise Website ",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 20,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "2f9fd020-150d-465b-a1ab-9fe0b4cf09bb",
+    "wixId": "2f9fd020-150d-465b-a1ab-9fe0b4cf09bb",
+    "title": "Stichting Mase ",
+    "slug": "stichting-mase",
+    "category": "wix-migration",
+    "shortDescription": "Complete SEO & Google Indexing for Stichting Mase – Empowering Ugandan Children!",
+    "fullDescription": "🌍 Complete SEO & Google Indexing for Stichting Mase – Empowering Ugandan Children!\n\nI optimized Stichting Mase, a Dutch NGO dedicated to helping Ugandan children access education, by implementing SEO best practices and ensuring Google Search Console indexing for improved online visibility.\n\n✨ Key Enhancements:\n✅ Full On-Page SEO Optimization – Improved rankings & searchability.\n✅ Google Search Console Integration – Faster indexing & better insights.\n✅ Enhanced Website Performance – Ensuring a seamless user experience.\n\n🚀 Helping NGOs reach the right audience through digital excellence!\n\n🔗 Explore their mission: www.stichtingmase.com\n\n#SEO #GoogleIndexing #WixVelo #WebDevelopment #NGO #DigitalMarketing #OnlineVisibility #StichtingMase",
+    "tags": [
+      "Wix Velo",
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/stichting-mase.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_1a4a3937eb1d44e69c1627dd899a3cb4~mv2.jpg/395439944_290808180537826_7209117395978562585_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Stichting Mase ",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 21,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "33508ace-a1d8-4ce8-9075-c2eee731eaa5",
+    "wixId": "33508ace-a1d8-4ce8-9075-c2eee731eaa5",
+    "title": "Nikigai University website",
+    "slug": "nikigai-university-website",
+    "category": "wix-migration",
+    "shortDescription": "Custom Multi-Step Quiz for Nikigai University – Built with Wix Velo!",
+    "fullDescription": "🎓 Custom Multi-Step Quiz for Nikigai University – Built with Wix Velo!\n\nI developed a custom multi-step quiz for the Nikigai University website, ensuring an interactive and engaging experience for users.\n\n✨ Key Features:\n✅ Multi-Step Form – Smooth user journey with dynamic progress tracking.\n✅ Velo JavaScript Integration – Enhanced functionality & performance.\n✅ Mobile Design Optimization – Seamless experience across all devices.\n✅ Triggered Email Functionality – Instant responses upon form submission.\n\n🚀 Boosting engagement through tailored digital solutions!\n\n🔗 Check it out here: www.nikigai.com\n\n#QuizDevelopment #WixVelo #WebDevelopment #InteractiveDesign #EmailAutomation #MobileOptimization #NikigaiUniversity",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/nikigai-university-website.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_c4fc268549ac49b0a14a68e9c6cf4678~mv2.jpg/374263545_263286036623374_8002061989105337021_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Nikigai University website",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 22,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "34462039-ebb4-4cbd-9e8a-3cf9ccf85993",
+    "wixId": "34462039-ebb4-4cbd-9e8a-3cf9ccf85993",
+    "title": "Hydrogen Exchange Group",
+    "slug": "hydrogen-exchange-group",
+    "category": "wix-migration",
+    "shortDescription": "RealTimeUpdates #FinancialInsights #DataVisualization",
+    "fullDescription": "#RealTimeUpdates #FinancialInsights #DataVisualization\nChatGPT said:\n📊 Yahoo Finance API Integration for Hydrogen Exchange Group! ✨\n\nI integrated Yahoo Finance API using Wix Velo backend to deliver real-time financial data and enhance user experience.\n\n✅ Live Market Data Retrieval – Seamlessly fetches up-to-date financial insights.\n✅ Dynamic Table Display – Presents data in an organized and interactive format.\n✅ Real-Time Updates – Ensures users always have the latest market values.\n✅ Instant Refresh Button – Provides on-demand updates with a single click.\n\n🔹 Why It Matters?\nThis integration enhances financial decision-making with accurate, real-time insights, ensuring a seamless user experience! 🚀\n\nCheck it out: hydrogenexchange.io\n\n#APIIntegration #FinanceData #RealTimeUpdates #WixVelo #FinancialInsights #DataVisualization #WebDevelopment",
+    "tags": [
+      "Wix Velo",
+      "API Integration"
+    ],
+    "coverImageUrl": "/api/media/portfolio/hydrogen-exchange-group.png",
+    "originalWixImage": "wix:image://v1/c5af70_99e523cd4fe0400e8ac0859e9a9c81ea~mv2.png/Hydrogen%20Exchange%20Group%20%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Hydrogen Exchange Group",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 23,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "370b7245-7fc3-4a19-b53b-9375d70275bf",
+    "wixId": "370b7245-7fc3-4a19-b53b-9375d70275bf",
+    "title": "European Football Training ",
+    "slug": "european-football-training",
+    "category": "wix-migration",
+    "shortDescription": "Football Training Website with Complete SEO & Accessibility! ✨",
+    "fullDescription": "⚽ Football Training Website with Complete SEO & Accessibility! ✨\n\nI designed and developed a high-performance football training website, ensuring SEO optimization and full accessibility for a seamless user experience.\n\n✅ Custom Wix Design – A sleek, modern, and engaging layout.\n✅ SEO-Optimized – Higher search engine rankings for better visibility.\n✅ Enhanced Accessibility – Ensuring an inclusive and user-friendly experience.\n✅ Personalized UX – Tailored to meet the needs of athletes and trainers.\n\n🔹 Why It Matters?\nA well-optimized sports training website improves engagement, attracts more users, and delivers a professional online presence! 🚀\n\n#WixVelo #FootballTraining #SEO #WebAccessibility #WixStudio #WebDesign #SportsTech #UserExperience",
+    "tags": [
+      "Wix Velo",
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/european-football-training.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_83673c2b54554716907a91bcd0bb460e~mv2.jpg/444486740_420266117592031_6157343687703058523_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "European Football Training ",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 24,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "406c9907-ea33-43de-bb07-fe8170245b6a",
+    "wixId": "406c9907-ea33-43de-bb07-fe8170245b6a",
+    "title": " Honest Li Coin",
+    "slug": "honest-li-coin",
+    "category": "wix-migration",
+    "shortDescription": "Custom Quote Calculator for Honest Li Coin – Built with Wix Velo! ✨",
+    "fullDescription": "💰 Custom Quote Calculator for Honest Li Coin – Built with Wix Velo! ✨\n\nI developed a specialized quote calculator for Honest Li Coin, ensuring precision and seamless functionality using Wix Velo JavaScript.\n\n✅ Accurate Quote Calculations – Built for real-time and reliable pricing estimates.\n✅ Privacy & Security – Integrated a password-protected page for the owner’s exclusive access.\n✅ Smooth & Efficient UX – Ensures a seamless user experience with a streamlined interface.\n\n🔹 Why It Matters?\nThis solution provides secure, precise, and hassle-free quote generation, enhancing operational efficiency! 🚀",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/honest-li-coin.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_ea9407d942c84781945026939458a38f~mv2.jpg/467532441_540201462265162_6412383014702833760_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Honest Li Coin",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 25,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "45b7c3ef-4986-45d1-b157-9ccf5f1ffacc",
+    "wixId": "45b7c3ef-4986-45d1-b157-9ccf5f1ffacc",
+    "title": "Vitol | 60 Years Timeline",
+    "slug": "vitol-60-years-timeline",
+    "category": "web-design",
+    "shortDescription": "Vitol | 60 Years Timeline – Premium Interactive Digital Invitation",
+    "fullDescription": "🎉 Vitol | 60 Years Timeline – Premium Interactive Digital Invitation\n\nWe created a stunning, high-energy interactive timeline celebrating 60 years of Vitol’s global journey — a cinematic digital experience built with precision and brand excellence.\n✅ What We Delivered:\n\nComplete Brand Alignment with latest Vitol guidelines: Navy Blue (#002B54), vibrant Orange (#F3901D), and energetic Teal (#008f94) accents.\nInteractive GSAP Timeline featuring smooth scroll-triggered animations, path drawing, and sequential milestone reveals.\nCinematic Dark Mode Aesthetics with dynamic radial gradients, flowing energy fields, and circuit-inspired backgrounds.\nAdvanced Micro-animations including Data Packet Flow (\"Energy in Motion\"), Scanner Beam tracking, and Halo Pulsing effects on milestone nodes.\nLive Event Countdown – Real-time ticker counting down to the grand celebration on April 30, 2026.\nFully Responsive Design optimized for desktop, tablet, and mobile with seamless iframe embedding support.\n\nThis isn’t just a timeline — it’s a premium digital invitation that captures Vitol’s energy, innovation, and 60 years of global impact in a visually breathtaking experience.",
+    "tags": [
+      "Web Development"
+    ],
+    "coverImageUrl": "/api/media/portfolio/vitol-60-years-timeline.png",
+    "originalWixImage": "wix:image://v1/c5af70_45132e35b155493a9b31d02863919700~mv2.png/Vitol%20Timeline%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Vitol | 60 Years Timeline",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 26,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "472735b3-7c16-4759-a048-7407a8b34289",
+    "wixId": "472735b3-7c16-4759-a048-7407a8b34289",
+    "title": "Exam Plus AI Tutor",
+    "slug": "exam-plus-ai-tutor",
+    "category": "wix-migration",
+    "shortDescription": "Medical AI Tutor Chatbot – Powered by ChatGPT API & Velo JavaScript!",
+    "fullDescription": "🤖 Medical AI Tutor Chatbot – Powered by ChatGPT API & Velo JavaScript!\n\nI developed a cutting-edge AI tutor chatbot for Exam Plus, designed to assist healthcare professionals and students worldwide.\n\n✨ Key Features:\n✅ ChatGPT API Integration – Providing real-time, AI-driven medical knowledge.\n✅ Velo JavaScript Implementation – Ensuring seamless interaction and performance.\n✅ User-Friendly Interface – Making learning engaging and efficient.\n\n🚀 Transforming medical education with AI-powered solutions!\n\n🔗 Try it here: www.exam-plus.org/youraitutor\n\n#AIChatbot #MedicalEducation #WixVelo #ChatGPT #HealthcareTech #AIForGood #ExamPlus",
+    "tags": [
+      "Wix Velo",
+      "API Integration"
+    ],
+    "coverImageUrl": "/api/media/portfolio/exam-plus-ai-tutor.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_77c2ab98e91442248769a2c67120cde9~mv2.jpg/401500315_297831319835512_2599278197201808583_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Exam Plus AI Tutor",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 27,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "48d9a997-f8cc-4f8f-835c-5a3855335b45",
+    "wixId": "48d9a997-f8cc-4f8f-835c-5a3855335b45",
+    "title": "Jeb Beach Associates",
+    "slug": "jeb-beach-associates",
+    "category": "wix-migration",
+    "shortDescription": "Custom Database Submission System for JBA (Jeb Beach & Associates)",
+    "fullDescription": "🎭 Custom Database Submission System for JBA (Jeb Beach & Associates)\n\nI developed a tailored database submission system for Jeb Beach & Associates, a leading Canadian training and actor support platform, using Wix Velo JavaScript.\n\n✨ Key Features:\n✅ Seamless Data Submission – Ensuring smooth and efficient form handling.\n✅ Wix Velo JavaScript Integration – Custom-coded for optimized performance.\n✅ User-Friendly Interface – Making actor submissions easier than ever.\n\n🚀 Enhancing actor training & career growth with smart web solutions!\n\n🔗 Explore here: www.jebbeach.com\n\n#ActorSupport #DatabaseIntegration #WixVelo #WebDevelopment #CustomSolutions #JebBeach",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/jeb-beach-associates.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_1da3f9f62d1e424b92257429f68f9dd8~mv2.jpg/352675210_801731221215553_7055966834475339054_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Jeb Beach Associates",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 28,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "4cb50672-08f6-4359-9db9-589a15e9b44a",
+    "wixId": "4cb50672-08f6-4359-9db9-589a15e9b44a",
+    "title": "RRM Academy ",
+    "slug": "rrm-academy",
+    "category": "wix-migration",
+    "shortDescription": "Wix DNS, CMS Integration & SEO Optimization for RRM Academy! ✨",
+    "fullDescription": "🌐 Wix DNS, CMS Integration & SEO Optimization for RRM Academy! ✨\n\nI had the opportunity to work with Upwork client Brian Whittaker, providing technical expertise to enhance the RRM Academy website.\n\n✅ Wix DNS Setup – Ensured smooth domain connectivity & performance.\n✅ CMS & Widget URL Integration – Connected Wix CMS elements to online programs.\n✅ Website Indexing & SEO – Improved visibility and search engine ranking.\n\n🔹 Why It Matters?\nA well-structured DNS, CMS, and SEO setup ensures better performance, discoverability, and user engagement! 🚀\n\nCheck it out: rrmacademy.org\n\n#WixVelo #SEO #CMSIntegration #WixDNS #WebOptimization #WebsiteIndexing #Upwork #WebDevelopment",
+    "tags": [
+      "Wix Velo",
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/rrm-academy.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_458cc05700054e9faa535048596c9a3c~mv2.jpg/452929556_457024730582836_5317710701459600240_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "RRM Academy ",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 29,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "4e7b2253-2372-487e-82c4-ffa8c5df0e3a",
+    "wixId": "4e7b2253-2372-487e-82c4-ffa8c5df0e3a",
+    "title": "Credit Go",
+    "slug": "credit-go",
+    "category": "wix-migration",
+    "shortDescription": "Stunning Website Redesign for a German Client! ✨",
+    "fullDescription": "🇩🇪 Stunning Website Redesign for a German Client! ✨\n\nI recently revamped a credit/loan website for a German client, integrating advanced features for a seamless user experience:\n\n✅ Custom Loan Calculator – Built with Wix Velo Code for precise loan calculations.\n✅ Multi-Level Loan Application Form – A smooth and dynamic loan request process.\n✅ Automated Email Notifications – Instantly notifies users upon form submission.\n\n🔹 Result? A professional, efficient, and user-friendly loan application system! 🚀\n\nCheck it out: creditgo.ch\n\n#WixVelo #WebDesign #Fintech #LoanCalculator #WixDevelopment #UXUI #Automation #Germany",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/credit-go.png",
+    "originalWixImage": "wix:image://v1/c5af70_fcecb1c7693f4a94af2fa1abd3d9fadd~mv2.png/Credit%20GO%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Credit Go",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 30,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "50a63118-a559-409f-b0b9-070518e1c73d",
+    "wixId": "50a63118-a559-409f-b0b9-070518e1c73d",
+    "title": "Die Stelle Deines Lebens",
+    "slug": "die-stelle-deines-lebens",
+    "category": "wix-migration",
+    "shortDescription": "Custom Quiz Development for a German Client 🇩🇪",
+    "fullDescription": "🎯 Custom Quiz Development for a German Client 🇩🇪\n\nI successfully built a custom quiz tailored to my German client's specific needs, utilizing the full power of Wix Velo JavaScript.\n\n✨ Key Features:\n✅ Dynamic Question Flow – Ensures an interactive and engaging experience.\n✅ Seamless CMS Integration – Capturing and storing responses effortlessly.\n✅ Optimized for Performance – Smooth functionality across all devices.\n\n🚀 Helping businesses create interactive experiences that engage users!\n\n🔗 Try it out: www.stelle-deines-lebens.de\n\n#CustomQuiz #WixVelo #JavaScript #InteractiveWeb #WebDevelopment #GermanClient",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/die-stelle-deines-lebens.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_42bb75e4368f40299472d88c2da9d0e4~mv2.jpg/427990160_354175867534390_3988193661063972556_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Die Stelle Deines Lebens",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 31,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "51d7b95b-d3a1-4c43-918c-e74cdcddf7fa",
+    "wixId": "51d7b95b-d3a1-4c43-918c-e74cdcddf7fa",
+    "title": "Simply Accounting",
+    "slug": "simply-accounting",
+    "category": "wix-migration",
+    "shortDescription": "Simply Accounting – Automated Custom Quote Form integrated with CRM Integration & Smart Pricing! 💼📩",
+    "fullDescription": "🚀 Simply Accounting – Automated Custom Quote Form integrated with CRM Integration & Smart Pricing! 💼📩\n\nWe just launched a dynamic lead capture + quote delivery system for Simply Accounting, fully powered by Wix Velo and custom backend logic — designed to streamline pricing, capture leads, and trigger personalized quote emails in seconds.\n\n✅ What We Implemented:\n🔧 Smart Pricing Engine – Built a logic-based quote calculator that dynamically matches prices based on business type, turnover, VAT, and bookkeeping needs.\n📬 Automated Email Triggering – As soon as a user submits the form, the system:\nCreates a contact in the Wix CRM\nSends a personalized email quote using Wix’s triggered email system\n🧠 Data Validation + Error Handling – Every submission is validated and sanitized before processing to ensure accuracy and integrity.\n🧩 CRM Sync – New leads are automatically created in Wix Contacts for future campaigns, client nurturing, and support follow-ups.\n📈 No-Code Experience, Full Automation – Business owners can now generate custom pricing quotes and capture leads without any manual steps.\n💬 Whether you're an accountant, agency, or service provider—automating your quote process saves time, reduces errors, and helps convert faster.\n👉 Want to build your own custom CRM-powered quote system in Wix with Velo?",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/simply-accounting.png",
+    "originalWixImage": "wix:image://v1/c5af70_1053985eb8c841d88a3f75d444a0478e~mv2.png/Simply%20Accounting%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Simply Accounting",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 32,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "568a3b6c-c0fa-4257-94a1-1e8982d9449d",
+    "wixId": "568a3b6c-c0fa-4257-94a1-1e8982d9449d",
+    "title": "ZA-TECH",
+    "slug": "za-tech",
+    "category": "wix-migration",
+    "shortDescription": "Web Design for ZA-TECH – A Medical Billing Company 💻",
+    "fullDescription": "🩺 Web Design for ZA-TECH – A Medical Billing Company 💻\n\nI designed and developed a professional medical billing website for ZA-TECH, ensuring a sleek, user-friendly, and high-performance experience.\n\n✨ Key Features:\n✅ Modern & Responsive Design – Optimized for all devices.\n✅ SEO-Optimized – Ensuring better visibility on search engines.\n✅ Streamlined Navigation – Enhancing user experience and accessibility.\n\n🚀 Helping businesses establish a strong digital presence!\n\n🔗 Check it out here: ZA-TECH Website\n\n#WebDesign #MedicalBilling #WixWebsite #SEO #UXUI #HealthcareTech",
+    "tags": [
+      "Wix Velo",
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/za-tech.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_0a3f2950a95c4ce3b7994690f504b152~mv2.jpg/322449708_898374351165605_799903065596169102_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "ZA-TECH",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 33,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "5849910b-c21b-47c8-9375-0b7165301de2",
+    "wixId": "5849910b-c21b-47c8-9375-0b7165301de2",
+    "title": "Flat Fee Buyers",
+    "slug": "flat-fee-buyers",
+    "category": "wix-migration",
+    "shortDescription": "Custom Flat Fee Rebate Calculator – Built with Velo JavaScript! ✨",
+    "fullDescription": "📊 Custom Flat Fee Rebate Calculator – Built with Velo JavaScript! ✨\n\nI developed a dynamic rebate calculator featuring:\n\n✅ Interactive Slider – Allows users to adjust values effortlessly.\n✅ Real-Time Calculations – Instantly updates rebate amounts based on input.\n✅ Seamless UI/UX – Designed for a smooth and engaging user experience.\n\n🔹 Why It Matters?\nA custom calculator enhances user engagement, simplifies decision-making, and adds value to financial service websites! 🚀\n\n#WixVelo #JavaScript #WebDevelopment #InteractiveDesign #CustomCalculator #WixStudio #FinancialTools #UXUI\n\n\n\n\n\n\n\n",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/flat-fee-buyers.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_7fedbcd84c5e4262a6250ba1e7b077be~mv2.jpg/433438988_374389772179666_5349788660031042327_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Flat Fee Buyers",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 34,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "5b8c2333-87bf-479d-8a87-c9486e849e22",
+    "wixId": "5b8c2333-87bf-479d-8a87-c9486e849e22",
+    "title": "Ki - Urlaub",
+    "slug": "ki-urlaub",
+    "category": "wix-migration",
+    "shortDescription": "ChatGPT & Pixabay API Integration for German Client! 🇩🇪",
+    "fullDescription": "🚀 ChatGPT & Pixabay API Integration for German Client! 🇩🇪\n\nI successfully integrated ChatGPT API and Pixabay API into a Wix-based AI-powered vacation assistant for our German client.\n\n✨ Key Features:\n✅ AI-Powered Responses – ChatGPT API provides smart, interactive replies.\n✅ Dynamic Image Fetching – Pixabay API delivers relevant high-quality images.\n✅ Smooth Wix Velo Integration – Ensuring seamless functionality and performance.\n\n🔗 Check it out here: KI-Urlaub\n\n#APIIntegration #ChatGPT #Pixabay #WixVelo #AI #WebDevelopment",
+    "tags": [
+      "Wix Velo",
+      "API Integration"
+    ],
+    "coverImageUrl": "/api/media/portfolio/ki-urlaub.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_b3d1506af15c4957a6c51673fca5f28a~mv2.jpg/358568096_225950393690272_5507371160042134258_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Ki - Urlaub",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 35,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "5cfc46cc-5d52-41d7-b6ae-027458abc437",
+    "wixId": "5cfc46cc-5d52-41d7-b6ae-027458abc437",
+    "title": "Synergy PV Renewables",
+    "slug": "synergy-pv-renewables",
+    "category": "wix-migration",
+    "shortDescription": "Synergy PV Renewables Website Revamp! 🇬🇧",
+    "fullDescription": "🚀 Synergy PV Renewables Website Revamp! 🇬🇧\n\nWe designed and developed a modern, sleek, and high-performance website for Synergy PV Renewables, a UK-based renewable energy company.\n\n✨ Key Enhancements:\n✅ Modern & Responsive Design – Optimized for all devices.\n✅ Enhanced User Experience – Intuitive navigation and seamless interactions.\n✅ SEO-Optimized – Boosting online visibility and reach.\n\n🔗 Explore the new site here: Synergy PV Renewables\n\n#WebDesign #WixVelo #SEO #RenewableEnergy #ModernWebsites #UKBusiness",
+    "tags": [
+      "Wix Velo",
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/synergy-pv-renewables.png",
+    "originalWixImage": "wix:image://v1/c5af70_7d45f589583a4fc08237e4183c17e925~mv2.png/Synergy%20PV%20Renewables%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Synergy PV Renewables",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 36,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "5e30d351-0549-4a37-b205-222079a6a1f0",
+    "wixId": "5e30d351-0549-4a37-b205-222079a6a1f0",
+    "title": "NYS Care Package",
+    "slug": "nys-care-package",
+    "category": "wix-migration",
+    "shortDescription": "Website Enhancement for NYS Care Package – Integrating NYC Inmate API for Seamless Custom Checkouts! 📦🔒",
+    "fullDescription": "🌟 Website Enhancement for NYS Care Package – Integrating NYC Inmate API for Seamless Custom Checkouts! 📦🔒\nWe’ve enhanced the NYS Care Package website, a service dedicated to sending thoughtful care packages to inmates in New York State facilities. The goal was to streamline the checkout process, ensuring secure and accurate deliveries while providing users with a fully customized experience.\n✅ What We Added:\n📡 NYC Inmate API Integration – Fetch real-time inmate data directly from the NYC inmate API to verify and auto-populate shipping details.\n🏠 Custom Shipping Addresses – Automatically generate and validate addresses for correctional facilities, reducing errors and ensuring compliant deliveries.\n🛒 Wix Velo Custom Checkout – Built a complete custom checkout flow using Wix Velo code for full control over the user journey, payments, and security.\n🔒 Enhanced User Experience – A secure, intuitive interface that gives senders peace of mind with end-to-end customization and compliance.",
+    "tags": [
+      "Wix Velo",
+      "API Integration"
+    ],
+    "coverImageUrl": "/api/media/portfolio/nys-care-package.png",
+    "originalWixImage": "wix:image://v1/c5af70_8648733feb284c84b1752e38cc0a8232~mv2.png/NYS%20Care%20Package%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "NYS Care Package",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 37,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "6201253a-b794-4c6d-9ad0-af264dd7c1eb",
+    "wixId": "6201253a-b794-4c6d-9ad0-af264dd7c1eb",
+    "title": "Sparktoria Tech",
+    "slug": "sparktoria-tech",
+    "category": "web-design",
+    "shortDescription": "Seamless Database Integration with Webhooks – Built for Sparktoria Tech! ✨",
+    "fullDescription": "🔗 Seamless Database Integration with Webhooks – Built for Sparktoria Tech! ✨\n\n✅ Real-Time Data Sync – Created a webhook in Wix to fetch data from the Airtable API.\n✅ Automated Data Handling – Saves incoming data directly to Wix CMS and Supabase through API.\n✅ Effortless Integration – Ensures a smooth, automated workflow between multiple databases.\n✅ Scalable & Efficient – Eliminates manual data entry, making the system faster & error-free.\n\n📊 Why It Matters?\nThis real-time webhook solution enhances data consistency, automation, and cross-platform connectivity! 🚀",
+    "tags": [
+      "API Integration"
+    ],
+    "coverImageUrl": "/api/media/portfolio/sparktoria-tech.png",
+    "originalWixImage": "wix:image://v1/c5af70_2899ac8fa38b4588bd64bcb3c2d6f5eb~mv2.png/Sparktoria%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Sparktoria Tech",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 38,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "651101d3-87a7-4f35-86dc-beb165898447",
+    "wixId": "651101d3-87a7-4f35-86dc-beb165898447",
+    "title": "Rhythm Travel Experience",
+    "slug": "rhythm-travel-experience",
+    "category": "wix-migration",
+    "shortDescription": "Beta Hotel App Upgraded! 🇭🇷",
+    "fullDescription": "🚀 Beta Hotel App Upgraded! 🇭🇷\n\nWe successfully integrated new features into the Rhythm Travel Experience beta hotel app, enhancing functionality and user experience. The previous app version was removed, and mobile design optimizations were implemented for a smoother, more intuitive interface.\n\n✨ Key Upgrades:\n✅ New Features Added – Improved booking experience.\n✅ Mobile Enhancements – Optimized for seamless navigation.\n✅ Old Version Removed – Ensuring a streamlined and updated platform.\n\n🔗 Check it out here: https://www.rhythmtravelexperience.com/\n\n#AppDevelopment #WixVelo #HotelTech #UXDesign #WebOptimization #Croatia",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/rhythm-travel-experience.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_edd36bca1ff54e32864487ab4e03f839~mv2.jpg/365164024_241998358752142_1725867948213517569_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Rhythm Travel Experience",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 39,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "67652373-569a-495f-bf42-6489217d23aa",
+    "wixId": "67652373-569a-495f-bf42-6489217d23aa",
+    "title": "Synergy Electric",
+    "slug": "synergy-electric",
+    "category": "wix-migration",
+    "shortDescription": "Website Revamp for Synergy Electric – UK-Based Electrical Services 🔌",
+    "fullDescription": "⚡ Website Revamp for Synergy Electric – UK-Based Electrical Services 🔌\n\nWe transformed the Synergy Electric website with a modern, sleek design, perfectly aligning it with the client’s vision. Now, the site offers an enhanced user experience, faster performance, and a professional look that stands out!\n\n✨ Key Upgrades:\n✅ Modern & Engaging Design – A fresh, professional appearance.\n✅ Enhanced User Experience – Seamless navigation for visitors.\n✅ Optimized Performance – Faster load times & mobile-friendly.\n\n🔗 Check it out here: https://www.synergyelectric.co.uk/\n\n#WebDesign #WixVelo #SEO #UXDesign #UKBusiness #ModernWeb\n",
+    "tags": [
+      "Wix Velo",
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/synergy-electric.png",
+    "originalWixImage": "wix:image://v1/c5af70_71bdcd28189f4a969a37b3dc57ca4209~mv2.png/Synergy%20Electric%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Synergy Electric",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 40,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "69768c2d-3f7a-4d8b-ad0f-1a1c77ad2ded",
+    "wixId": "69768c2d-3f7a-4d8b-ad0f-1a1c77ad2ded",
+    "title": "B & T Tree Services LTD",
+    "slug": "b-t-tree-services-ltd",
+    "category": "wix-migration",
+    "shortDescription": "Website Design for B & T Tree Services LTD – New Zealand 🇳🇿",
+    "fullDescription": "🌳 Website Design for B & T Tree Services LTD – New Zealand 🇳🇿\n\nWe crafted a professional and user-friendly website for B & T Tree Services LTD, ensuring it reflects their expertise in tree care and maintenance. The site is designed to be visually appealing, mobile-friendly, and SEO-optimized for maximum reach.\n\n✨ Key Features:\n✅ Modern & Clean Design – Showcasing tree services professionally.\n✅ SEO-Optimized – Improved online visibility.\n✅ Mobile & User-Friendly – Smooth browsing on all devices.\n\n🔗 Check it out here: https://www.treeservices.co.nz/\n#WebDesign #TreeServices #WixVelo #SEO #UXDesign #NewZealandBusiness\n\n\n",
+    "tags": [
+      "Wix Velo",
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/b-t-tree-services-ltd.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_98b62f3110ec4b34ab7f83eff4b834a1~mv2.jpg/347423872_225831393702172_6726082164951841381_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "B & T Tree Services LTD",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 41,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "69d26853-c0d2-4254-9da2-700f2cbeb97a",
+    "wixId": "69d26853-c0d2-4254-9da2-700f2cbeb97a",
+    "title": "Edge MD Solutions",
+    "slug": "edge-md-solutions",
+    "category": "wix-migration",
+    "shortDescription": "Professional Medical Billing Website – Built for Efficiency! ✨",
+    "fullDescription": "💼 Professional Medical Billing Website – Built for Efficiency! ✨\n\nI created a modern and functional medical billing website for my best friend, ensuring seamless user experience and professional integration.\n\n✅ Custom Wix Design – A sleek and user-friendly interface.\n✅ Integrated Professional Email – Ensuring seamless communication.\n✅ SEO-Optimized – Boosting online visibility for medical billing services.\n✅ Enhanced Accessibility – Providing a smooth experience for all users.\n\n🔹 Why It Matters?\nA well-designed medical billing website improves client trust, credibility, and operational efficiency, making processes smoother and more effective! 🚀\n\n#MedicalBilling #WixVelo #SEO #WebDesign #HealthcareTech #WixStudio #ProfessionalWebsite #UserExperience",
+    "tags": [
+      "Wix Velo",
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/edge-md-solutions.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_4becd6bae76a4070a2c0f7024029f007~mv2.jpg/434357577_382563068029003_7415634265080559840_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Edge MD Solutions",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 42,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "6af979b7-1483-44f1-b822-f00e3b10f80c",
+    "wixId": "6af979b7-1483-44f1-b822-f00e3b10f80c",
+    "title": "Saray Rhodes",
+    "slug": "saray-rhodes",
+    "category": "wix-migration",
+    "shortDescription": "Luxury Greek Villa Website – Bringing Ancient Elegance Online! ✨",
+    "fullDescription": "🏛️ Luxury Greek Villa Website – Bringing Ancient Elegance Online! ✨\n\nI designed a stunning and immersive website for an ancient Greek rental villa, capturing the beauty and essence of Greece.\n\n✅ Bespoke Wix Design – A visually captivating and user-friendly experience.\n✅ SEO-Optimized – Ensuring higher visibility for potential guests.\n✅ Enhanced Accessibility – A seamless experience for all users.\n✅ Luxury & Elegance – Showcasing the villa’s charm with a refined aesthetic.\n\n🔹 Why It Matters?\nA well-crafted rental villa website enhances bookings, guest engagement, and brand presence, making your property stand out! 🚀\n\nCheck it out: sarayrhodes.com\n\n#LuxuryVillas #GreekVilla #WixVelo #SEO #WebAccessibility #VacationRental #WebDesign #TravelExperience #WixStudio",
+    "tags": [
+      "Wix Velo",
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/saray-rhodes.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_edf4e6bb99b34be69601f193017380f4~mv2.jpg/434302716_383218047963505_6809128599893309124_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Saray Rhodes",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 43,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "6f62d003-1cdb-4168-882a-2698936e22c4",
+    "wixId": "6f62d003-1cdb-4168-882a-2698936e22c4",
+    "title": "Bloo Max",
+    "slug": "bloo-max",
+    "category": "web-design",
+    "shortDescription": "Bloo Max – Wix Member Health Dashboard",
+    "fullDescription": "🏋️‍♂️ Bloo Max – Wix Member Health Dashboard\n\nWe built a smart, real-time health tracking dashboard for Wix that allows members to easily track their weight, height, and BMI with automatic calculations and intelligent inputs.\n✅ What We Delivered:\n\nZero-Config Imperial BMI Tracking with real-time auto-calculation using the standard US formula.\nSmart Height Intelligence – Accepts multiple formats (5'11\", 5 11, 5-11, 72, 1.72m, etc.) and auto-formats beautifully.\nLive Data Synchronization – Automatically fetches and pre-fills the member’s latest stats on page load.\nAtomic Update Logic – Seamlessly switches between insert and update operations.\nSeamless Authentication Flow – Smart login detection and instant redirection to the dashboard.\n\nThis dashboard makes health tracking effortless and error-free for members, with smart parsing and instant calculations.",
+    "tags": [
+      "Web Development"
+    ],
+    "coverImageUrl": "/api/media/portfolio/bloo-max.png",
+    "originalWixImage": "wix:image://v1/c5af70_16c7e90834304f458ac496be5bcff951~mv2.png/BlooMax%20Mock%20Up%20(1000%20%C3%97%20750%20px)%20(1).png#originWidth=1000&originHeight=750",
+    "altText": "Bloo Max",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 44,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "71177daa-f0ac-48c4-9191-b8f55ffad122",
+    "wixId": "71177daa-f0ac-48c4-9191-b8f55ffad122",
+    "title": "Advanced Site Products",
+    "slug": "advanced-site-products",
+    "category": "web-design",
+    "shortDescription": "SEO Success Story: Implemented advanced SEO techniques for Advance Site Products, ensuring the website achieved optimal performance by being fully indexed on Google. All website ac",
+    "fullDescription": "🚀 SEO Success Story: Implemented advanced SEO techniques for Advance Site Products, ensuring the website achieved optimal performance by being fully indexed on Google. All website accessibility errors were meticulously resolved, providing a seamless and user-friendly experience for visitors while enhancing \nsearch engine rankings.\n\nhttps://www.advancedsiteproducts.com/",
+    "tags": [
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/advanced-site-products.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_79fac51e6c6041b3a1748c1ab8a1990a~mv2.jpg/467585706_540198418932133_9099011279796564844_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Advanced Site Products",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 45,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "715de59d-3a59-48b7-9ebc-91cc3b0dbf77",
+    "wixId": "715de59d-3a59-48b7-9ebc-91cc3b0dbf77",
+    "title": " Lost Pets Dubai",
+    "slug": "lost-pets-dubai",
+    "category": "web-design",
+    "shortDescription": "Lost & Found Pet Poster Generator – Built with Wix Forms + jsPDF + CMS! 📄✨",
+    "fullDescription": "🐾 Lost & Found Pet Poster Generator – Built with Wix Forms + jsPDF + CMS! 📄✨\n✅ Form Data Collection – Users submit lost pet info (name, type, image, contact) via a custom Wix form.\n✅ Instant PDF Poster Generation – Integrated jsPDF to dynamically create polished, downloadable posters that match real-world missing pet flyers.\n✅ CMS Integration – All submissions are saved directly to Wix CMS, allowing easy management and moderation.\n✅ Lost Pet Directory – Posters are auto-listed in a public \"Lost Pets\" section, making it easier for the community to help reunite pets with owners.\n\n🔍 Inspired by: lostpetsdubai.com\n📢 This tool combines automation, accessibility, and community support to help lost pets find their way home.",
+    "tags": [
+      "Web Development"
+    ],
+    "coverImageUrl": "/api/media/portfolio/lost-pets-dubai.png",
+    "originalWixImage": "wix:image://v1/c5af70_9afa3ea1efd240959500e13e5f44118f~mv2.png/Lost%20Pets%20Dubai%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": " Lost Pets Dubai",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 46,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "78fd5b02-861e-44cc-8305-ae1f679ce8b9",
+    "wixId": "78fd5b02-861e-44cc-8305-ae1f679ce8b9",
+    "title": "Yarn Hub",
+    "slug": "yarn-hub",
+    "category": "wix-migration",
+    "shortDescription": "Next-Level One-Page Website for Yarn Hub – Game Dev Studio! 🚀",
+    "fullDescription": "🎮 Next-Level One-Page Website for Yarn Hub – Game Dev Studio! 🚀\n\n✅ Dynamic Deadline Clock – A real-time countdown timer, coded with Wix Velo (JavaScript), to create urgency and drive user action! ⏳⚡\n\n✅ Rolling Numbers Animation – Smooth, eye-catching number effects using JavaScript.\n✅ A/B Testing for CTA Button – Custom button text & color variations to track and optimize user clicks.\n✅ Live YouTube Follower Count – Integrated with CMS for real-time updates through code.\n\n📊 Why It Matters?\nA dynamic deadline clock adds urgency, boosting conversions & engagement—perfect for limited-time offers, game releases, and events! 🚀",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/yarn-hub.png",
+    "originalWixImage": "wix:image://v1/c5af70_67b87612a5f04f00b0d656a594176841~mv2.png/Yarn%20Hub%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Yarn Hub",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 47,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "7aa371c0-c42c-401e-8505-a093476e9ff9",
+    "wixId": "7aa371c0-c42c-401e-8505-a093476e9ff9",
+    "title": "SAMYAK JAIN",
+    "slug": "samyak-jain",
+    "category": "wix-migration",
+    "shortDescription": "Custom Financial Calculator for SAMYAK JAIN 💰",
+    "fullDescription": "📊 Custom Financial Calculator for SAMYAK JAIN 💰\n\nWe developed a bespoke ROI calculator for SAMYAK JAIN, leveraging Velo JavaScript to provide accurate financial insights. The tool enables users to calculate returns efficiently, offering a seamless and intuitive experience.\n\n✨ Key Features:\n✅ Custom Velo JavaScript Coding – Ensuring precision and reliability.\n✅ User-Friendly Interface – Simple, interactive, and responsive.\n✅ Real-Time Calculations – Instant financial insights at your fingertips.\n\n🔗 Try it out here: https://www.jainsamyak.com/roicalculator\n\n#FinanceTech #WebDevelopment #WixVelo #ROICalculator #CustomTools #FinTech\n\n",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/samyak-jain.png",
+    "originalWixImage": "wix:image://v1/c5af70_25b1cd5278f543708a2ededd1eda375b~mv2.png/ROI%20Mock%20Up%20(1000%20%C3%97%20750%20px)%20(1).png#originWidth=1000&originHeight=750",
+    "altText": "SAMYAK JAIN",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 48,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "850d401a-ffdb-4a73-a463-ca4bad117b70",
+    "wixId": "850d401a-ffdb-4a73-a463-ca4bad117b70",
+    "title": "DessertsLu LLC",
+    "slug": "dessertslu-llc",
+    "category": "wix-migration",
+    "shortDescription": "Sweet Web Design for DessertsLu LLC – A Cotton Candy Store 🎨",
+    "fullDescription": "🍭 Sweet Web Design for DessertsLu LLC – A Cotton Candy Store 🎨\n\nWe’ve started crafting a delightful and visually appealing website for DessertsLu LLC, a cotton candy store based in Peoria, Arizona, USA. This design will reflect the brand’s fun, vibrant, and sweet essence, providing an engaging user experience for visitors.\n\n✨ What’s in the works?\n✅ Bright & Playful UI – A design as sweet as cotton candy.\n✅ Smooth Navigation – Ensuring effortless browsing.\n✅ SEO-Optimized – Boosting online visibility.\n\n🔗 Check out the design here: https://dessertslullc.wixsite.com/dessertslu\n\n#WebDesign #WixVelo #CottonCandy #SmallBusiness #Ecommerce #Arizona\n\n",
+    "tags": [
+      "Wix Velo",
+      "SEO Growth",
+      "E-Commerce"
+    ],
+    "coverImageUrl": "/api/media/portfolio/dessertslu-llc.png",
+    "originalWixImage": "wix:image://v1/c5af70_937304bf28fd44d6b0ce8b0fff40058b~mv2.png/Dessertslu%20llc%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "DessertsLu LLC",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 49,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "8841e833-f92b-49f1-8d2b-c1fb832e38f6",
+    "wixId": "8841e833-f92b-49f1-8d2b-c1fb832e38f6",
+    "title": "Brows By J.",
+    "slug": "brows-by-j",
+    "category": "wix-migration",
+    "shortDescription": "Custom Consultation Form for Brows by J – Brow Tattoo Artist ✨",
+    "fullDescription": "💉 Custom Consultation Form for Brows by J – Brow Tattoo Artist ✨\n\nWe successfully integrated a custom consultation form with numerous fields into the website for Brows by J, ensuring a seamless client experience. Additionally, we optimized the mobile design and implemented triggered email functionality using Velo JavaScript coding for enhanced communication.\n\n🔹 Key Features:\n✅ Custom Multi-Field Form – Capturing essential client details.\n✅ Mobile-Friendly Enhancements – Smooth usability on all devices.\n✅ Automated Email Responses – Keeping clients informed instantly.\n\n🔗 Check it out here: https://www.browsbyj.com/consultation-form\n\n#WebDevelopment #WixVelo #BrowTattoo #ConsultationForm #UXDesign #AutomatedEmails\n\n",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/brows-by-j.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_bd094ed76e7b4a6b9dcb121b9c8f4d57~mv2.jpg/374263077_263283663290278_8653091720445865035_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Brows By J.",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 50,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "8aed41e5-904e-425b-bf30-796f7f56c94f",
+    "wixId": "8aed41e5-904e-425b-bf30-796f7f56c94f",
+    "title": "Ikhlas Travel",
+    "slug": "ikhlas-travel",
+    "category": "web-design",
+    "shortDescription": "Website Redesign for Ikhlas Travel – Featuring Latest Umrah Packages & Modern Engagement! ✈️🕋",
+    "fullDescription": "🌟 Website Redesign for Ikhlas Travel – Featuring Latest Umrah Packages & Modern Engagement! ✈️🕋\n\nWe’ve redesigned a modern and engaging website for Ikhlas Travel, tailored for pilgrims and travel enthusiasts. The goal was to create an immersive digital space where users can explore, book, and connect with seamless travel experiences.\n✅ What We Added:\n\n📸 Gallery Showcase – A clean visual gallery to highlight Umrah journeys, destination photos, and traveler testimonials.\n📅 Latest Umrah Packages – Users can easily view and book current packages with real-time availability and pricing.\n📩 Contact Form – Direct and simple communication for inquiries, bookings, and support.\n📖 About Ikhlas Travel – A well-structured section to share the agency's story, services, and travel expertise.",
+    "tags": [
+      "Web Development"
+    ],
+    "coverImageUrl": "/api/media/portfolio/ikhlas-travel.png",
+    "originalWixImage": "wix:image://v1/c5af70_d52e510346e6424abe9d0c224a0fce66~mv2.png/Ikhlas%20Travel%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Ikhlas Travel",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 51,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "8eaef29c-bf65-4a95-97b0-592a8a317525",
+    "wixId": "8eaef29c-bf65-4a95-97b0-592a8a317525",
+    "title": "Exertion Fitness",
+    "slug": "exertion-fitness",
+    "category": "wix-migration",
+    "shortDescription": "Fitness Training Website with SEO & Accessibility – Built for Exertion Fitness! ✨",
+    "fullDescription": "💪 Fitness Training Website with SEO & Accessibility – Built for Exertion Fitness! ✨\n\nI designed and developed a modern, high-performance fitness training website for a Fiverr client – Exertion Fitness.\n\n✅ Fully Optimized for SEO – Higher search rankings & improved visibility.\n✅ Enhanced Accessibility – Ensuring inclusivity & seamless user experience.\n✅ Sleek & Responsive Design – Perfect across all devices for maximum engagement.\n\n🔹 Why It Matters?\nA well-structured fitness website with SEO & accessibility helps attract more clients and provides an inclusive and professional experience! 🚀\n\nCheck it out: exertionfitness.info\n\n#WixVelo #FitnessWebsite #SEO #WebAccessibility #WebDesign #Fiverr #WebDevelopment #UXDesign",
+    "tags": [
+      "Wix Velo",
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/exertion-fitness.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_a8feb8861b2b437dbec290ab3ec87f2f~mv2.jpg/444489700_420274197591223_1569996179762968549_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Exertion Fitness",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 52,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "919bc76c-4c11-469e-bc00-3b6144d10155",
+    "wixId": "919bc76c-4c11-469e-bc00-3b6144d10155",
+    "title": "ASF Sanitary FItting",
+    "slug": "asf-sanitary-fitting",
+    "category": "web-design",
+    "shortDescription": "SEO Project for ASF Sanitary Fitting – Boosting Top Google Rankings with Latest Keywords & Maximum Page Indexing! 🚀🔍",
+    "fullDescription": "🌟 SEO Project for ASF Sanitary Fitting – Boosting Top Google Rankings with Latest Keywords & Maximum Page Indexing! 🚀🔍\nWe’ve optimized a comprehensive SEO strategy for ASF Sanitary Fitting, a leading Pakistani manufacturer of premium bathroom and kitchen fixtures. The goal was to enhance online visibility, drive organic traffic, and position their site as the go-to resource for sanitary ware in Pakistan and beyond.\n✅ What We Achieved:\n🔑 Latest Keywords Integration – Incorporated high-intent terms like \"best sanitary fittings Pakistan,\" \"ASF bathroom faucets price 2025,\" and \"premium kitchen sinks Gujranwala\" for targeted search dominance.\n📈 Top Google Rankings – Secured top positions on Google search pages for key queries, increasing visibility and clicks by over 200%.\n📊 Maximum Pages Indexed – Ensured 95%+ of site pages are fully indexed by Google, improving crawl efficiency and overall site authority.\n📩 Enhanced User Engagement – Optimized for mobile searches, faster load times, and E-A-T signals to attract and convert plumbing enthusiasts and buyers.",
+    "tags": [
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/asf-sanitary-fitting.png",
+    "originalWixImage": "wix:image://v1/c5af70_4e9606e3a7ac46a3b72fda64147b5f2a~mv2.png/Asf%20Sanitary%20Fitting%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "ASF Sanitary FItting",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 53,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "92cdf335-852d-4e06-9d16-3e464dbc058b",
+    "wixId": "92cdf335-852d-4e06-9d16-3e464dbc058b",
+    "title": "House Sea Moss",
+    "slug": "house-sea-moss",
+    "category": "web-design",
+    "shortDescription": "SEO & Google Indexing for House of SeaMoss 🔍",
+    "fullDescription": "🌿 SEO & Google Indexing for House of SeaMoss 🔍\n\nWe successfully completed the SEO and Google Search Console indexing for House of SeaMoss, a UK-based holistic herbalist, fitness trainer, life coach, and personal growth practitioner. By optimizing the website, we helped enhance its online visibility and boost search engine rankings.\n\n🔹 Key Optimizations:\n✅ SEO Enhancements – Improved keyword strategy & meta tags.\n✅ Google Indexing – Ensured fast & accurate search visibility.\n✅ Performance Boost – Optimized for better user experience.\n\n🔗 Explore the website here: https://www.houseofseamoss.co.uk/\n\n#SEO #GoogleIndexing #WixSEO #HolisticHealth #WebOptimization #HouseOfSeaMoss\n",
+    "tags": [
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/house-sea-moss.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_989310a532224a11b108936e7b321d84~mv2.jpg/397239892_290832287202082_3981691301281043448_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "House Sea Moss",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 54,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "945e54e4-3ffa-451d-8837-b4fb7fe9b79c",
+    "wixId": "945e54e4-3ffa-451d-8837-b4fb7fe9b79c",
+    "title": "Winnebago",
+    "slug": "winnebago",
+    "category": "wix-migration",
+    "shortDescription": "Custom Authentication System for Winnebago Towables 🚀",
+    "fullDescription": "🔐 Custom Authentication System for Winnebago Towables 🚀\n\nWe implemented a custom sign-up and login system with special page redirection, ensuring a secure and seamless user experience for Winnebago Towables. This setup enhances user access control while maintaining a smooth navigation flow across the platform.\n\n✨ Key Features:\n✅ Secure Authentication – Custom sign-up & login system.\n✅ Dynamic Redirection – Users redirected to specific pages post-login.\n✅ Enhanced User Experience – Seamless & intuitive access management.\n\n🔗 Check it out here: https://www.winnebagotowables.org/\n\n#CustomAuthentication #UserExperience #WixVelo #WebSecurity #LoginSystem\n\n",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/winnebago.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_5cdd866249fc43ebbcb1e68972ee26f1~mv2.jpg/424769819_348258024792841_1906211061302652960_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Winnebago",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 55,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "9a28fb62-2e07-4bf7-abc2-01f07a277c29",
+    "wixId": "9a28fb62-2e07-4bf7-abc2-01f07a277c29",
+    "title": "Wix AI Digital Product Tool ",
+    "slug": "wix-ai-digital-product-tool",
+    "category": "wix-migration",
+    "shortDescription": "Wix AI Digital Product Tool – AI-Powered Content Generator for Ebooks, Guides & More 📘",
+    "fullDescription": "🚀 Wix AI Digital Product Tool – AI-Powered Content Generator for Ebooks, Guides & More 📘\n\nWe built a powerful Wix Velo application that turns simple user inputs into fully generated, professionally formatted digital products using OpenAI’s advanced models.\n✅ What We Delivered:\n\nDynamic AI Content Generation using high-performance reasoning models for high-quality ebooks, guides, checklists, and now Full Books & Manuscripts.\nInstant PDF Conversion with professional formatting (headers, bullet points, clean typography).\nBranded PDFs with custom headers, footers, and links.\nSmart Product-Specific Logic tailored for different content formats.\nState Persistence & Session Management – users never lose progress.\nSave & History Dashboard with direct “Download PDF” access.\nMembership Gating via Wix Pricing Plans for secure access.\nClean & Intelligent UI with real-time feedback.\n\nThis is a complete digital product factory built inside Wix — allowing creators to generate, format, save, and download ready-to-sell assets in minutes.",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/wix-ai-digital-product-tool.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_f6c918a01f5a463398206a71b95391b7~mv2.jpg/image%20(6).jpg#originWidth=784&originHeight=1168",
+    "altText": "Wix AI Digital Product Tool ",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 56,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "a30675af-9201-4936-8413-18b3b02fbe17",
+    "wixId": "a30675af-9201-4936-8413-18b3b02fbe17",
+    "title": "Log-In IT Solutions",
+    "slug": "log-in-it-solutions",
+    "category": "wix-migration",
+    "shortDescription": "AdSense Integration & SEO for Rhodes' Largest Live Cam Site! 🇬🇷✨",
+    "fullDescription": "📡 AdSense Integration & SEO for Rhodes' Largest Live Cam Site! 🇬🇷✨\n\nI successfully integrated Google AdSense for RhodesWebcams.com, the largest live cam site in Rhodes, Greece, boosting monetization and visibility.\n\n✅ Google AdSense Integration – Maximized revenue with strategic ad placements.\n✅ SEO Optimization – Enhanced search rankings for increased organic traffic.\n✅ Performance Optimization – Ensuring fast and seamless live streaming.\n✅ User-Friendly Experience – Delivering smooth navigation for visitors worldwide.\n\n🔹 Why It Matters?\nA well-optimized live cam site drives engagement, increases ad revenue, and enhances visibility, making it the ultimate destination for live views of Rhodes! 🚀\n\n🌍 Check it out: RhodesWebcams.com\n\n#GoogleAdSense #SEO #WixVelo #LiveStreaming #WebOptimization #RhodesGreece #Monetization #WebDesign #WixStudio",
+    "tags": [
+      "Wix Velo",
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/log-in-it-solutions.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_c2e45241f563406aba6cc640c0300524~mv2.jpg/434325170_382560818029228_3757024358253339878_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Log-In IT Solutions",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 57,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "a49db02c-4cc8-4ada-9703-480a68f6db10",
+    "wixId": "a49db02c-4cc8-4ada-9703-480a68f6db10",
+    "title": "NGC GRADUAN JOBS",
+    "slug": "ngc-graduan-jobs",
+    "category": "wix-migration",
+    "shortDescription": "Specialized Salary Calculator for NGC GRADUAN JOBS – Built for Precision & Efficiency! ✨",
+    "fullDescription": "📊 Specialized Salary Calculator for NGC GRADUAN JOBS – Built for Precision & Efficiency! ✨\n\nI developed a dynamic salary calculator for NGC GRADUAN JOBS, ensuring accurate results and a seamless user experience.\n\n✅ Real-Time Salary Calculations – Generates precise results based on user inputs.\n✅ Interactive Data Visualization – Uses ChartJS to display salary breakdowns.\n✅ One-Click PDF Report Generation – Exports a professional PDF report via JSPdf Library.\n✅ Custom HTML Components – Ensures a smooth, responsive, and user-friendly interface.\n\n🔹 Why It Matters?\nThis innovative tool streamlines salary analysis, enhancing efficiency, accuracy, and professional reporting! 🚀",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/ngc-graduan-jobs.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_70816164c4094573a84bfb2ecf22d98d~mv2.jpg/467591218_540192862266022_5778974925017244748_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "NGC GRADUAN JOBS",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 58,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "a7b932ea-0579-44c6-8e2d-65d381103bed",
+    "wixId": "a7b932ea-0579-44c6-8e2d-65d381103bed",
+    "title": "Ikhlas Travel UK",
+    "slug": "ikhlas-travel-uk",
+    "category": "web-design",
+    "shortDescription": "Ikhlas Travel UK – SEO + Google Indexing – Now Fully Optimized for Discoverability! ✈️🔍",
+    "fullDescription": "🌍 Ikhlas Travel UK – SEO + Google Indexing – Now Fully Optimized for Discoverability! ✈️🔍\n\n✅ SEO Implementation – Executed a robust SEO strategy tailored for the travel niche. Focused on geo-targeted keywords to help Ikhlas Travel UK rank higher for key services like Umrah packages, Hajj bookings, and Islamic tours.\n\n✅ Google Indexing – Ensured all essential pages are properly indexed by Google. Submitted sitemaps and resolved crawl issues to maximize visibility in search results.\n\n✅ Structured for Growth – The website is now optimized for both users and search engines. Built with long-term traffic acquisition and visibility in mind.\n\n📢 Whether you're in travel, retail, or services—SEO is your silent salesman. Ikhlas Travel UK is now positioned to attract more leads and serve their audience better.",
+    "tags": [
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/ikhlas-travel-uk.png",
+    "originalWixImage": "wix:image://v1/c5af70_dfb07c929c2b49b6a4f495fe87517215~mv2.png/Ikhlas%20Travel%20UK%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Ikhlas Travel UK",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 59,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "a88ab6fa-9ea6-46d3-b834-ba6f28804ce7",
+    "wixId": "a88ab6fa-9ea6-46d3-b834-ba6f28804ce7",
+    "title": "Naples on Wheels",
+    "slug": "naples-on-wheels",
+    "category": "wix-migration",
+    "shortDescription": "Premium Redesign for Naples on Wheels – Sleek & Smarter! ✨",
+    "fullDescription": "🚗 Premium Redesign for Naples on Wheels – Sleek & Smarter! ✨\n\n✅ Revamped Website Design – A fresh, premium look for a smooth & modern user experience.\n✅ Custom Booking Form – Built with Wix Velo (JavaScript) for a seamless & dynamic reservation process.\n✅ Automated Email Notifications – Instantly notifies users & admins upon new booking submissions.\n\n📊 Why It Matters?\nA high-end design + smart automation = better conversions & hassle-free booking management! 🚀\n\nhttps://www.naplesonwheels.com/",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/naples-on-wheels.png",
+    "originalWixImage": "wix:image://v1/c5af70_67eafbdb573b4c66b3583358679a1fd9~mv2.png/Naples%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Naples on Wheels",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 60,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "aa5945a3-9e44-4397-a6ea-912499d41f80",
+    "wixId": "aa5945a3-9e44-4397-a6ea-912499d41f80",
+    "title": "Artistic Fatima",
+    "slug": "artistic-fatima",
+    "category": "wix-migration",
+    "shortDescription": "Portfolio Website for an Artist Client 🖌️",
+    "fullDescription": "🎨 Portfolio Website for an Artist Client 🖌️\n\nWe designed a stunning portfolio website for Artistic Fatima, showcasing her incredible artwork in a visually appealing and user-friendly format. This custom website provides a seamless browsing experience, allowing visitors to explore her creative journey effortlessly.\n\n✨ Key Features:\n✅ Elegant & Modern Design – Aesthetic layout to highlight artwork.\n✅ User-Friendly Navigation – Easy access to different art categories.\n✅ Optimized for Performance – Smooth and responsive experience.\n\n🔗 Check it out here: https://fatimafk708.wixsite.com/artistic-fatima\n\n#ArtistPortfolio #WebDesign #WixVelo #CreativeWebsite #UXDesign.\n\n",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/artistic-fatima.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_5162d51e93cf421982efed82857b0ab5~mv2.jpg/322688392_898104468033242_599001601124215679_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Artistic Fatima",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 61,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "aa5a827c-8abf-4241-bdc6-11c561644f89",
+    "wixId": "aa5a827c-8abf-4241-bdc6-11c561644f89",
+    "title": "Night Crawler",
+    "slug": "night-crawler",
+    "category": "wix-migration",
+    "shortDescription": "Custom Velo Code Function for an Amazing Australian Client 🇦🇺",
+    "fullDescription": "💻 Custom Velo Code Function for an Amazing Australian Client 🇦🇺\n\nJust wrapped up an exciting Wix Velo project for a super friendly and generous Australian client! 🎉\n\n✅ Custom Signup Authentication – When a user signs up, they automatically get a free membership.\n✅ Automated Order Creation – A new order is instantly generated with a gift coupon applied.\n✅ Seamless User Flow – After signup, the user is redirected to a welcome page, ensuring a smooth onboarding experience.\n\nBuilt entirely with Wix Velo (JavaScript) to create a dynamic and automated experience. Love working on projects that bring real value to businesses! 🙌\n\n#WixVelo #CustomCode #Automation #WixDevelopment #WebDevelopment 💻",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/night-crawler.png",
+    "originalWixImage": "wix:image://v1/c5af70_5a36fe666d4d484ebfa4ba241791e75d~mv2.png/Night%20Crawler%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Night Crawler",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 62,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "ad1a3bf6-8050-4b89-baf5-b8d4f37a3d12",
+    "wixId": "ad1a3bf6-8050-4b89-baf5-b8d4f37a3d12",
+    "title": "RACI Consulting",
+    "slug": "raci-consulting",
+    "category": "wix-migration",
+    "shortDescription": "Custom Quiz System for RACI – Built with Wix Velo 🚀",
+    "fullDescription": "🧠 Custom Quiz System for RACI – Built with Wix Velo 🚀\nWe’ve developed two fully interactive quizzes tailored for RACI that dynamically calculate results, store user data, and generate downloadable performance PDFs — all within Wix Studio.\n\n✅ What We Built:\n\n📊 2 Interactive Assessments – Each with unique scoring logic, structured sections, and dynamic feedback per category.\n\n🗂️ CMS Integration – Every quiz attempt is saved in Wix CMS, allowing personalized performance tracking and future insights.\n\n📄 Automated PDF Report Generation – After submission, users can download a branded PDF showing scores, strengths, and areas for improvement.\n\n📈 Dashboard for Users – Logged-in users can view their past attempts, dates, and overall progress — encouraging long-term learning.\n\n🔒 Member-Specific Data Filtering – Each user sees only their own history, ensuring secure and personalized access.",
+    "tags": [
+      "Wix Velo",
+      "E-Commerce"
+    ],
+    "coverImageUrl": "/api/media/portfolio/raci-consulting.png",
+    "originalWixImage": "wix:image://v1/c5af70_4dcffa9add334e2da0cb64b6eb849a10~mv2.png/RACI%20Consulting%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "RACI Consulting",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 63,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "aec069b1-18ab-4912-a011-236fbf08def3",
+    "wixId": "aec069b1-18ab-4912-a011-236fbf08def3",
+    "title": "ENWATT Solar",
+    "slug": "enwatt-solar",
+    "category": "wix-migration",
+    "shortDescription": "Custom Price List Form for ENWATT – A German Solar Company ⚡",
+    "fullDescription": "☀️ Custom Price List Form for ENWATT – A German Solar Company ⚡\n\nWe developed a custom price list form for ENWATT, a German-based solar company, by integrating the Google Distance Matrix API and Geocoding Distance API using Wix Velo JavaScript. This solution ensures accurate pricing calculations based on location and enhances the user experience.\n\n✨ Key Features:\n✅ Dynamic Price Calculation – Based on distance and location data.\n✅ Google API Integration – Real-time geolocation accuracy.\n✅ Optimized User Experience – Seamless and intuitive form functionality.\n\n🔗 Check it out here: https://www.enwatt.de/pv-anfrage-installation\n\n#SolarEnergy #WebDevelopment #WixVelo #GoogleAPI #UXDesign #RenewableEnergy\n\n",
+    "tags": [
+      "Wix Velo",
+      "API Integration"
+    ],
+    "coverImageUrl": "/api/media/portfolio/enwatt-solar.png",
+    "originalWixImage": "wix:image://v1/c5af70_0d1eecd95e554e60b85bd5c691d86db9~mv2.png/ENWatt%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "ENWATT Solar",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 64,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "af064392-25a2-4aa5-81dc-53ff1b03d33f",
+    "wixId": "af064392-25a2-4aa5-81dc-53ff1b03d33f",
+    "title": "Wokingham Glazing",
+    "slug": "wokingham-glazing",
+    "category": "wix-migration",
+    "shortDescription": "Wokingham Glazing – Custom Web to Lead Form with Business Pilot CRM Integration 📋",
+    "fullDescription": "🚀 Wokingham Glazing – Custom Web to Lead Form with Business Pilot CRM Integration 📋\n\nWe developed a fully custom, responsive \"Web to Lead\" form for Wokingham Glazing that captures customer enquiries and submits them directly into the Business Pilot CRM.\n\n✅ What We Delivered:\nDynamic Form Generation based on configurable settings for maximum flexibility.\nReal-time CRM Integration – Automatically pulls live data for Branches, Product Interests, Project Types, Lead Sources, and Marketing Types from the Business Pilot API.\nSecure AJAX Submission with file upload support (up to 5MB) – no page reload required.\nAdvanced Form Validation using jQuery Validation Plugin for clean and accurate data capture.\nModern, Professional UI with smooth hover effects, custom file upload styling, and clear success/error messages.\nFully Responsive Design that looks great on mobile, tablet, and desktop.\nClean code built with HTML5, CSS3, Bootstrap 4, and Google Fonts (Outfit).\nThis isn’t just a simple contact form — it’s a smart, dynamic lead generation system fully connected to their CRM, helping Wokingham Glazing capture high-quality leads efficiently.",
+    "tags": [
+      "Wix Velo",
+      "API Integration"
+    ],
+    "coverImageUrl": "/api/media/portfolio/wokingham-glazing.png",
+    "originalWixImage": "wix:image://v1/c5af70_f5b3535c50fb493c94f3ed533d64cf7a~mv2.png/Working%20Glaze%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Wokingham Glazing",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 65,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "b2c61945-aebe-4f0b-99f6-775729078e7a",
+    "wixId": "b2c61945-aebe-4f0b-99f6-775729078e7a",
+    "title": "Nashawi Dental",
+    "slug": "nashawi-dental",
+    "category": "wix-migration",
+    "shortDescription": "Revamped Dental Website for Dr. Mohammad Nashawi 🌟",
+    "fullDescription": "🦷 Revamped Dental Website for Dr. Mohammad Nashawi 🌟\n\nWe gave Nashawi Dental a modern, responsive redesign for our esteemed Turkish client, Dr. Mohammad Nashawi. This sleek update ensures a stunning, mobile-friendly experience, providing seamless navigation across all devices.\n\n✨ Key Upgrades:\n✅ Fresh & Modern Design – Professional aesthetics with a clean, user-friendly interface.\n✅ Mobile Optimization – Flawless adaptability on all screen sizes.\n✅ Enhanced User Experience – Smooth navigation for easy access to services.\n\n🔗 Explore the new look: https://www.nashawidental.com/\n\n#WebDesign #WixVelo #DentalWebsite #UXDesign #ResponsiveWeb #Turkey\n\n",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/nashawi-dental.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_d013d7d5c47b4c6a9034f302f10e1610~mv2.jpg/425035339_348273714791272_6830157647704698565_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Nashawi Dental",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 66,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "b59a4efa-c87b-4c5f-ad19-cbdfa4ff0b7f",
+    "wixId": "b59a4efa-c87b-4c5f-ad19-cbdfa4ff0b7f",
+    "title": "Pawsome Place",
+    "slug": "pawsome-place",
+    "category": "wix-migration",
+    "shortDescription": "Fixed Menu Clickability & Redirection – Wix Velo Solution!",
+    "fullDescription": "✅ Fixed Menu Clickability & Redirection – Wix Velo Solution!\n\nA small yet impactful fix for Pawsome Place Pets:\n\n🔹 Enabled Clicking – Made a previously unclickable menu item fully functional.\n🔹 Custom Redirection – Set up smooth navigation to a specific page.\n🔹 Velo JavaScript Implementation – Ensured seamless execution.\n\n🚀 Even the smallest optimizations improve user experience!\n\n#WixVelo #JavaScript #WebDevelopment #UXUI #WixFixes #SeamlessNavigation #UserExperience",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/pawsome-place.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_5808b1dd27314d948ae17bce85e7fec7~mv2.jpg/432847876_374387592179884_4893416012646295739_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Pawsome Place",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 67,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "bc54f8cf-9447-4b81-9fd3-905aad2b597a",
+    "wixId": "bc54f8cf-9447-4b81-9fd3-905aad2b597a",
+    "title": "Ener Solutions ",
+    "slug": "ener-solutions",
+    "category": "wix-migration",
+    "shortDescription": "Seamless Advisor Buddy API Integration – Enhancing Client Data Management! ✨",
+    "fullDescription": "🔗 Seamless Advisor Buddy API Integration – Enhancing Client Data Management! ✨\n\nI integrated the Advisor Buddy API into Wix, ensuring smooth and efficient client data transfer for Enersolution.\n\n✅ Automated Data Syncing – Effortlessly transfers client information from Wix to Advisor Buddy.\n✅ Improved Efficiency – Eliminates manual data entry, saving time and reducing errors.\n✅ Seamless User Experience – Ensures a streamlined and hassle-free process.\n\n🔹 Why It Matters?\nThis integration enhances workflow automation, improves data accuracy, and simplifies client management! 🚀\n\nCheck it out: enersolution.ca\n\n#WixVelo #APIIntegration #AdvisorBuddy #Automation #DataSync #WebDevelopment #Efficiency #UXDesign",
+    "tags": [
+      "Wix Velo",
+      "API Integration"
+    ],
+    "coverImageUrl": "/api/media/portfolio/ener-solutions.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_41a68cc4841548018f407e9eea9d811e~mv2.jpg/467482891_539517455666896_4460489750722947267_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Ener Solutions ",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 68,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "c9acdb33-edbf-404f-8418-45bfe3cffcd4",
+    "wixId": "c9acdb33-edbf-404f-8418-45bfe3cffcd4",
+    "title": "Velur Jewelry",
+    "slug": "velur-jewelry",
+    "category": "wix-migration",
+    "shortDescription": "Custom Product Page for Velur Jewelry ✨",
+    "fullDescription": "💎 Custom Product Page for Velur Jewelry ✨\n\nWe developed a custom product page for Velur Jewelry, the online store of our German-based client. Using Wix Velo and JavaScript, we created a seamless, interactive, and dynamic shopping experience tailored to their brand.\n\n🛠️ Key Features:\n✅ Dynamic Product Display – Showcasing items with custom layouts.\n✅ Enhanced User Experience – Smooth navigation & responsiveness.\n✅ Optimized for E-Commerce – Ensuring seamless shopping & checkout.\n\n🔗 Check it out here: https://www.velurjewelry.com/\n\n#Ecommerce #WixVelo #WebDevelopment #JewelryStore #UXDesign #Germany\n\n",
+    "tags": [
+      "Wix Velo",
+      "E-Commerce"
+    ],
+    "coverImageUrl": "/api/media/portfolio/velur-jewelry.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_14ca6789fb7146eca4d62ebed8757c0a~mv2.jpg/355685688_218645504420761_4832939578096935372_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Velur Jewelry",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 69,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "ccc5a667-46ea-47b8-9889-4d2b74e65e85",
+    "wixId": "ccc5a667-46ea-47b8-9889-4d2b74e65e85",
+    "title": "Besides Work",
+    "slug": "besides-work",
+    "category": "wix-migration",
+    "shortDescription": "Exclusive Authentication System for Besides Work 🚀",
+    "fullDescription": "🔐 Exclusive Authentication System for Besides Work 🚀\n\nWe designed a custom sign-up and login system with a tailored page redirect, ensuring a seamless and secure user experience.\n\n🛠️ Key Features:\n✅ Unique Authentication Flow – A fully customized login/sign-up process.\n✅ Special Redirects – Direct users to exclusive pages after login.\n✅ Enhanced Security & UX – Optimized for smooth and secure access.\n\n🔗 Check it out here: https://www.besideswork.co.uk/\n\n#Authentication #WixVelo #WebSecurity #UserExperience #CustomLogin\n\n",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/besides-work.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_700acb408c844717810d0378a5fc3a94~mv2.jpg/417476295_350138404604803_1115419704402332182_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Besides Work",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 70,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "ce4f3f4b-405b-4321-b648-93abbb303a77",
+    "wixId": "ce4f3f4b-405b-4321-b648-93abbb303a77",
+    "title": "Notary Fema",
+    "slug": "notary-fema",
+    "category": "wix-migration",
+    "shortDescription": "Notary Services Website for an Indonesian Client 🏛️",
+    "fullDescription": "📜 Notary Services Website for an Indonesian Client 🏛️\n\nWe developed a custom workspace allowing clients to check their case status online, built with Velo JavaScript, repeaters, and a database management system for seamless data handling.\n\n🛠️ Key Features:\n✅ Client Case Tracking – Real-time case status updates.\n✅ Dynamic Repeaters – Display case details efficiently.\n✅ Secure Database Management – Ensuring reliable record-keeping.\n\n\n#NotaryServices #WixVelo #DatabaseManagement #ClientPortal #WebDevelopment",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/notary-fema.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_cb07c6b16afe4184ae2e37a7be8822c4~mv2.jpg/369184890_250808611204450_4114858901571412076_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Notary Fema",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 71,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "d806839b-fce1-416a-a722-399f7fa7126d",
+    "wixId": "d806839b-fce1-416a-a722-399f7fa7126d",
+    "title": "DESTINATION YAMBA",
+    "slug": "destination-yamba",
+    "category": "wix-migration",
+    "shortDescription": "Revamped Website for Destination Yamba, Australia! 🏖️",
+    "fullDescription": "🌏 Revamped Website for Destination Yamba, Australia! 🏖️\n\nWe redesigned this stunning Australian travel website, ensuring a seamless, modern, and fully responsive experience across all devices.\n\n✨ Key Enhancements:\n✅ Sleek & Modern Design – Enhanced aesthetics for an engaging experience.\n✅ Mobile Optimization – Flawless performance on all screen sizes.\n✅ User-Friendly Navigation – Smooth browsing for visitors.\n\n🔗 Explore the transformation: https://www.destinationyamba.com.au/\n\n#WebDesign #TravelWebsite #WixVelo #UXDesign #Australia #ResponsiveWeb\n\n",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/destination-yamba.png",
+    "originalWixImage": "wix:image://v1/c5af70_9e044e58960d4a32a33d020cbf589657~mv2.png/Destination%20Yamba%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "DESTINATION YAMBA",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 72,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "d8e95b48-8a0e-43da-9500-7cbd41233dd6",
+    "wixId": "d8e95b48-8a0e-43da-9500-7cbd41233dd6",
+    "title": "Crimson Audio Transformers",
+    "slug": "crimson-audio-transformers",
+    "category": "wix-migration",
+    "shortDescription": "Advanced Three-Level Drop-Down Menu for Crimson Audio! 🎛️",
+    "fullDescription": "🔊 Advanced Three-Level Drop-Down Menu for Crimson Audio! 🎛️\n\nWe developed a custom three-tier drop-down menu system, enhancing navigation and user experience for Crimson Audio. This advanced menu design ensures seamless interaction and effortless browsing for users.\n\n✨ Key Features:\n✅ Multi-Level Navigation – Smooth & intuitive dropdowns.\n✅ Enhanced UI/UX – Clean, responsive, and user-friendly.\n✅ Optimized Performance – Fast, efficient, and scalable.\n\n🚀 Experience the upgrade with Crimson Audio! https://www.johnnyxfrmr.com/\n\n#WebDesign #CustomMenu #WixVelo #UIUX #AdvancedNavigation #CrimsonAudio\n\n",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/crimson-audio-transformers.png",
+    "originalWixImage": "wix:image://v1/c5af70_1be11c57ddc946239c03a0cc25152781~mv2.png/Crimson%20Audio%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Crimson Audio Transformers",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 73,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "d9ac50ee-1ac9-4057-95c5-7f95841fdbd2",
+    "wixId": "d9ac50ee-1ac9-4057-95c5-7f95841fdbd2",
+    "title": "London Property Solutions",
+    "slug": "london-property-solutions",
+    "category": "web-design",
+    "shortDescription": "SEO Boost for London's Property Solutions! 🚀",
+    "fullDescription": "🏡 SEO Boost for London's Property Solutions! 🚀\n\nWe enhanced online visibility for London's Property Solutions, a premier property designer and specialist, through strategic SEO optimization. This resulted in higher rankings, increased traffic, and better engagement for both commercial and domestic projects.\n\n✨ Key SEO Improvements:\n✅ Higher Search Rankings – Improved discoverability.\n✅ Increased Organic Traffic – More potential clients reached.\n✅ Optimized Content & Performance – Faster and more user-friendly experience.\n\n🔗 Explore the transformation: https://www.londonspropertysolutions.com/\n\n\n#SEO #DigitalGrowth #PropertySolutions #London #WixSEO #RealEstateMarketing\n",
+    "tags": [
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/london-property-solutions.png",
+    "originalWixImage": "wix:image://v1/c5af70_085ddc19adb24c4b90c11b9f40bd30cd~mv2.png/London%20Property%20Solutions%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "London Property Solutions",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 74,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "e22319a1-8ee4-44d5-94bf-4c1c17c96eea",
+    "wixId": "e22319a1-8ee4-44d5-94bf-4c1c17c96eea",
+    "title": "Bookeeps",
+    "slug": "bookeeps",
+    "category": "web-design",
+    "shortDescription": "Strategic SEO Boost for Bookeeps.com – Powered by Wix SEO Frontend API! 🚀",
+    "fullDescription": "🔍 Strategic SEO Boost for Bookeeps.com – Powered by Wix SEO Frontend API! 🚀\n✅ Dynamic Meta Integration – Implemented Wix’s SEO Frontend API to dynamically update titles, meta descriptions, and structured data across key pages.\n✅ Keyword Optimization – Integrated high-converting, geo-targeted keywords for Jamaica Queens, Brooklyn, Manhattan & Long Island to improve organic search ranking.\n✅ Accessibility Enhancements – Improved website accessibility (WCAG-aligned) to make the site more inclusive and user-friendly.\n✅ Google Search Console Indexed – Verified and indexed via GSC to ensure proper visibility and performance tracking.\n\n📈 Why It Matters?\nThis SEO upgrade improves visibility, relevance, and search performance—driving better traffic, engagement, and trust. 🎯",
+    "tags": [
+      "API Integration",
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/bookeeps.png",
+    "originalWixImage": "wix:image://v1/c5af70_9724bf68bfa248749907c4387a8c613c~mv2.png/Bookeeps%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Bookeeps",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 75,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "e2253925-09fd-4301-b44b-14d23ae6a6ef",
+    "wixId": "e2253925-09fd-4301-b44b-14d23ae6a6ef",
+    "title": "Gainwell Holidays",
+    "slug": "gainwell-holidays",
+    "category": "wix-migration",
+    "shortDescription": "Gainwell Holidays – Complete Event Booking System + API Integration 🎫",
+    "fullDescription": "🌍 Gainwell Holidays – Complete Event Booking System + API Integration 🎫\n\nWe engineered a robust, end-to-end event booking platform for Gainwell Holidays, turning a standard site into a dynamic ticketing engine using advanced Wix Velo integrations.\n\n✅ What We Delivered:\n\n🎟️ XS2Events API Integration – Built a custom connection to fetch and display live data for global events, tournaments, and tickets directly on the frontend.\n\n🔄 Complex Reservation Logic – Engineered a smart multi-step booking flow that handles data passing from reservation endpoints to final booking confirmation endpoints seamlessly.\n\n💳 Stripe Payment Integration – Secure, custom-coded Stripe checkout integration to handle ticket transactions instantly within the booking flow.\n\n🚀 End-to-End User Experience – Designed a fully custom booking journey, moving users from event discovery to ticket purchase without ever leaving the platform.\n\n🧠 100% Wix Velo Architecture – No generic widgets. A completely bespoke backend solution linking complex external APIs with the Wix frontend.",
+    "tags": [
+      "Wix Velo",
+      "API Integration"
+    ],
+    "coverImageUrl": "/api/media/portfolio/gainwell-holidays.png",
+    "originalWixImage": "wix:image://v1/c5af70_8a41f8069db14de8a6a65da3205c3d71~mv2.png/GainWell%20Holidays%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Gainwell Holidays",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 76,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "e24860b7-8e7b-4dcf-a3c7-f1ccc5fd9467",
+    "wixId": "e24860b7-8e7b-4dcf-a3c7-f1ccc5fd9467",
+    "title": "OOLA CO.",
+    "slug": "oola-co",
+    "category": "wix-migration",
+    "shortDescription": "Workspace Email Fix, Mobile Optimization & SEO for OOLA CO. ✨",
+    "fullDescription": "📧 Workspace Email Fix, Mobile Optimization & SEO for OOLA CO. ✨\n\nI fine-tuned OOLA CO.’s website by:\n\n✅ Fixing Workspace Email – Ensuring smooth and professional communication.\n✅ Mobile Optimization – Enhancing performance for a seamless mobile experience.\n✅ SEO Improvements – Boosting search rankings for better visibility.\n\n🔹 Why It Matters?\nA well-optimized website improves user engagement, brand credibility, and search engine performance, helping businesses thrive online! 🚀\n\n🌍 Check it out: OOLA CO.\n\n#WixSEO #WebOptimization #MobileFriendly #WorkspaceEmail #WixVelo #SEOExperts #WebDevelopment #WixStudio\n\n\n\n\n\n\n\n",
+    "tags": [
+      "Wix Velo",
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/oola-co.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_eff55bf27f0a4eeabebab1ea66581633~mv2.jpg/434395960_380409664911010_2975805651476493515_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "OOLA CO.",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 77,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "e61e4b04-fe93-4a7c-b387-0ac5c1c35433",
+    "wixId": "e61e4b04-fe93-4a7c-b387-0ac5c1c35433",
+    "title": "LS Entertainment",
+    "slug": "ls-entertainment",
+    "category": "web-design",
+    "shortDescription": "myPOS Checkout Integration for Wix (v3.0)",
+    "fullDescription": "💳 myPOS Checkout Integration for Wix (v3.0)\n\nWe built a robust, secure, and production-ready payment integration for Wix websites using the myPOS Checkout API. It handles the complete payment lifecycle — from checkout to webhook confirmation.\n\n✅ What We Delivered:\n\nStandard Redirect Method (IPCPurchase) with secure signed checkout URLs\nServer-to-Server Webhook Handling for IPCPurchaseNotify\nDedicated Success (OK) and Cancel redirect endpoints\nFull RSA-SHA256 signature generation and verification\nDetailed logging to Wix Console and logs collection\nAuto-Provisioning with proper Wix Order confirmation and Event ID handling\n\nTech Stack:\n\nBackend logic in myPos.jsw\nWebhook endpoints in http-functions.js (myposNotify, myposOk, myposCancel)\nFrontend initiation logic in myPos.js\n\n🛠️ Key Requirements:\n\nmyPOS Merchant Account (SID, WalletNumber, KeyIndex)\nPrivate & Public keys securely stored in Wix Secrets Manager",
+    "tags": [
+      "API Integration",
+      "E-Commerce"
+    ],
+    "coverImageUrl": "/api/media/portfolio/ls-entertainment.png",
+    "originalWixImage": "wix:image://v1/c5af70_6fd8f00551964396a514672339e8c277~mv2.png/Ls%20Entertainment%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "LS Entertainment",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 78,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "e7f7fe6d-4dc0-4738-97a5-49077397d871",
+    "wixId": "e7f7fe6d-4dc0-4738-97a5-49077397d871",
+    "title": "Romeo Greek Restaurant",
+    "slug": "romeo-greek-restaurant",
+    "category": "wix-migration",
+    "shortDescription": "Authentic Greek Restaurant Website – Designed for Excellence! ✨",
+    "fullDescription": "🍽️ Authentic Greek Restaurant Website – Designed for Excellence! ✨\n\nI crafted a stunning and SEO-optimized website for a classic Greek restaurant, ensuring seamless accessibility and a personalized user experience.\n\n✅ Elegant & Modern Design – Capturing the essence of Greek culture.\n✅ SEO-Optimized – Boosting visibility to attract more customers.\n✅ Enhanced Accessibility – Ensuring a smooth experience for all users.\n✅ Seamless Navigation – Making reservations and menu browsing effortless.\n\n🔹 Why It Matters?\nA well-designed restaurant website drives more bookings, improves online presence, and enhances customer engagement! 🚀\n\nCheck it out: romeo.gr\n\n#GreekRestaurant #WixVelo #SEO #WebAccessibility #RestaurantWebsite #WebDesign #UserExperience #WixStudio",
+    "tags": [
+      "Wix Velo",
+      "SEO Growth"
+    ],
+    "coverImageUrl": "/api/media/portfolio/romeo-greek-restaurant.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_7eb50812a2ff4fb18ad73d6a469ed959~mv2.jpg/438825684_397347453217231_5386015818366802859_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Romeo Greek Restaurant",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 79,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "e88070bf-327f-4671-9f6c-30bfa3a42c82",
+    "wixId": "e88070bf-327f-4671-9f6c-30bfa3a42c82",
+    "title": "The Society",
+    "slug": "the-society",
+    "category": "web-design",
+    "shortDescription": "Landing Page Redesign for an Indian Author – Built for Readers & Literary Engagement! 📚✨",
+    "fullDescription": "🌟 Landing Page Redesign for an Indian Author – Built for Readers & Literary Engagement! 📚✨\n\nWe’ve redesigned a modern and engaging landing page for a renowned Indian author, tailored for a reading society community. The goal was to create an immersive digital space where literature lovers can connect, explore, and engage.\n\n✅ What We Added:\n📸 Gallery Showcase – A clean visual gallery to highlight author events, book covers, and memorable moments.\n📅 Custom Events with RSVP – Readers can easily view upcoming sessions and confirm attendance online.\n📩 Contact Form – Direct and simple communication between readers and the author.\n📖 Book & Author Biography – A well-structured section to share the author’s journey, achievements, and published works.",
+    "tags": [
+      "Web Development"
+    ],
+    "coverImageUrl": "/api/media/portfolio/the-society.png",
+    "originalWixImage": "wix:image://v1/c5af70_797ef124ecc84546a0090293692dafe0~mv2.png/The%20Society%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "The Society",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 80,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "ea12d040-1bfc-4547-8268-8080f7d62cb5",
+    "wixId": "ea12d040-1bfc-4547-8268-8080f7d62cb5",
+    "title": "Muna Samba",
+    "slug": "muna-samba",
+    "category": "wix-migration",
+    "shortDescription": "Sleek Portfolio Design for Muna Samba! 🌟",
+    "fullDescription": "🎨 Sleek Portfolio Design for Muna Samba! 🌟\n\nOur UK-based client, Muna Samba, envisioned a modern, single-page portfolio with a carefully selected color palette, typography, and design aesthetics. We brought that vision to life, delivering a clean, elegant, and visually striking portfolio that aligns perfectly with her brand.\n\n✨ Project Highlights:\n✅ Custom Color & Font Selection – Matching her unique style.\n✅ Minimalist One-Page Design – Smooth and engaging user experience.\n✅ Tailored Aesthetic & Layout – Sleek, professional, and responsive.\n\n#PortfolioDesign #WixWebsite #WebDesign #MinimalistDesign #UKBusiness #WixVelo #BrandIdentity",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/muna-samba.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_6497c4f6b7774b5782be3ce9d3050ddd~mv2.jpg/395477482_290704823881495_1913285028944933324_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Muna Samba",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 81,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "ec3f95cf-3cbd-44b7-82a2-de792d501349",
+    "wixId": "ec3f95cf-3cbd-44b7-82a2-de792d501349",
+    "title": "Pickled Tennis Court",
+    "slug": "pickled-tennis-court",
+    "category": "wix-migration",
+    "shortDescription": "Custom Tennis Court Designer for Pickled Court! 🎨",
+    "fullDescription": "🎾 Custom Tennis Court Designer for Pickled Court! 🎨\n\nWe developed a fully interactive custom tennis court design tool using Wix Velo JavaScript, allowing users to personalize their court with custom colors and save their designs to the Wix CMS database. Plus, we integrated automated triggered emails to notify clients instantly when a new custom court request is submitted.\n\n✨ Project Highlights:\n✅ Interactive Court Customization – Users can design courts with unique color selections.\n✅ Wix CMS Integration – Saved designs for easy retrieval and management.\n✅ Automated Email Notifications – Clients receive instant alerts for new court design requests.\n\n🔗 Try it out: Pickled Court – https://www.pickledcourt.com/design-my-court\n\n\n#WixVelo #WebDevelopment #TennisCourtDesign #JavaScript #CustomSolutions #SportsTech\n",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/pickled-tennis-court.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_c39a5d5f260e421d998b349e43c3c008~mv2.jpg/430650987_365497466402230_6430260219130550824_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Pickled Tennis Court",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 82,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "ee9784e4-4eaf-4b39-9b49-e96c212bf4ef",
+    "wixId": "ee9784e4-4eaf-4b39-9b49-e96c212bf4ef",
+    "title": "Bj And Kurt RSVP",
+    "slug": "bj-and-kurt-rsvp",
+    "category": "wix-migration",
+    "shortDescription": "Multi-Stage RSVP Form for Hugo Phillips! 🎉",
+    "fullDescription": "📨 Multi-Stage RSVP Form for Hugo Phillips! 🎉\n\nWe developed a dynamic multi-stage RSVP form using Wix Velo JavaScript, streamlining the event registration process for our Upwork client, Hugo Phillips. This custom-built solution enhances user engagement and simplifies event management, tailored specifically to UK-based requirements.\n\n✨ Project Highlights:\n✅ Multi-Stage Form – Seamless, step-by-step RSVP experience.\n✅ Personalized Features – Custom fields and user-specific interactions.\n✅ Enhanced Event Management – Data stored efficiently in Wix CMS for easy tracking.\n\n\n#WixVelo #RSVPForm #EventTech #JavaScript #WebDevelopment #WixForms #CustomSolutions #UKBusiness",
+    "tags": [
+      "Wix Velo",
+      "E-Commerce"
+    ],
+    "coverImageUrl": "/api/media/portfolio/bj-and-kurt-rsvp.png",
+    "originalWixImage": "wix:image://v1/c5af70_f0aa3e48dd864a3db003ef0ae085562c~mv2.png/BA%20&%20Kurt%20Mock%20Up%20(1000%20%C3%97%20750%20px).png#originWidth=1000&originHeight=750",
+    "altText": "Bj And Kurt RSVP",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 83,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "f198e794-5d8d-4b4a-bda1-0a05a0e0838b",
+    "wixId": "f198e794-5d8d-4b4a-bda1-0a05a0e0838b",
+    "title": "Kane Solar",
+    "slug": "kane-solar",
+    "category": "wix-migration",
+    "shortDescription": "Revamped Kane-Solar Website! ⚡",
+    "fullDescription": "☀️ Revamped Kane-Solar Website! ⚡\n\nWe transformed the Kane-Solar website, aligning it with the client’s unique vision to enhance their online presence and user experience. This redesign ensures a modern, professional, and seamless interface, making it easier for users to navigate and engage with Kane-Solar’s services.\n\n✨ Project Highlights:\n✅ Modern & Responsive Design – Flawless across all devices.\n✅ Enhanced User Experience – Streamlined navigation and functionality.\n✅ Brand-Aligned Aesthetics – A website that truly represents Kane-Solar.\n\n\n\n#WixVelo #SolarEnergy #WebRedesign #UXDesign #RenewableEnergy #WixWebsite #OnlinePresence",
+    "tags": [
+      "Wix Velo"
+    ],
+    "coverImageUrl": "/api/media/portfolio/kane-solar.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_57b2173caab94d38aec490de7a48fdf3~mv2.jpg/400484875_297832383168739_253507211815655303_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Kane Solar",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 84,
+    "createdAt": "2026-06-01T11:29:57Z"
+  },
+  {
+    "id": "fdfbc909-9365-4d36-a50c-e6f583544efa",
+    "wixId": "fdfbc909-9365-4d36-a50c-e6f583544efa",
+    "title": "Online Quran Academy",
+    "slug": "online-quran-academy",
+    "category": "web-design",
+    "shortDescription": "Web Design for an Online Quran Academy!** 🌙  ",
+    "fullDescription": "📖 **Web Design for an Online Quran Academy!** 🌙  \n\nWe crafted a **modern and user-friendly** website for an **Online Quran Academy**, ensuring seamless navigation, responsive design, and an engaging learning experience. This platform is tailored to provide students with **easy access** to Quranic education, fostering a **smooth and interactive** online learning environment.  \n\n✨ **Project Highlights:**  \n✅ **Intuitive & Responsive Design** – Accessible on all devices.  \n✅ **Structured Learning Interface** – Enhancing the student experience.  \n✅ **Seamless Navigation** – Making online Quran education more efficient.  \n\n\n#QuranAcademy #OnlineLearning #WixWebsite #WebDesign #IslamicEducation #UXDesign",
+    "tags": [
+      "Web Development"
+    ],
+    "coverImageUrl": "/api/media/portfolio/online-quran-academy.jpg",
+    "originalWixImage": "wix:image://v1/c5af70_79633aa9454f4376bec8e9bc2f2e0d69~mv2.jpg/323551152_1162837360876693_4775117700052036290_n.jpg#originWidth=1000&originHeight=750",
+    "altText": "Online Quran Academy",
+    "projectUrl": null,
+    "featured": false,
+    "sortOrder": 85,
+    "createdAt": "2026-06-01T11:29:57Z"
+  }
+]

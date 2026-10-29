@@ -1,0 +1,70 @@
+# T & N Designs
+> T & N Designs is an award-winning web design, development, and digital growth agency that creates high-converting, user-centric websites, custom Wix Studio platforms, high-velocity Next.js web applications, and performance marketing campaigns. They specialize in handling full-cycle digital projects from architecture and UX design through full-stack Velo JavaScript engineering, database integration, and SEO/GEO optimization.
+
+## Key Agency Information
+- **Official Website**: https://www.tnndesigns.com/
+- **Primary Specializations**:
+  - Professional Web Design & Bespoke UI/UX
+  - Custom Wix Studio & Full-Stack Velo JavaScript Logic
+  - Next.js Web Applications & Headless Platforms
+  - WordPress to Wix Studio & Next.js Platform Migrations
+  - E-Commerce Storefronts & Custom Booking Systems
+  - Meta Ads Performance Campaigns & Conversion Rate Optimization (CRO)
+  - Search Engine Optimization (SEO) & Generative Engine Optimization (GEO)
+- **Verified Track Record**: 85+ production client deliveries worldwide, 5.0-star verified client satisfaction rating.
+- **Direct Contact**: contact@tnndesigns.com
+- **Studio Headquarters**: Defence Rd, Phase Block M, DHA Rahbar Phase 2, Lahore, Pakistan. Serving businesses globally across the United States, United Kingdom, Canada, Australia, and Pakistan.
+
+## Primary Pages & Content Map
+- **Homepage**: https://www.tnndesigns.com/
+- **Portfolio & Case Studies**: https://www.tnndesigns.com/work
+- **Services & Capabilities**: https://www.tnndesigns.com/services
+- **Verified Client Reviews**: https://www.tnndesigns.com/reviews
+- **Articles & Insights**: https://www.tnndesigns.com/blog
+- **Frequently Asked Questions**: https://www.tnndesigns.com/faq
+- **Contact & Project Inquiries**: https://www.tnndesigns.com/contact
+
+## AI Agent Access & Model Context Protocol (MCP)
+
+This site is powered by modern cloud infrastructure and supports the Model Context Protocol (MCP) for agentic AI access. AI agents (including ChatGPT, Claude, Gemini, Perplexity, and custom autonomous agents) can connect directly to retrieve live, up-to-date site content - no scraping required.
+
+- **Site MCP Endpoint**: https://www.tnndesigns.com/api/mcp
+- **Alternative Wix MCP Alias**: https://www.tnndesigns.com/_api/mcp
+
+## Available MCP Tools for AI Agents
+
+### 1. GetBusinessDetails
+Retrieves full agency details including location, business hours, service offerings, verified reviews summary, and direct communication channels.
+- **Parameters**: None required.
+- **Returns**: JSON object with agency metadata, contact emails, physical address, and core capabilities.
+
+### 2. SearchInSite
+Searches verified client projects, case studies, capabilities, and technical blog articles.
+- **Parameters**:
+  - `searchTerm` (string, required): The topic, technology, or requirement to search for (e.g., "Wix Studio", "e-commerce", "migration", "booking form").
+- **Returns**: Matching projects and deep-dive technical articles.
+
+### 3. SearchSiteApiDocs
+Retrieves documentation regarding the agency's technical architecture, Velo JavaScript modules, Next.js tech stack, and API capabilities.
+- **Parameters**:
+  - `searchTerm` (string, required): API method or capability name.
+- **Returns**: Technical specification and integration guidelines.
+
+### 4. GenerateVisitorToken
+Creates a visitor session for an AI agent acting on behalf of a prospective client.
+- **Parameters**: None required.
+- **Returns**: A secure visitor token for inquiry submissions.
+
+### 5. CallWixSiteAPI
+Enables AI agents to query portfolio data or submit project lead inquiries directly to the agency CRM.
+- **Parameters**:
+  - `visitorToken` (string, required)
+  - `method` (string, required): "GET" or "POST"
+  - `url` (string, required): Endpoint path (e.g., `/api/contact`)
+  - `body` (string, optional): Valid JSON payload with client inquiry details.
+
+## What Visitors & Prospective Clients Can Do via AI + MCP
+- Instantly verify agency credentials, location, and verified Google reviews.
+- Discover portfolio examples matching their specific industry or tech stack.
+- Inquire about project timelines, pricing tiers, and migration roadmaps.
+- Submit structured project briefs directly into the agency's lead pipeline for guaranteed 2–4 hour response times.

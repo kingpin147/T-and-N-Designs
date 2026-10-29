@@ -1,0 +1,42 @@
+{
+  "name": "tnn-designs",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "migrate:portfolio": "node scripts/migrate.mjs",
+    "migrate:storage": "node scripts/upload-to-neon-storage.mjs"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.716.0",
+    "@aws-sdk/s3-request-presigner": "^3.1157.0",
+    "@neon/config": "^1.9.4",
+    "@neon/env": "^1.6.5",
+    "@neondatabase/serverless": "^0.10.4",
+    "@types/three": "^0.186.0",
+    "bcryptjs": "^3.0.3",
+    "csv-parse": "^5.6.0",
+    "dotenv": "^16.4.7",
+    "framer-motion": "^12.4.7",
+    "gsap": "^3.15.0",
+    "jose": "^6.2.13",
+    "lenis": "^1.1.20",
+    "lucide-react": "^0.475.0",
+    "next": "^15.1.7",
+    "posthog-js": "^1.438.24",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^22.13.4",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}
