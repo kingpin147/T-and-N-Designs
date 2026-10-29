@@ -30,7 +30,11 @@ const faqs = [
   },
 ];
 
-export default function FAQSection() {
+interface FAQSectionProps {
+  showHeader?: boolean;
+}
+
+export default function FAQSection({ showHeader = true }: FAQSectionProps = {}) {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
 
   const toggle = (idx: number) => {
@@ -39,12 +43,14 @@ export default function FAQSection() {
 
   return (
     <div id="faq" style={{ maxWidth: "800px", margin: "0 auto" }}>
-      <div className="section-header">
-        <h2 className="section-title">Frequently Asked Questions</h2>
-        <p className="section-description">
-          Straight answers about architecture, migration timelines, and technical outcomes.
-        </p>
-      </div>
+      {showHeader && (
+        <div className="section-header">
+          <h2 className="section-title">Frequently Asked Questions</h2>
+          <p className="section-description">
+            Straight answers about architecture, migration timelines, and technical outcomes.
+          </p>
+        </div>
+      )}
 
       <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
         {faqs.map((faq, idx) => {

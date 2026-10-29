@@ -35,7 +35,7 @@ export default function FAQPage() {
         </div>
 
         {/* FAQs */}
-        <FAQSection />
+        <FAQSection showHeader={false} />
 
         {/* Still have questions? */}
         <div
