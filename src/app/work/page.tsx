@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import PortfolioShowcase from "@/components/PortfolioShowcase";
@@ -31,7 +31,7 @@ export default async function WorkPage() {
               marginBottom: "16px",
             }}
           >
-            Selected Client Work
+            Completed Client Work
           </h1>
           <p style={{ color: "#465868", fontSize: "17px", lineHeight: 1.65 }}>
             A curated collection of web applications, custom Wix Studio platforms, and digital brand experiences built for founders, consultants, and companies worldwide.

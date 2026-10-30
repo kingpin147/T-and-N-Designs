@@ -25,7 +25,7 @@ export default async function HomePage() {
         <div className="container" style={{ maxWidth: "1240px" }}>
           <div className="section-header" style={{ maxWidth: "780px", margin: "0 auto 48px auto", textAlign: "center" }}>
             <h2 className="section-title" style={{ fontSize: "clamp(28px, 3.2vw, 42px)", fontWeight: 800, color: "#1b2933" }}>
-              Selected Client Work
+              Completed Client Work
             </h2>
             <p className="section-description" style={{ color: "#465868", fontSize: "16px", lineHeight: 1.6 }}>
               A preview of our client builds spanning custom Wix Studio platforms, Velo web applications, e-commerce storefronts, and WordPress migrations.
