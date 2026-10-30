@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
@@ -95,7 +95,7 @@ export default function Card3DTilt({
           pointerEvents: "none",
           opacity: isHovered ? 1 : 0,
           transition: "opacity 0.3s ease",
-          background: `radial-gradient(circle 420px at ${spotlightPos.x}% ${spotlightPos.y}%, rgba(10, 37, 64, 0.08), transparent 75%)`,
+          background: `radial-gradient(circle 420px at ${spotlightPos.x}% ${spotlightPos.y}%, rgba(18, 57, 104, 0.08), transparent 75%)`,
           zIndex: 10,
         }}
       />

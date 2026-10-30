@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
@@ -53,7 +53,7 @@ export default function CursorGlow() {
         borderRadius: "50%",
         pointerEvents: "none",
         zIndex: 9998,
-        background: "radial-gradient(circle, rgba(10, 37, 64, 0.065) 0%, rgba(18, 51, 86, 0.03) 45%, transparent 70%)",
+        background: "radial-gradient(circle, rgba(18, 57, 104, 0.065) 0%, rgba(18, 51, 86, 0.03) 45%, transparent 70%)",
         filter: "blur(18px)",
         transform: "translate3d(0, 0, 0)",
       }}

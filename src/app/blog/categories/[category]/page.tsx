@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Clock, Calendar, ArrowRight } from "lucide-react";
@@ -56,7 +56,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
 
       <div className="container" style={{ maxWidth: "1240px", position: "relative", zIndex: 1 }}>
         <div style={{ maxWidth: "760px", marginBottom: "50px" }}>
-          <div style={{ fontSize: "13px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "#0a2540", marginBottom: "8px" }}>
+          <div style={{ fontSize: "13px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "#123968", marginBottom: "8px" }}>
             Category Archive
           </div>
           <h1 style={{ fontSize: "clamp(34px, 4.4vw, 52px)", fontWeight: 800, color: "#1b2933", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "16px" }}>
@@ -118,7 +118,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
                       {post.excerpt || post.content.slice(0, 140) + "..."}
                     </p>
 
-                    <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "#0a2540", fontWeight: 600, fontSize: "14px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "#123968", fontWeight: 600, fontSize: "14px" }}>
                       Read Article <ArrowRight size={15} />
                     </div>
                   </div>

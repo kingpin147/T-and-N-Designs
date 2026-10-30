@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
@@ -609,8 +609,8 @@ export default function AdminDashboardPage() {
   if (!authChecked) {
     return (
       <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "#f8fafc", gap: "16px" }}>
-        <Loader2 className="animate-spin" size={36} color="#0a2540" />
-        <div style={{ fontSize: "16px", fontWeight: 700, color: "#0a2540" }}>
+        <Loader2 className="animate-spin" size={36} color="#123968" />
+        <div style={{ fontSize: "16px", fontWeight: 700, color: "#123968" }}>
           Verifying Admin Credentials...
         </div>
         <p style={{ fontSize: "13px", color: "#64748b" }}>Encrypted Neon RBAC Protected Portal</p>
@@ -634,7 +634,7 @@ export default function AdminDashboardPage() {
           height: "100vh",
           padding: "24px 18px",
           flexShrink: 0,
-          boxShadow: "2px 0 12px rgba(10, 37, 64, 0.03)",
+          boxShadow: "2px 0 12px rgba(18, 57, 104, 0.03)",
           zIndex: 40,
         }}
       >
@@ -650,7 +650,7 @@ export default function AdminDashboardPage() {
               style={{ objectFit: "contain", borderRadius: "6px" }}
             />
             <div>
-              <div style={{ fontSize: "16px", fontWeight: 800, color: "#0a2540", letterSpacing: "-0.3px" }}>
+              <div style={{ fontSize: "16px", fontWeight: 800, color: "#123968", letterSpacing: "-0.3px" }}>
                 T &amp; N Designs
               </div>
               <div style={{ fontSize: "11px", fontWeight: 700, color: "#059669", textTransform: "uppercase", letterSpacing: "0.05em" }}>
@@ -670,7 +670,7 @@ export default function AdminDashboardPage() {
                 padding: "11px 16px",
                 borderRadius: "10px",
                 border: "none",
-                background: activeTab === "overview" ? "#0a2540" : "transparent",
+                background: activeTab === "overview" ? "#123968" : "transparent",
                 color: activeTab === "overview" ? "#ffffff" : "#475569",
                 fontSize: "14px",
                 fontWeight: activeTab === "overview" ? 700 : 500,
@@ -694,7 +694,7 @@ export default function AdminDashboardPage() {
                 padding: "11px 16px",
                 borderRadius: "10px",
                 border: "none",
-                background: activeTab === "leads" ? "#0a2540" : "transparent",
+                background: activeTab === "leads" ? "#123968" : "transparent",
                 color: activeTab === "leads" ? "#ffffff" : "#475569",
                 fontSize: "14px",
                 fontWeight: activeTab === "leads" ? 700 : 500,
@@ -713,7 +713,7 @@ export default function AdminDashboardPage() {
                   padding: "2px 8px",
                   borderRadius: "999px",
                   background: activeTab === "leads" ? "rgba(255,255,255,0.2)" : "#f1f5f9",
-                  color: activeTab === "leads" ? "#ffffff" : "#0a2540",
+                  color: activeTab === "leads" ? "#ffffff" : "#123968",
                   fontWeight: 700,
                 }}
               >
@@ -730,7 +730,7 @@ export default function AdminDashboardPage() {
                 padding: "11px 16px",
                 borderRadius: "10px",
                 border: "none",
-                background: activeTab === "projects" ? "#0a2540" : "transparent",
+                background: activeTab === "projects" ? "#123968" : "transparent",
                 color: activeTab === "projects" ? "#ffffff" : "#475569",
                 fontSize: "14px",
                 fontWeight: activeTab === "projects" ? 700 : 500,
@@ -749,7 +749,7 @@ export default function AdminDashboardPage() {
                   padding: "2px 8px",
                   borderRadius: "999px",
                   background: activeTab === "projects" ? "rgba(255,255,255,0.2)" : "#f1f5f9",
-                  color: activeTab === "projects" ? "#ffffff" : "#0a2540",
+                  color: activeTab === "projects" ? "#ffffff" : "#123968",
                   fontWeight: 700,
                 }}
               >
@@ -766,7 +766,7 @@ export default function AdminDashboardPage() {
                 padding: "11px 16px",
                 borderRadius: "10px",
                 border: "none",
-                background: activeTab === "blog" ? "#0a2540" : "transparent",
+                background: activeTab === "blog" ? "#123968" : "transparent",
                 color: activeTab === "blog" ? "#ffffff" : "#475569",
                 fontSize: "14px",
                 fontWeight: activeTab === "blog" ? 700 : 500,
@@ -785,7 +785,7 @@ export default function AdminDashboardPage() {
                   padding: "2px 8px",
                   borderRadius: "999px",
                   background: activeTab === "blog" ? "rgba(255,255,255,0.2)" : "#f1f5f9",
-                  color: activeTab === "blog" ? "#ffffff" : "#0a2540",
+                  color: activeTab === "blog" ? "#ffffff" : "#123968",
                   fontWeight: 700,
                 }}
               >
@@ -802,7 +802,7 @@ export default function AdminDashboardPage() {
                 padding: "11px 16px",
                 borderRadius: "10px",
                 border: "none",
-                background: activeTab === "users" ? "#0a2540" : "transparent",
+                background: activeTab === "users" ? "#123968" : "transparent",
                 color: activeTab === "users" ? "#ffffff" : "#475569",
                 fontSize: "14px",
                 fontWeight: activeTab === "users" ? 700 : 500,
@@ -826,7 +826,7 @@ export default function AdminDashboardPage() {
                 padding: "11px 16px",
                 borderRadius: "10px",
                 border: "none",
-                background: activeTab === "analytics" ? "#0a2540" : "transparent",
+                background: activeTab === "analytics" ? "#123968" : "transparent",
                 color: activeTab === "analytics" ? "#ffffff" : "#475569",
                 fontSize: "14px",
                 fontWeight: activeTab === "analytics" ? 700 : 500,
@@ -866,7 +866,7 @@ export default function AdminDashboardPage() {
                 <Clock size={10} /> {formatSessionTime(sessionSecondsLeft)}
               </span>
             </div>
-            <div style={{ fontSize: "13px", fontWeight: 700, color: "#0a2540", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+            <div style={{ fontSize: "13px", fontWeight: 700, color: "#123968", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
               {currentUser.email}
             </div>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "6px" }}>
@@ -916,7 +916,7 @@ export default function AdminDashboardPage() {
               alignItems: "center",
               gap: "6px",
               fontSize: "13px",
-              color: "#0a2540",
+              color: "#123968",
               fontWeight: 600,
               textDecoration: "none",
               padding: "6px 0",
@@ -947,7 +947,7 @@ export default function AdminDashboardPage() {
         >
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <span style={{ width: "9px", height: "9px", borderRadius: "50%", background: "#10b981", display: "inline-block" }} />
-            <span style={{ fontSize: "13px", fontWeight: 700, color: "#0a2540" }}>
+            <span style={{ fontSize: "13px", fontWeight: 700, color: "#123968" }}>
               Verified: <strong style={{ color: "#0284c7" }}>{currentUser.email}</strong>
             </span>
             <span style={{ fontSize: "10px", fontWeight: 800, background: "#f1f5f9", color: "#475569", padding: "2px 8px", borderRadius: "999px", textTransform: "uppercase" }}>
@@ -1016,7 +1016,7 @@ export default function AdminDashboardPage() {
                 <div style={{ fontSize: "12px", color: "#64748b", textTransform: "uppercase", fontWeight: 700, marginBottom: "8px" }}>
                   Total Inquiries (Neon DB)
                 </div>
-                <div style={{ fontSize: "36px", fontWeight: 800, color: "#0a2540" }}>{stats.totalLeads}</div>
+                <div style={{ fontSize: "36px", fontWeight: 800, color: "#123968" }}>{stats.totalLeads}</div>
                 <div style={{ fontSize: "12px", color: "#059669", marginTop: "4px", fontWeight: 600 }}>Stored permanently in Postgres</div>
               </div>
 
@@ -1040,7 +1040,7 @@ export default function AdminDashboardPage() {
                 <div style={{ fontSize: "12px", color: "#64748b", textTransform: "uppercase", fontWeight: 700, marginBottom: "8px" }}>
                   Portfolio Projects
                 </div>
-                <div style={{ fontSize: "36px", fontWeight: 800, color: "#0a2540" }}>{projects.length || stats.totalProjects}</div>
+                <div style={{ fontSize: "36px", fontWeight: 800, color: "#123968" }}>{projects.length || stats.totalProjects}</div>
                 <div style={{ fontSize: "12px", color: "#64748b", marginTop: "4px" }}>Neon Object Storage synced</div>
               </div>
             </div>
@@ -1136,7 +1136,7 @@ export default function AdminDashboardPage() {
                         fontSize: "13px",
                         fontWeight: 600,
                         cursor: "pointer",
-                        background: leadStatusFilter === st ? "#0a2540" : "transparent",
+                        background: leadStatusFilter === st ? "#123968" : "transparent",
                         color: leadStatusFilter === st ? "#ffffff" : "#475569",
                         textTransform: "capitalize",
                       }}
@@ -1344,7 +1344,7 @@ export default function AdminDashboardPage() {
                             ★ Featured
                           </span>
                         )}
-                        <span style={{ fontSize: "11px", fontWeight: 700, background: "rgba(10, 37, 64, 0.85)", color: "#ffffff", padding: "3px 8px", borderRadius: "6px", backdropFilter: "blur(4px)" }}>
+                        <span style={{ fontSize: "11px", fontWeight: 700, background: "rgba(18, 57, 104, 0.85)", color: "#ffffff", padding: "3px 8px", borderRadius: "6px", backdropFilter: "blur(4px)" }}>
                           {proj.category}
                         </span>
                       </div>
@@ -1365,7 +1365,7 @@ export default function AdminDashboardPage() {
                           href={proj.projectUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          style={{ fontSize: "13px", color: "#0a2540", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "4px" }}
+                          style={{ fontSize: "13px", color: "#123968", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "4px" }}
                         >
                           Visit Live <ExternalLink size={13} />
                         </a>
@@ -1615,7 +1615,7 @@ export default function AdminDashboardPage() {
                                   setEditUserModalOpen(true);
                                 }}
                                 className="btn-secondary"
-                                style={{ padding: "6px 10px", fontSize: "12px", color: "#0a2540" }}
+                                style={{ padding: "6px 10px", fontSize: "12px", color: "#123968" }}
                                 title="Edit Permissions & Role"
                               >
                                 <Edit3 size={13} />
@@ -1756,7 +1756,7 @@ export default function AdminDashboardPage() {
                     id="projectFeatured"
                     checked={!!currentProject.featured}
                     onChange={(e) => setCurrentProject({ ...currentProject, featured: e.target.checked })}
-                    style={{ width: "18px", height: "18px", cursor: "pointer", accentColor: "#0a2540" }}
+                    style={{ width: "18px", height: "18px", cursor: "pointer", accentColor: "#123968" }}
                   />
                   <label htmlFor="projectFeatured" style={{ fontSize: "13px", fontWeight: 600, color: "#334155", cursor: "pointer" }}>
                     Feature on Homepage Portfolio Showcase
@@ -1771,7 +1771,7 @@ export default function AdminDashboardPage() {
                     onChange={(e) => handleImageUpload(e, "portfolio")}
                     style={{ fontSize: "13px", color: "#475569" }}
                   />
-                  {uploadingImage && <span style={{ fontSize: "12px", color: "#0a2540", marginLeft: "8px", fontWeight: 600 }}>Uploading to S3...</span>}
+                  {uploadingImage && <span style={{ fontSize: "12px", color: "#123968", marginLeft: "8px", fontWeight: 600 }}>Uploading to S3...</span>}
                 </div>
               </div>
 
@@ -1876,7 +1876,7 @@ export default function AdminDashboardPage() {
                       id="postPublished"
                       checked={currentPost.published ?? true}
                       onChange={(e) => setCurrentPost({ ...currentPost, published: e.target.checked })}
-                      style={{ width: "18px", height: "18px", cursor: "pointer", accentColor: "#0a2540" }}
+                      style={{ width: "18px", height: "18px", cursor: "pointer", accentColor: "#123968" }}
                     />
                     <label htmlFor="postPublished" style={{ fontSize: "13px", fontWeight: 600, color: "#334155", cursor: "pointer" }}>
                       Published
@@ -1892,7 +1892,7 @@ export default function AdminDashboardPage() {
                     onChange={(e) => handleImageUpload(e, "blog")}
                     style={{ fontSize: "13px", color: "#475569" }}
                   />
-                  {uploadingImage && <span style={{ fontSize: "12px", color: "#0a2540", marginLeft: "8px", fontWeight: 600 }}>Uploading to S3...</span>}
+                  {uploadingImage && <span style={{ fontSize: "12px", color: "#123968", marginLeft: "8px", fontWeight: 600 }}>Uploading to S3...</span>}
                 </div>
               </div>
 
@@ -2085,7 +2085,7 @@ export default function AdminDashboardPage() {
             color: "#ffffff",
             padding: "12px 22px",
             borderRadius: "10px",
-            boxShadow: "0 12px 28px rgba(10, 37, 64, 0.22)",
+            boxShadow: "0 12px 28px rgba(18, 57, 104, 0.22)",
             display: "flex",
             alignItems: "center",
             gap: "10px",

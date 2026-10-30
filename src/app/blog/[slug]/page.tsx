@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import fs from "node:fs";
@@ -68,7 +68,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {/* Lead Excerpt */}
         {post.excerpt && (
-          <p style={{ fontSize: "19px", color: "#465868", lineHeight: 1.6, marginBottom: "36px", fontStyle: "italic", borderLeft: "3px solid #0a2540", paddingLeft: "20px" }}>
+          <p style={{ fontSize: "19px", color: "#465868", lineHeight: 1.6, marginBottom: "36px", fontStyle: "italic", borderLeft: "3px solid #123968", paddingLeft: "20px" }}>
             {post.excerpt}
           </p>
         )}
@@ -131,7 +131,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <p style={{ color: "#465868", fontSize: "16px", maxWidth: "560px", margin: "0 auto 24px auto", lineHeight: 1.6 }}>
             We design and build bespoke Wix Studio and Next.js platforms tailored to help ambitious brands attract customers and scale.
           </p>
-          <Link href="/contact" className="btn-primary" style={{ padding: "12px 28px", fontSize: "15px", background: "#0a2540", borderColor: "#06182c" }}>
+          <Link href="/contact" className="btn-primary" style={{ padding: "12px 28px", fontSize: "15px", background: "#123968", borderColor: "#0a223f" }}>
             Start a Conversation <ArrowRight size={16} />
           </Link>
         </div>

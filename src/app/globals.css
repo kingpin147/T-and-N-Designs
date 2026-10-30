@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
 
 :root {
   --bg-primary: #ffffff;
@@ -8,21 +8,21 @@
   --bg-card-hover: #f8fafc;
   
   --border-subtle: #e2e8f0;
-  --border-focus: rgba(10, 37, 64, 0.35);
+  --border-focus: rgba(18, 57, 104, 0.35);
   --border-accent: #cbd5e1;
 
   --text-primary: #0f172a;
   --text-secondary: #475569;
   --text-muted: #64748b;
-  --text-accent: #0a2540;
+  --text-accent: #123968;
 
-  --accent-cyan: #0a2540;
-  --accent-blue: #0a2540;
-  --accent-indigo: #06182c;
+  --accent-cyan: #123968;
+  --accent-blue: #123968;
+  --accent-indigo: #0a223f;
   --accent-emerald: #059669;
-  --accent-gradient: linear-gradient(135deg, #0a2540 0%, #06182c 100%);
-  --glow-cyan: rgba(10, 37, 64, 0.08);
-  --glow-indigo: rgba(6, 24, 44, 0.06);
+  --accent-gradient: linear-gradient(135deg, #123968 0%, #0a223f 100%);
+  --glow-cyan: rgba(18, 57, 104, 0.08);
+  --glow-indigo: rgba(10, 34, 63, 0.06);
 
   --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Outfit', system-ui, -apple-system, sans-serif;
@@ -89,7 +89,7 @@ a {
 
 .glass-panel:hover {
   border-color: var(--border-accent);
-  box-shadow: 0 12px 32px rgba(10, 37, 64, 0.08);
+  box-shadow: 0 12px 32px rgba(18, 57, 104, 0.08);
 }
 
 /* 2026 Interactive Tactile Service Card */
@@ -118,7 +118,7 @@ a {
   left: 10%;
   right: 10%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #0a2540, transparent);
+  background: linear-gradient(90deg, transparent, #123968, transparent);
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
@@ -126,8 +126,8 @@ a {
 
 .interactive-service-card:hover {
   transform: translateY(-4px) translateZ(0);
-  border-color: rgba(10, 37, 64, 0.28);
-  box-shadow: 0 16px 36px -8px rgba(10, 37, 64, 0.12), 0 0 0 1px rgba(10, 37, 64, 0.08);
+  border-color: rgba(18, 57, 104, 0.28);
+  box-shadow: 0 16px 36px -8px rgba(18, 57, 104, 0.12), 0 0 0 1px rgba(18, 57, 104, 0.08);
 }
 
 .interactive-service-card:hover::before {
@@ -143,16 +143,16 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #0a2540;
+  color: #123968;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .interactive-service-card:hover .service-icon-box {
-  background: linear-gradient(135deg, #0a2540 0%, #1a365d 100%);
-  border-color: #0a2540;
+  background: linear-gradient(135deg, #123968 0%, #1a365d 100%);
+  border-color: #123968;
   color: #ffffff;
   transform: scale(1.08) translateY(-2px);
-  box-shadow: 0 8px 20px rgba(10, 37, 64, 0.22);
+  box-shadow: 0 8px 20px rgba(18, 57, 104, 0.22);
 }
 
 .interactive-service-card:hover .service-icon-box svg {
@@ -166,7 +166,7 @@ a {
 }
 
 .interactive-service-card:hover .service-title {
-  color: #0a2540;
+  color: #123968;
 }
 
 .interactive-service-card:hover .service-check-icon {
@@ -180,7 +180,7 @@ a {
 
 .interactive-service-card:hover .service-footer-arrow {
   transform: translateX(4px);
-  color: #0a2540;
+  color: #123968;
 }
 
 /* 2026 Tactile Noise Grain Layer */
@@ -206,15 +206,15 @@ a {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: #0a2540;
+  background: #123968;
   color: #ffffff !important;
   font-family: var(--font-heading);
   font-weight: 600;
   font-size: 15px;
   padding: 13px 28px;
   border-radius: var(--radius-full);
-  border: 1px solid #06182c;
-  box-shadow: 0 4px 18px rgba(10, 37, 64, 0.22);
+  border: 1px solid #0a223f;
+  box-shadow: 0 4px 18px rgba(18, 57, 104, 0.22);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
@@ -239,7 +239,7 @@ a {
   content: '';
   position: absolute;
   inset: 1px;
-  background: #0a2540;
+  background: #123968;
   border-radius: var(--radius-full);
   z-index: -1;
   transition: background 0.3s ease;
@@ -249,7 +249,7 @@ a {
 .btn-modern:hover {
   transform: translateY(-2px);
   border-color: rgba(56, 189, 248, 0.5);
-  box-shadow: 0 8px 25px rgba(10, 37, 64, 0.32), 0 0 16px rgba(56, 189, 248, 0.2);
+  box-shadow: 0 8px 25px rgba(18, 57, 104, 0.32), 0 0 16px rgba(56, 189, 248, 0.2);
   color: #ffffff !important;
 }
 
@@ -276,7 +276,7 @@ a {
   justify-content: center;
   gap: 10px;
   background: #ffffff;
-  color: #0a2540;
+  color: #123968;
   font-family: var(--font-heading);
   font-weight: 600;
   font-size: 15px;
@@ -291,10 +291,10 @@ a {
 
 .btn-secondary:hover {
   background: #f8fafc;
-  border-color: #0a2540;
+  border-color: #123968;
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(10, 37, 64, 0.08);
-  color: #0a2540;
+  box-shadow: 0 6px 18px rgba(18, 57, 104, 0.08);
+  color: #123968;
 }
 
 .btn-secondary:active {
@@ -336,7 +336,7 @@ a {
   inset: 0;
   background: radial-gradient(
     500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(10, 37, 64, 0.07),
+    rgba(18, 57, 104, 0.07),
     transparent 50%
   );
   opacity: 0;
@@ -399,7 +399,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 8px 32px rgba(10, 37, 64, 0.06);
+  box-shadow: 0 8px 32px rgba(18, 57, 104, 0.06);
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -514,7 +514,7 @@ a {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 25px 60px -15px rgba(10, 37, 64, 0.35);
+  box-shadow: 0 25px 60px -15px rgba(18, 57, 104, 0.35);
   border: 1px solid #e2e8f0;
   position: relative;
   color: #0f172a;

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -45,7 +45,7 @@ export default function AgencyHero() {
               marginBottom: "36px",
             }}
           >
-            <strong style={{ color: "#0a2540", fontWeight: 700 }}>T &amp; N Designs</strong> is a web design and growth agency. We specialize in custom Wix Studio architectures, high-velocity Next.js web applications, WordPress migrations, and high-ROI Meta Ads campaigns.
+            <strong style={{ color: "#123968", fontWeight: 700 }}>T &amp; N Designs</strong> is a web design and growth agency. We specialize in custom Wix Studio architectures, high-velocity Next.js web applications, WordPress migrations, and high-ROI Meta Ads campaigns.
           </p>
 
           <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", alignItems: "center", marginBottom: "48px" }}>
@@ -55,8 +55,8 @@ export default function AgencyHero() {
               style={{
                 padding: "14px 32px",
                 fontSize: "15px",
-                background: "#0a2540",
-                borderColor: "#06182c",
+                background: "#123968",
+                borderColor: "#0a223f",
               }}
             >
               Start a Project <ArrowRight size={16} />
@@ -68,7 +68,7 @@ export default function AgencyHero() {
                 padding: "14px 28px",
                 fontSize: "15px",
                 background: "#ffffff",
-                color: "#0a2540",
+                color: "#123968",
                 border: "1px solid #cbd5e1",
               }}
             >
@@ -88,14 +88,14 @@ export default function AgencyHero() {
             }}
           >
             <div>
-              <div style={{ fontSize: "28px", fontWeight: 800, color: "#0a2540", lineHeight: 1 }}>85+</div>
+              <div style={{ fontSize: "28px", fontWeight: 800, color: "#123968", lineHeight: 1 }}>85+</div>
               <div style={{ fontSize: "13px", color: "#64748b", marginTop: "6px", fontWeight: 500 }}>
                 Client Builds Delivered
               </div>
             </div>
 
             <div>
-              <div style={{ fontSize: "28px", fontWeight: 800, color: "#0a2540", lineHeight: 1, display: "flex", alignItems: "center", gap: "4px" }}>
+              <div style={{ fontSize: "28px", fontWeight: 800, color: "#123968", lineHeight: 1, display: "flex", alignItems: "center", gap: "4px" }}>
                 5.0 <Star size={18} fill="#f59e0b" color="#f59e0b" />
               </div>
               <div style={{ fontSize: "13px", color: "#64748b", marginTop: "6px", fontWeight: 500 }}>
@@ -104,14 +104,14 @@ export default function AgencyHero() {
             </div>
 
             <div>
-              <div style={{ fontSize: "28px", fontWeight: 800, color: "#0a2540", lineHeight: 1 }}>100%</div>
+              <div style={{ fontSize: "28px", fontWeight: 800, color: "#123968", lineHeight: 1 }}>100%</div>
               <div style={{ fontSize: "13px", color: "#64748b", marginTop: "6px", fontWeight: 500 }}>
                 Core Web Vitals &amp; Speed
               </div>
             </div>
 
             <div>
-              <div style={{ fontSize: "28px", fontWeight: 800, color: "#0a2540", lineHeight: 1 }}>Zero</div>
+              <div style={{ fontSize: "28px", fontWeight: 800, color: "#123968", lineHeight: 1 }}>Zero</div>
               <div style={{ fontSize: "13px", color: "#64748b", marginTop: "6px", fontWeight: 500 }}>
                 Migration Downtime &amp; SEO Loss
               </div>

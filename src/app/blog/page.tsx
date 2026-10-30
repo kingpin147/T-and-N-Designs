@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import fs from "node:fs";
@@ -97,7 +97,7 @@ export default async function BlogArchivePage() {
                     {post.excerpt || post.content.slice(0, 140)}
                   </p>
 
-                  <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "#0a2540", fontSize: "14px", fontWeight: 600 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "6px", color: "#123968", fontSize: "14px", fontWeight: 600 }}>
                     Read Article <ArrowRight size={14} />
                   </div>
                 </div>

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Link from "next/link";
 import { ArrowRight, Briefcase, MapPin, Clock, CheckCircle } from "lucide-react";
 import ThreeHeroCanvas from "@/components/ThreeHeroCanvas";
@@ -47,7 +47,7 @@ export default function CareersPage() {
 
       <div className="container" style={{ maxWidth: "1240px", position: "relative", zIndex: 1 }}>
         <div style={{ maxWidth: "820px", marginBottom: "50px" }}>
-          <div style={{ fontSize: "13px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "#0a2540", marginBottom: "12px" }}>
+          <div style={{ fontSize: "13px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "#123968", marginBottom: "12px" }}>
             Join Our Team
           </div>
           <h1 style={{ fontSize: "clamp(36px, 4.5vw, 56px)", fontWeight: 800, color: "#1b2933", letterSpacing: "-0.03em", lineHeight: 1.15, marginBottom: "20px" }}>
@@ -78,7 +78,7 @@ export default function CareersPage() {
               >
                 <div style={{ maxWidth: "680px" }}>
                   <div style={{ display: "flex", gap: "12px", alignItems: "center", marginBottom: "8px", flexWrap: "wrap" }}>
-                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#0a2540", background: "rgba(10, 37, 64, 0.06)", padding: "4px 10px", borderRadius: "999px" }}>
+                    <span style={{ fontSize: "12px", fontWeight: 700, color: "#123968", background: "rgba(18, 57, 104, 0.06)", padding: "4px 10px", borderRadius: "999px" }}>
                       {role.department}
                     </span>
                     <span style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "13px", color: "#64748b" }}>
@@ -103,8 +103,8 @@ export default function CareersPage() {
                     style={{
                       padding: "10px 22px",
                       fontSize: "14px",
-                      background: "#0a2540",
-                      borderColor: "#06182c",
+                      background: "#123968",
+                      borderColor: "#0a223f",
                     }}
                   >
                     Apply Now <ArrowRight size={14} />

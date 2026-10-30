@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -49,8 +49,8 @@ export default function Navbar() {
           background: scrolled ? "rgba(255, 255, 255, 0.94)" : "rgba(255, 255, 255, 0.88)",
           borderColor: scrolled ? "rgba(203, 213, 225, 0.9)" : "rgba(226, 232, 240, 0.9)",
           boxShadow: scrolled
-            ? "0 12px 36px rgba(10, 37, 64, 0.1)"
-            : "0 6px 24px rgba(10, 37, 64, 0.05)",
+            ? "0 12px 36px rgba(18, 57, 104, 0.1)"
+            : "0 6px 24px rgba(18, 57, 104, 0.05)",
         }}
       >
         {/* Brand Logo */}
@@ -63,7 +63,7 @@ export default function Navbar() {
             priority
             style={{ objectFit: "contain", borderRadius: "6px" }}
           />
-          <span style={{ fontSize: "18px", fontWeight: 800, color: "#0a2540", letterSpacing: "-0.5px" }}>
+          <span style={{ fontSize: "18px", fontWeight: 800, color: "#123968", letterSpacing: "-0.5px" }}>
             T &amp; N Designs
           </span>
         </Link>
@@ -89,7 +89,7 @@ export default function Navbar() {
                       padding: "8px 16px",
                       fontSize: "14px",
                       fontWeight: isActive ? 700 : 500,
-                      color: isActive ? "#0a2540" : isHovered ? "#0a2540" : "#475569",
+                      color: isActive ? "#123968" : isHovered ? "#123968" : "#475569",
                       textDecoration: "none",
                       transition: "color 0.2s ease",
                       zIndex: 2,
@@ -106,7 +106,7 @@ export default function Navbar() {
                           width: "4px",
                           height: "4px",
                           borderRadius: "50%",
-                          background: "#0a2540",
+                          background: "#123968",
                         }}
                       />
                     )}
@@ -121,8 +121,8 @@ export default function Navbar() {
                           position: "absolute",
                           inset: 0,
                           borderRadius: "9999px",
-                          background: "rgba(10, 37, 64, 0.07)",
-                          border: "1px solid rgba(10, 37, 64, 0.12)",
+                          background: "rgba(18, 57, 104, 0.07)",
+                          border: "1px solid rgba(18, 57, 104, 0.12)",
                           zIndex: -1,
                         }}
                       />
@@ -159,7 +159,7 @@ export default function Navbar() {
               display: "none",
               background: "none",
               border: "none",
-              color: "#0a2540",
+              color: "#123968",
               cursor: "pointer",
             }}
           >
@@ -186,7 +186,7 @@ export default function Navbar() {
             display: "flex",
             flexDirection: "column",
             gap: "16px",
-            boxShadow: "0 20px 40px rgba(10, 37, 64, 0.12)",
+            boxShadow: "0 20px 40px rgba(18, 57, 104, 0.12)",
           }}
         >
           {NAV_ITEMS.map((item) => (
@@ -197,7 +197,7 @@ export default function Navbar() {
               style={{
                 fontSize: "16px",
                 fontWeight: 600,
-                color: pathname === item.href ? "#0a2540" : "#475569",
+                color: pathname === item.href ? "#123968" : "#475569",
                 textDecoration: "none",
                 padding: "8px 0",
               }}

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -98,7 +98,7 @@ function InteractiveServiceCard({ svc }: { svc: ServiceItem }) {
               left: "10%",
               right: "10%",
               height: "2px",
-              background: "linear-gradient(90deg, transparent, #0a2540, transparent)",
+              background: "linear-gradient(90deg, transparent, #123968, transparent)",
               opacity: isHovered ? 1 : 0,
               transition: "opacity 0.35s ease",
               pointerEvents: "none",
@@ -193,7 +193,7 @@ function InteractiveServiceCard({ svc }: { svc: ServiceItem }) {
               justifyContent: "space-between",
               fontSize: "13px",
               fontWeight: 600,
-              color: isHovered ? "#0a2540" : "#94a3b8",
+              color: isHovered ? "#123968" : "#94a3b8",
               transition: "all 0.25s ease",
             }}
           >

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Link from "next/link";
 import { ArrowRight, Code, ShieldCheck, Zap, Globe, Sparkles } from "lucide-react";
 import ThreeHeroCanvas from "@/components/ThreeHeroCanvas";
@@ -17,7 +17,7 @@ export default function AboutPage() {
       <div className="container" style={{ maxWidth: "1240px", position: "relative", zIndex: 1 }}>
         {/* Hero */}
         <div style={{ maxWidth: "820px", marginBottom: "60px" }}>
-          <div style={{ fontSize: "13px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "#0a2540", marginBottom: "12px" }}>
+          <div style={{ fontSize: "13px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "#123968", marginBottom: "12px" }}>
             About T &amp; N Designs
           </div>
           <h1 style={{ fontSize: "clamp(36px, 4.5vw, 56px)", fontWeight: 800, color: "#1b2933", letterSpacing: "-0.03em", lineHeight: 1.15, marginBottom: "20px" }}>
@@ -32,7 +32,7 @@ export default function AboutPage() {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "28px", marginBottom: "60px" }}>
           <Card3DTilt maxTilt={5}>
             <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "16px", padding: "36px", height: "100%", boxShadow: "0 4px 16px rgba(0,0,0,0.03)" }}>
-              <div style={{ width: "48px", height: "48px", borderRadius: "12px", background: "rgba(10, 37, 64, 0.06)", display: "flex", alignItems: "center", justifyContent: "center", color: "#0a2540", marginBottom: "20px" }}>
+              <div style={{ width: "48px", height: "48px", borderRadius: "12px", background: "rgba(18, 57, 104, 0.06)", display: "flex", alignItems: "center", justifyContent: "center", color: "#123968", marginBottom: "20px" }}>
                 <Zap size={24} />
               </div>
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1b2933", marginBottom: "12px" }}>High-Velocity Performance</h2>
@@ -44,7 +44,7 @@ export default function AboutPage() {
 
           <Card3DTilt maxTilt={5}>
             <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "16px", padding: "36px", height: "100%", boxShadow: "0 4px 16px rgba(0,0,0,0.03)" }}>
-              <div style={{ width: "48px", height: "48px", borderRadius: "12px", background: "rgba(10, 37, 64, 0.06)", display: "flex", alignItems: "center", justifyContent: "center", color: "#0a2540", marginBottom: "20px" }}>
+              <div style={{ width: "48px", height: "48px", borderRadius: "12px", background: "rgba(18, 57, 104, 0.06)", display: "flex", alignItems: "center", justifyContent: "center", color: "#123968", marginBottom: "20px" }}>
                 <Code size={24} />
               </div>
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1b2933", marginBottom: "12px" }}>Bespoke Code &amp; Custom Velo</h2>
@@ -56,7 +56,7 @@ export default function AboutPage() {
 
           <Card3DTilt maxTilt={5}>
             <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "16px", padding: "36px", height: "100%", boxShadow: "0 4px 16px rgba(0,0,0,0.03)" }}>
-              <div style={{ width: "48px", height: "48px", borderRadius: "12px", background: "rgba(10, 37, 64, 0.06)", display: "flex", alignItems: "center", justifyContent: "center", color: "#0a2540", marginBottom: "20px" }}>
+              <div style={{ width: "48px", height: "48px", borderRadius: "12px", background: "rgba(18, 57, 104, 0.06)", display: "flex", alignItems: "center", justifyContent: "center", color: "#123968", marginBottom: "20px" }}>
                 <Globe size={24} />
               </div>
               <h2 style={{ fontSize: "22px", fontWeight: 700, color: "#1b2933", marginBottom: "12px" }}>Worldwide Client Impact</h2>
@@ -68,7 +68,7 @@ export default function AboutPage() {
         </div>
 
         {/* CTA Banner */}
-        <div style={{ background: "#0a2540", borderRadius: "20px", padding: "48px 40px", color: "#ffffff", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "24px" }}>
+        <div style={{ background: "#123968", borderRadius: "20px", padding: "48px 40px", color: "#ffffff", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "24px" }}>
           <div>
             <h3 style={{ fontSize: "26px", fontWeight: 800, marginBottom: "8px", color: "#ffffff" }}>Ready to scale your digital presence?</h3>
             <p style={{ fontSize: "16px", color: "#94a3b8", maxWidth: "600px", margin: 0 }}>
@@ -80,7 +80,7 @@ export default function AboutPage() {
             className="btn-primary"
             style={{
               background: "#ffffff",
-              color: "#0a2540 !important",
+              color: "#123968 !important",
               borderColor: "#e2e8f0",
               fontWeight: 700,
             }}

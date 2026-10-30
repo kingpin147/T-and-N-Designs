@@ -1,4 +1,4 @@
-import bcrypt from "bcryptjs";
+﻿import bcrypt from "bcryptjs";
 import { validateInviteInput } from "@/validations/user.validator";
 import {
   findAllTeamMembers,
@@ -43,7 +43,7 @@ export async function inviteNewTeamMember(rawPayload: unknown) {
       subject: "You've been invited to T & N Designs Agency Portal",
       htmlContent: `
         <div style="font-family: sans-serif; max-width: 560px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px;">
-          <h2 style="color: #0a2540;">Welcome to T &amp; N Designs Portal</h2>
+          <h2 style="color: #123968;">Welcome to T &amp; N Designs Portal</h2>
           <p>Hello ${cleanInput.name},</p>
           <p>You have been assigned the <strong>${cleanInput.role}</strong> role on our digital management platform.</p>
           <div style="background: #f8fafc; padding: 16px; border-radius: 8px; margin: 20px 0;">

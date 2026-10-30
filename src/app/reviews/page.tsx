@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import Testimonials from "@/components/Testimonials";
@@ -60,8 +60,8 @@ export default function ReviewsPage() {
             style={{
               padding: "12px 28px",
               fontSize: "15px",
-              background: "#0a2540",
-              borderColor: "#06182c",
+              background: "#123968",
+              borderColor: "#0a223f",
             }}
           >
             Contact Our Team <ArrowRight size={16} />

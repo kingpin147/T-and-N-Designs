@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
@@ -64,11 +64,11 @@ export default function PortfolioShowcase({ initialProjects }: PortfolioShowcase
                 fontSize: "14px",
                 fontWeight: 600,
                 cursor: "pointer",
-                background: isActive ? "#0a2540" : "#ffffff",
+                background: isActive ? "#123968" : "#ffffff",
                 color: isActive ? "#ffffff" : "#465868",
-                border: isActive ? "1px solid #06182c" : "1px solid #e2e8f0",
+                border: isActive ? "1px solid #0a223f" : "1px solid #e2e8f0",
                 transition: "all var(--transition-fast)",
-                boxShadow: isActive ? "0 4px 14px rgba(10, 37, 64, 0.25)" : "0 1px 3px rgba(0,0,0,0.05)",
+                boxShadow: isActive ? "0 4px 14px rgba(18, 57, 104, 0.25)" : "0 1px 3px rgba(0,0,0,0.05)",
               }}
             >
               {cat.label}
@@ -152,7 +152,7 @@ export default function PortfolioShowcase({ initialProjects }: PortfolioShowcase
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        color: "#0a2540",
+                        color: "#123968",
                         boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
                       }}
                       title="Visit Live Site"
@@ -234,7 +234,7 @@ export default function PortfolioShowcase({ initialProjects }: PortfolioShowcase
               {/* Modal Sticky Header */}
               <div className="modern-modal-header">
                 <div>
-                  <div style={{ fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "#0a2540" }}>
+                  <div style={{ fontSize: "12px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "#123968" }}>
                     {selectedProject.category.replace("-", " ")}
                   </div>
                   <h2 style={{ fontSize: "20px", fontWeight: 800, color: "#0f172a", margin: 0, lineHeight: 1.2 }}>
@@ -269,9 +269,9 @@ export default function PortfolioShowcase({ initialProjects }: PortfolioShowcase
                       key={i}
                       style={{
                         fontSize: "12px",
-                        background: "rgba(10, 37, 64, 0.06)",
-                        color: "#0a2540",
-                        border: "1px solid rgba(10, 37, 64, 0.15)",
+                        background: "rgba(18, 57, 104, 0.06)",
+                        color: "#123968",
+                        border: "1px solid rgba(18, 57, 104, 0.15)",
                         padding: "4px 12px",
                         borderRadius: "999px",
                         fontWeight: 600,
@@ -314,8 +314,8 @@ export default function PortfolioShowcase({ initialProjects }: PortfolioShowcase
                     style={{
                       fontSize: "14px",
                       padding: "10px 22px",
-                      background: "#0a2540",
-                      borderColor: "#06182c",
+                      background: "#123968",
+                      borderColor: "#0a223f",
                     }}
                   >
                     Visit Live Platform <ExternalLink size={15} />

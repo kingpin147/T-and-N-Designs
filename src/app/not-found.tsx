@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import InteractiveStone404 from "@/components/InteractiveStone404";
@@ -22,7 +22,7 @@ export default function NotFound() {
         {/* Interactive 3D Wireframe Gem Animation matching the Brand Canvas */}
         <InteractiveStone404 />
 
-        <div style={{ fontSize: "68px", fontWeight: 900, color: "#0a2540", lineHeight: 1, marginBottom: "12px", letterSpacing: "-0.04em" }}>
+        <div style={{ fontSize: "68px", fontWeight: 900, color: "#123968", lineHeight: 1, marginBottom: "12px", letterSpacing: "-0.04em" }}>
           404
         </div>
         <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#1b2933", marginBottom: "12px" }}>
@@ -37,8 +37,8 @@ export default function NotFound() {
           style={{
             padding: "13px 32px",
             fontSize: "15px",
-            background: "#0a2540",
-            borderColor: "#06182c",
+            background: "#123968",
+            borderColor: "#0a223f",
             borderRadius: "9999px",
             display: "inline-flex",
             alignItems: "center",

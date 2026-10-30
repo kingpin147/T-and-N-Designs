@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect, useId } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -1398,7 +1398,7 @@ export default function PostHogAnalyticsDashboard() {
                 {/* 1. Top Summary Banner */}
                 <div
                   style={{
-                    background: "linear-gradient(135deg, #0a2540 0%, #0f172a 100%)",
+                    background: "linear-gradient(135deg, #123968 0%, #0f172a 100%)",
                     borderRadius: "14px",
                     padding: "24px 28px",
                     color: "#ffffff",
@@ -1407,7 +1407,7 @@ export default function PostHogAnalyticsDashboard() {
                     alignItems: "center",
                     flexWrap: "wrap",
                     gap: "18px",
-                    boxShadow: "0 8px 24px rgba(10, 37, 64, 0.15)",
+                    boxShadow: "0 8px 24px rgba(18, 57, 104, 0.15)",
                   }}
                 >
                   <div style={{ maxWidth: "680px" }}>
@@ -1453,7 +1453,7 @@ export default function PostHogAnalyticsDashboard() {
                     <div style={{ fontSize: "12px", fontWeight: 700, color: "#64748b", textTransform: "uppercase", marginBottom: "6px" }}>
                       AI Crawlers Allowed
                     </div>
-                    <div style={{ fontSize: "26px", fontWeight: 800, color: "#0a2540" }}>
+                    <div style={{ fontSize: "26px", fontWeight: 800, color: "#123968" }}>
                       9 of 9 Bots
                     </div>
                     <div style={{ fontSize: "12px", color: "#059669", fontWeight: 600, marginTop: "4px" }}>
@@ -1465,7 +1465,7 @@ export default function PostHogAnalyticsDashboard() {
                     <div style={{ fontSize: "12px", fontWeight: 700, color: "#64748b", textTransform: "uppercase", marginBottom: "6px" }}>
                       Machine Digest (/llms.txt)
                     </div>
-                    <div style={{ fontSize: "26px", fontWeight: 800, color: "#0a2540" }}>
+                    <div style={{ fontSize: "26px", fontWeight: 800, color: "#123968" }}>
                       200 OK
                     </div>
                     <div style={{ fontSize: "12px", color: "#059669", fontWeight: 600, marginTop: "4px" }}>
@@ -1477,7 +1477,7 @@ export default function PostHogAnalyticsDashboard() {
                     <div style={{ fontSize: "12px", fontWeight: 700, color: "#64748b", textTransform: "uppercase", marginBottom: "6px" }}>
                       AI Agent MCP Protocol
                     </div>
-                    <div style={{ fontSize: "26px", fontWeight: 800, color: "#0a2540" }}>
+                    <div style={{ fontSize: "26px", fontWeight: 800, color: "#123968" }}>
                       Active
                     </div>
                     <div style={{ fontSize: "12px", color: "#2563eb", fontWeight: 600, marginTop: "4px" }}>
@@ -1489,7 +1489,7 @@ export default function PostHogAnalyticsDashboard() {
                     <div style={{ fontSize: "12px", fontWeight: 700, color: "#64748b", textTransform: "uppercase", marginBottom: "6px" }}>
                       Structured JSON-LD Schema
                     </div>
-                    <div style={{ fontSize: "26px", fontWeight: 800, color: "#0a2540" }}>
+                    <div style={{ fontSize: "26px", fontWeight: 800, color: "#123968" }}>
                       4 Schemas
                     </div>
                     <div style={{ fontSize: "12px", color: "#059669", fontWeight: 600, marginTop: "4px" }}>
@@ -1629,7 +1629,7 @@ export default function PostHogAnalyticsDashboard() {
 
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "16px" }}>
                     <div style={{ background: "#f8fafc", padding: "16px", borderRadius: "10px", border: "1px solid #e2e8f0" }}>
-                      <div style={{ fontSize: "14px", fontWeight: 700, color: "#0a2540", marginBottom: "6px" }}>
+                      <div style={{ fontSize: "14px", fontWeight: 700, color: "#123968", marginBottom: "6px" }}>
                         1. Google Search Console (AI Overviews)
                       </div>
                       <p style={{ fontSize: "13px", color: "#475569", lineHeight: 1.55, margin: 0 }}>
@@ -1638,7 +1638,7 @@ export default function PostHogAnalyticsDashboard() {
                     </div>
 
                     <div style={{ background: "#f8fafc", padding: "16px", borderRadius: "10px", border: "1px solid #e2e8f0" }}>
-                      <div style={{ fontSize: "14px", fontWeight: 700, color: "#0a2540", marginBottom: "6px" }}>
+                      <div style={{ fontSize: "14px", fontWeight: 700, color: "#123968", marginBottom: "6px" }}>
                         2. AI Referral Traffic in PostHog &amp; GA4
                       </div>
                       <p style={{ fontSize: "13px", color: "#475569", lineHeight: 1.55, margin: 0 }}>
@@ -1647,7 +1647,7 @@ export default function PostHogAnalyticsDashboard() {
                     </div>
 
                     <div style={{ background: "#f8fafc", padding: "16px", borderRadius: "10px", border: "1px solid #e2e8f0" }}>
-                      <div style={{ fontSize: "14px", fontWeight: 700, color: "#0a2540", marginBottom: "6px" }}>
+                      <div style={{ fontSize: "14px", fontWeight: 700, color: "#123968", marginBottom: "6px" }}>
                         3. Bing Webmaster Tools (Copilot Citations)
                       </div>
                       <p style={{ fontSize: "13px", color: "#475569", lineHeight: 1.55, margin: 0 }}>

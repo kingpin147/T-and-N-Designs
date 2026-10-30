@@ -43,7 +43,7 @@ export default function InteractiveStone404() {
     // A. Outer Wireframe Icosahedron Gem (Matching ThreeHeroCanvas)
     const outerGeo = new THREE.IcosahedronGeometry(1.75, 1);
     const outerMat = new THREE.MeshBasicMaterial({
-      color: 0x0a2540, // Signature Brand Navy Blue
+      color: 0x123968, // Signature Brand Navy Blue
       wireframe: true,
       transparent: true,
       opacity: 0.32,
@@ -53,7 +53,7 @@ export default function InteractiveStone404() {
 
     // B. Subtle Vertex Node Points on the Gem Joint Corners
     const pointMat = new THREE.PointsMaterial({
-      color: 0x0a2540,
+      color: 0x123968,
       size: 0.08,
       transparent: true,
       opacity: 0.7,
@@ -64,7 +64,7 @@ export default function InteractiveStone404() {
     // C. Concentric Inner Wireframe Sphere
     const innerGeo = new THREE.SphereGeometry(1.15, 20, 20);
     const innerMat = new THREE.MeshBasicMaterial({
-      color: 0x06182c,
+      color: 0x0a223f,
       wireframe: true,
       transparent: true,
       opacity: 0.16,
@@ -75,7 +75,7 @@ export default function InteractiveStone404() {
     // D. Core Geometric Octahedron Nucleus
     const coreGeo = new THREE.OctahedronGeometry(0.65, 0);
     const coreMat = new THREE.MeshBasicMaterial({
-      color: 0x0a2540,
+      color: 0x123968,
       wireframe: true,
       transparent: true,
       opacity: 0.22,
@@ -123,9 +123,9 @@ export default function InteractiveStone404() {
     const ctx = canvas.getContext("2d");
     if (ctx) {
       const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
-      gradient.addColorStop(0, "rgba(10, 37, 64, 0.95)");
-      gradient.addColorStop(0.4, "rgba(18, 51, 86, 0.65)");
-      gradient.addColorStop(1, "rgba(10, 37, 64, 0)");
+      gradient.addColorStop(0, "rgba(18, 57, 104, 0.95)");
+      gradient.addColorStop(0.4, "rgba(28, 80, 145, 0.65)");
+      gradient.addColorStop(1, "rgba(18, 57, 104, 0)");
       ctx.fillStyle = gradient;
       ctx.beginPath();
       ctx.arc(16, 16, 16, 0, Math.PI * 2);

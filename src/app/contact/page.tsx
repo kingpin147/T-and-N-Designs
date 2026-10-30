@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Link from "next/link";
 import { Mail, MapPin, Clock, ShieldCheck } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
@@ -60,17 +60,17 @@ export default function ContactPage() {
 
               <div style={{ display: "flex", flexDirection: "column", gap: "16px", fontSize: "15px", color: "#465868" }}>
                 <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
-                  <Mail size={18} color="#0a2540" style={{ marginTop: "3px", flexShrink: 0 }} />
+                  <Mail size={18} color="#123968" style={{ marginTop: "3px", flexShrink: 0 }} />
                   <div>
                     <div style={{ fontSize: "13px", color: "#64748b", fontWeight: 600 }}>Email Address</div>
-                    <a href="mailto:contact@tnndesigns.com" style={{ color: "#0a2540", fontWeight: 600, textDecoration: "none" }}>
+                    <a href="mailto:contact@tnndesigns.com" style={{ color: "#123968", fontWeight: 600, textDecoration: "none" }}>
                       contact@tnndesigns.com
                     </a>
                   </div>
                 </div>
 
                 <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
-                  <MapPin size={18} color="#0a2540" style={{ marginTop: "3px", flexShrink: 0 }} />
+                  <MapPin size={18} color="#123968" style={{ marginTop: "3px", flexShrink: 0 }} />
                   <div>
                     <div style={{ fontSize: "13px", color: "#64748b", fontWeight: 600 }}>Studio Location</div>
                     <div style={{ color: "#334155" }}>
@@ -80,7 +80,7 @@ export default function ContactPage() {
                 </div>
 
                 <div style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
-                  <Clock size={18} color="#0a2540" style={{ marginTop: "3px", flexShrink: 0 }} />
+                  <Clock size={18} color="#123968" style={{ marginTop: "3px", flexShrink: 0 }} />
                   <div>
                     <div style={{ fontSize: "13px", color: "#64748b", fontWeight: 600 }}>Response Time</div>
                     <div style={{ color: "#334155" }}>
@@ -104,15 +104,15 @@ export default function ContactPage() {
               </h4>
               <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "12px", padding: 0, fontSize: "14px", color: "#465868", lineHeight: 1.6 }}>
                 <li style={{ display: "flex", gap: "10px" }}>
-                  <span style={{ fontWeight: 700, color: "#0a2540" }}>1.</span>
+                  <span style={{ fontWeight: 700, color: "#123968" }}>1.</span>
                   <span>Our senior design and technical leads review your requirements.</span>
                 </li>
                 <li style={{ display: "flex", gap: "10px" }}>
-                  <span style={{ fontWeight: 700, color: "#0a2540" }}>2.</span>
+                  <span style={{ fontWeight: 700, color: "#123968" }}>2.</span>
                   <span>We evaluate your scope and outline an actionable delivery timeline.</span>
                 </li>
                 <li style={{ display: "flex", gap: "10px" }}>
-                  <span style={{ fontWeight: 700, color: "#0a2540" }}>3.</span>
+                  <span style={{ fontWeight: 700, color: "#123968" }}>3.</span>
                   <span>We schedule an initial discovery call or provide a transparent proposal.</span>
                 </li>
               </ul>

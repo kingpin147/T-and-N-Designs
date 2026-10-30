@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { ArrowRight, CheckCircle2, Loader2, Send } from "lucide-react";
@@ -295,8 +295,8 @@ export default function ContactForm({ redirectOnSuccess = false }: ContactFormPr
           padding: "14px 28px",
           fontSize: "15px",
           fontWeight: 600,
-          background: "#0a2540",
-          borderColor: "#06182c",
+          background: "#123968",
+          borderColor: "#0a223f",
           color: "#ffffff",
           cursor: loading ? "not-allowed" : "pointer",
         }}

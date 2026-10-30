@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { CheckCircle2, ChevronRight, Sparkles, Layers, ArrowUpRight } from "lucide-react";
 
 interface FormattedContentProps {
@@ -34,7 +34,7 @@ function renderInlineFormatting(text: string): React.ReactNode[] {
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              color: "#0a2540",
+              color: "#123968",
               fontWeight: 600,
               textDecoration: "underline",
               textUnderlineOffset: "3px",
@@ -75,7 +75,7 @@ function renderInlineFormatting(text: string): React.ReactNode[] {
           key={index}
           style={{
             background: "#f1f5f9",
-            color: "#0a2540",
+            color: "#123968",
             padding: "2px 6px",
             borderRadius: "4px",
             fontSize: "0.9em",
@@ -168,7 +168,7 @@ export default function FormattedContent({ content, type = "general" }: Formatte
                         width: "6px",
                         height: "6px",
                         borderRadius: "50%",
-                        background: "#0a2540",
+                        background: "#123968",
                         marginTop: "7px",
                       }}
                     />
@@ -308,7 +308,7 @@ export default function FormattedContent({ content, type = "general" }: Formatte
             style={{
               fontSize: type === "blog" ? "22px" : "19px",
               fontWeight: 700,
-              color: "#0a2540",
+              color: "#123968",
               marginTop: "24px",
               marginBottom: "12px",
               lineHeight: 1.35,
@@ -365,7 +365,7 @@ export default function FormattedContent({ content, type = "general" }: Formatte
               fontWeight: 800,
               textTransform: "uppercase",
               letterSpacing: "0.06em",
-              color: "#0a2540",
+              color: "#123968",
               marginTop: "24px",
               marginBottom: "12px",
             }}
@@ -394,7 +394,7 @@ export default function FormattedContent({ content, type = "general" }: Formatte
                   key={bIdx}
                   style={{
                     background: "#f1f5f9",
-                    color: "#0a2540",
+                    color: "#123968",
                     border: "1px solid #e2e8f0",
                     padding: "4px 12px",
                     borderRadius: "6px",
@@ -417,14 +417,14 @@ export default function FormattedContent({ content, type = "general" }: Formatte
           <div
             key={`impact-${elements.length}`}
             style={{
-              background: "rgba(10, 37, 64, 0.04)",
-              borderLeft: "3px solid #0a2540",
+              background: "rgba(18, 57, 104, 0.04)",
+              borderLeft: "3px solid #123968",
               borderRadius: "0 8px 8px 0",
               padding: "16px 20px",
               margin: "20px 0",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "12px", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.06em", color: "#0a2540", marginBottom: "4px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "12px", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.06em", color: "#123968", marginBottom: "4px" }}>
               <Sparkles size={14} /> Key Strategic Impact
             </div>
             {text && (
@@ -443,7 +443,7 @@ export default function FormattedContent({ content, type = "general" }: Formatte
           style={{
             fontSize: "18px",
             fontWeight: 800,
-            color: "#0a2540",
+            color: "#123968",
             marginTop: "24px",
             marginBottom: "12px",
             display: "flex",
@@ -451,7 +451,7 @@ export default function FormattedContent({ content, type = "general" }: Formatte
             gap: "8px",
           }}
         >
-          <span style={{ width: "4px", height: "16px", background: "#0a2540", borderRadius: "2px" }} />
+          <span style={{ width: "4px", height: "16px", background: "#123968", borderRadius: "2px" }} />
           {line.replace(/:$/, "")}
         </h3>
       );
@@ -490,7 +490,7 @@ export default function FormattedContent({ content, type = "general" }: Formatte
           style={{
             margin: "20px 0",
             padding: "16px 24px",
-            borderLeft: "3px solid #0a2540",
+            borderLeft: "3px solid #123968",
             background: "#f8fafc",
             borderRadius: "0 8px 8px 0",
             fontSize: "16px",
@@ -514,7 +514,7 @@ export default function FormattedContent({ content, type = "general" }: Formatte
       elements.push(
         <div key={`feat-${elements.length}`} style={{ marginTop: "20px", marginBottom: "16px" }}>
           <h4 style={{ fontSize: "17px", fontWeight: 700, color: "#0f172a", marginBottom: "8px", display: "flex", alignItems: "center", gap: "8px" }}>
-            <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "24px", height: "24px", borderRadius: "50%", background: "#0a2540", color: "#ffffff", fontSize: "12px", fontWeight: 700 }}>
+            <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "24px", height: "24px", borderRadius: "50%", background: "#123968", color: "#ffffff", fontSize: "12px", fontWeight: 700 }}>
               {num}
             </span>
             {renderInlineFormatting(featureTitle.trim())}

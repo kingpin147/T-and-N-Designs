@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { 
@@ -325,10 +325,10 @@ export default function Testimonials() {
               cursor: "pointer",
               whiteSpace: "nowrap",
               transition: "all 0.2s",
-              background: activeFilter === tab.key ? "#0a2540" : "#ffffff",
+              background: activeFilter === tab.key ? "#123968" : "#ffffff",
               color: activeFilter === tab.key ? "#ffffff" : "#475569",
-              border: activeFilter === tab.key ? "1px solid #06182c" : "1px solid var(--border-subtle)",
-              boxShadow: activeFilter === tab.key ? "0 2px 8px rgba(10, 37, 64, 0.25)" : "none",
+              border: activeFilter === tab.key ? "1px solid #0a223f" : "1px solid var(--border-subtle)",
+              boxShadow: activeFilter === tab.key ? "0 2px 8px rgba(18, 57, 104, 0.25)" : "none",
             }}
           >
             {tab.label}
@@ -432,8 +432,8 @@ export default function Testimonials() {
 
               {/* Owner Response Box */}
               {rev.ownerReply && (
-                <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderLeft: "3px solid #0a2540", padding: "10px 14px", borderRadius: "0 8px 8px 0", fontSize: "12px" }}>
-                  <div style={{ fontWeight: 700, color: "#0a2540", marginBottom: "3px" }}>
+                <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderLeft: "3px solid #123968", padding: "10px 14px", borderRadius: "0 8px 8px 0", fontSize: "12px" }}>
+                  <div style={{ fontWeight: 700, color: "#123968", marginBottom: "3px" }}>
                     Response from T &amp; N Designs
                   </div>
                   <p style={{ color: "#475569", margin: 0, fontStyle: "italic", lineHeight: 1.5 }}>

@@ -67,9 +67,9 @@ export default function ThreeHeroCanvas() {
     const ctx = canvas.getContext("2d");
     if (ctx) {
       const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
-      gradient.addColorStop(0, "rgba(10, 37, 64, 1)");
-      gradient.addColorStop(0.4, "rgba(18, 51, 86, 0.75)");
-      gradient.addColorStop(1, "rgba(10, 37, 64, 0)");
+      gradient.addColorStop(0, "rgba(18, 57, 104, 1)");
+      gradient.addColorStop(0.4, "rgba(28, 80, 145, 0.75)");
+      gradient.addColorStop(1, "rgba(18, 57, 104, 0)");
       ctx.fillStyle = gradient;
       ctx.beginPath();
       ctx.arc(16, 16, 16, 0, Math.PI * 2);
@@ -92,7 +92,7 @@ export default function ThreeHeroCanvas() {
     // 2. Floating Delicate Wireframe Geometric Gem (Navy Blue)
     const gemGeo = new THREE.IcosahedronGeometry(4.2, 1);
     const gemMat = new THREE.MeshBasicMaterial({
-      color: 0x0a2540,
+      color: 0x123968,
       wireframe: true,
       transparent: true,
       opacity: 0.22,
@@ -107,7 +107,7 @@ export default function ThreeHeroCanvas() {
     // Inner glowing sphere (Navy Blue)
     const innerGeo = new THREE.SphereGeometry(2.6, 24, 24);
     const innerMat = new THREE.MeshBasicMaterial({
-      color: 0x06182c,
+      color: 0x0a223f,
       wireframe: true,
       transparent: true,
       opacity: 0.12,

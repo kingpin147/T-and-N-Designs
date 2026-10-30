@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -54,7 +54,7 @@ export default function Footer() {
               <li><Link href="/reviews" style={{ color: "#475569" }}>Client Reviews</Link></li>
               <li><Link href="/faq" style={{ color: "#475569" }}>Frequently Asked Questions</Link></li>
               <li><Link href="/blog" style={{ color: "#475569" }}>Articles &amp; Insights</Link></li>
-              <li><Link href="/contact" style={{ color: "#0a2540", fontWeight: 600 }}>Contact Us</Link></li>
+              <li><Link href="/contact" style={{ color: "#123968", fontWeight: 600 }}>Contact Us</Link></li>
             </ul>
           </div>
 
@@ -63,11 +63,11 @@ export default function Footer() {
             <h4 style={{ fontSize: "15px", fontWeight: 700, color: "#0f172a", marginBottom: "16px" }}>Direct Contact</h4>
             <div style={{ display: "flex", flexDirection: "column", gap: "12px", fontSize: "14px", color: "#475569" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <Mail size={16} color="#0a2540" />
+                <Mail size={16} color="#123968" />
                 <a href="mailto:contact@tnndesigns.com" style={{ color: "#475569", textDecoration: "none" }}>contact@tnndesigns.com</a>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <MapPin size={16} color="#0a2540" />
+                <MapPin size={16} color="#123968" />
                 <span>Lahore, Pakistan • Global Delivery</span>
               </div>
             </div>
@@ -83,7 +83,7 @@ export default function Footer() {
             <Link href="/work" style={{ color: "#64748b" }}>Work</Link>
             <Link href="/services" style={{ color: "#64748b" }}>Services</Link>
             <Link href="/reviews" style={{ color: "#64748b" }}>Reviews</Link>
-            <Link href="/contact" style={{ color: "#0a2540", fontWeight: 600 }}>Contact</Link>
+            <Link href="/contact" style={{ color: "#123968", fontWeight: 600 }}>Contact</Link>
           </div>
         </div>
       </div>

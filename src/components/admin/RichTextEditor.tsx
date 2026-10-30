@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useRef } from "react";
 import {
@@ -121,7 +121,7 @@ export default function RichTextEditor({
               borderRadius: "6px",
               border: "none",
               background: activeTab === "write" ? "#ffffff" : "transparent",
-              color: activeTab === "write" ? "#0a2540" : "#64748b",
+              color: activeTab === "write" ? "#123968" : "#64748b",
               boxShadow: activeTab === "write" ? "0 1px 3px rgba(0,0,0,0.1)" : "none",
               cursor: "pointer",
               transition: "all 0.15s ease",
@@ -142,7 +142,7 @@ export default function RichTextEditor({
               borderRadius: "6px",
               border: "none",
               background: activeTab === "preview" ? "#ffffff" : "transparent",
-              color: activeTab === "preview" ? "#0a2540" : "#64748b",
+              color: activeTab === "preview" ? "#123968" : "#64748b",
               boxShadow: activeTab === "preview" ? "0 1px 3px rgba(0,0,0,0.1)" : "none",
               cursor: "pointer",
               transition: "all 0.15s ease",
@@ -291,7 +291,7 @@ export default function RichTextEditor({
                   gap: "4px",
                   fontSize: "12px",
                   fontWeight: 600,
-                  color: "#0a2540",
+                  color: "#123968",
                   padding: "4px 8px",
                   background: "#e2e8f0",
                 }}
@@ -311,7 +311,7 @@ export default function RichTextEditor({
                 gap: "4px",
                 fontSize: "12px",
                 fontWeight: 600,
-                color: "#0a2540",
+                color: "#123968",
                 padding: "4px 8px",
                 background: "#e2e8f0",
               }}

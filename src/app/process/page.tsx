@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Link from "next/link";
 import { ArrowRight, Compass, Layout, Code2, Rocket } from "lucide-react";
 import ThreeHeroCanvas from "@/components/ThreeHeroCanvas";
@@ -43,7 +43,7 @@ export default function ProcessPage() {
 
       <div className="container" style={{ maxWidth: "1240px", position: "relative", zIndex: 1 }}>
         <div style={{ maxWidth: "820px", marginBottom: "50px" }}>
-          <div style={{ fontSize: "13px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "#0a2540", marginBottom: "12px" }}>
+          <div style={{ fontSize: "13px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "#123968", marginBottom: "12px" }}>
             How We Work
           </div>
           <h1 style={{ fontSize: "clamp(36px, 4.5vw, 56px)", fontWeight: 800, color: "#1b2933", letterSpacing: "-0.03em", lineHeight: 1.15, marginBottom: "20px" }}>
@@ -73,7 +73,7 @@ export default function ProcessPage() {
                   }}
                 >
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
-                    <div style={{ width: "46px", height: "46px", borderRadius: "12px", background: "rgba(10, 37, 64, 0.06)", display: "flex", alignItems: "center", justifyContent: "center", color: "#0a2540" }}>
+                    <div style={{ width: "46px", height: "46px", borderRadius: "12px", background: "rgba(18, 57, 104, 0.06)", display: "flex", alignItems: "center", justifyContent: "center", color: "#123968" }}>
                       <Icon size={22} />
                     </div>
                     <span style={{ fontSize: "24px", fontWeight: 800, color: "#cbd5e1" }}>
@@ -105,8 +105,8 @@ export default function ProcessPage() {
             style={{
               padding: "13px 32px",
               fontSize: "15px",
-              background: "#0a2540",
-              borderColor: "#06182c",
+              background: "#123968",
+              borderColor: "#0a223f",
             }}
           >
             Start Your Discovery Call <ArrowRight size={16} />

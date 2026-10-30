@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import FAQSection from "@/components/FAQSection";
@@ -60,8 +60,8 @@ export default function FAQPage() {
             style={{
               padding: "12px 28px",
               fontSize: "15px",
-              background: "#0a2540",
-              borderColor: "#06182c",
+              background: "#123968",
+              borderColor: "#0a223f",
             }}
           >
             Ask a Question <ArrowRight size={16} />

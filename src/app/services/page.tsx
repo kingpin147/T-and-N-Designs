@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Link from "next/link";
 import { ArrowRight, Globe, Layout, ArrowRightLeft, Target, Palette, ShoppingBag, Check } from "lucide-react";
 import Card3DTilt from "@/components/Card3DTilt";
@@ -144,7 +144,7 @@ export default function ServicesPage() {
                       marginBottom: "20px",
                     }}
                   >
-                    <Icon size={24} color="#0a2540" />
+                    <Icon size={24} color="#123968" />
                   </div>
 
                   <h2
@@ -153,7 +153,7 @@ export default function ServicesPage() {
                   >
                     {service.title}
                   </h2>
-                  <p style={{ fontSize: "14px", fontWeight: 600, color: "#0a2540", marginBottom: "16px", lineHeight: 1.4 }}>
+                  <p style={{ fontSize: "14px", fontWeight: 600, color: "#123968", marginBottom: "16px", lineHeight: 1.4 }}>
                     {service.tagline}
                   </p>
                   <p style={{ color: "#465868", fontSize: "15px", lineHeight: 1.65, marginBottom: "24px" }}>
@@ -183,7 +183,7 @@ export default function ServicesPage() {
                     justifyContent: "space-between",
                     fontSize: "14px",
                     fontWeight: 600,
-                    color: "#0a2540",
+                    color: "#123968",
                     textDecoration: "none",
                     paddingTop: "14px",
                     borderTop: "1px solid #f1f5f9",
@@ -219,8 +219,8 @@ export default function ServicesPage() {
             style={{
               padding: "12px 28px",
               fontSize: "15px",
-              background: "#0a2540",
-              borderColor: "#06182c",
+              background: "#123968",
+              borderColor: "#0a223f",
             }}
           >
             Get In Touch <ArrowRight size={16} />

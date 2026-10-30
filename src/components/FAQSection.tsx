@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
@@ -88,7 +88,7 @@ export default function FAQSection({ showHeader = true }: FAQSectionProps = {}) 
                 <span>{faq.q}</span>
                 <ChevronDown
                   size={18}
-                  color="#0a2540"
+                  color="#123968"
                   style={{
                     transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
                     transition: "transform 0.25s ease",
