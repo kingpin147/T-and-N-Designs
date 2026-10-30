@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import InteractiveStone404 from "@/components/InteractiveStone404";
@@ -37,14 +37,6 @@ export default function NotFound() {
           style={{
             padding: "13px 32px",
             fontSize: "15px",
-            background: "#123968",
-            borderColor: "#0a223f",
-            borderRadius: "9999px",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "10px",
-            color: "#ffffff",
-            textDecoration: "none",
           }}
         >
           Return to Homepage <ArrowRight size={16} />

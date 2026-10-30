@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -55,8 +55,6 @@ export default function AgencyHero() {
               style={{
                 padding: "14px 32px",
                 fontSize: "15px",
-                background: "#123968",
-                borderColor: "#0a223f",
               }}
             >
               Start a Project <ArrowRight size={16} />
