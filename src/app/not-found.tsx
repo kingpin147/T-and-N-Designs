@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import InteractiveStone404 from "@/components/InteractiveStone404";
 
 export default function NotFound() {
@@ -18,7 +19,7 @@ export default function NotFound() {
       }}
     >
       <div style={{ maxWidth: "560px", width: "100%", position: "relative", zIndex: 1 }}>
-        {/* Interactive 3D Stone Animation with orbit and drag physics */}
+        {/* Interactive 3D Wireframe Gem Animation matching the Brand Canvas */}
         <InteractiveStone404 />
 
         <div style={{ fontSize: "68px", fontWeight: 900, color: "#0a2540", lineHeight: 1, marginBottom: "12px", letterSpacing: "-0.04em" }}>
@@ -34,21 +35,19 @@ export default function NotFound() {
           href="/"
           className="btn-primary"
           style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "8px",
-            padding: "12px 28px",
+            padding: "13px 32px",
             fontSize: "15px",
             background: "#0a2540",
             borderColor: "#06182c",
+            borderRadius: "9999px",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "10px",
             color: "#ffffff",
-            boxShadow: "0 4px 14px rgba(10, 37, 64, 0.2)",
             textDecoration: "none",
-            borderRadius: "8px",
-            fontWeight: 600,
           }}
         >
-          Return to Homepage
+          Return to Homepage <ArrowRight size={16} />
         </Link>
       </div>
     </div>
