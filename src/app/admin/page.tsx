@@ -242,22 +242,27 @@ export default function AdminDashboardPage() {
     canManageBlog: true,
   });
   const [savingUser, setSavingUser] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false);
+  const [sessionSecondsLeft, setSessionSecondsLeft] = useState(3600); // 1-hour automatic session limit
 
   // Load Current User Session
   const checkAuth = async () => {
     try {
       const res = await fetch("/api/auth/me");
       const data = await res.json();
-      if (data.authenticated && data.user) {
+      if (res.ok && data.authenticated && data.user) {
         setCurrentUser(data.user);
+        setAuthChecked(true);
         if (data.user.role === "writer") {
           setActiveTab("blog");
         } else if (data.user.role === "project_manager") {
           setActiveTab("leads");
         }
+      } else {
+        router.push("/admin/login");
       }
     } catch {
-      // Keep default owner fallback
+      router.push("/admin/login");
     }
   };
 
@@ -320,10 +325,41 @@ export default function AdminDashboardPage() {
     loadDashboardData();
   }, []);
 
+  // 1-Hour Automatic Session Logout Interval
+  useEffect(() => {
+    if (!authChecked) return;
+
+    const timer = setInterval(() => {
+      setSessionSecondsLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          handleLogout();
+          alert("Your 1-hour admin session has expired. You have been safely logged out.");
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [authChecked]);
+
+  const formatSessionTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}m ${secs < 10 ? "0" : ""}${secs}s`;
+  };
+
   // Logout
   const handleLogout = async () => {
-    await fetch("/api/auth/logout", { method: "POST" });
-    router.push("/");
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } catch {
+      // Ignore network errors on logout
+    } finally {
+      router.push("/admin/login");
+      router.refresh();
+    }
   };
 
   // Update Lead Status
@@ -570,6 +606,18 @@ export default function AdminDashboardPage() {
     );
   });
 
+  if (!authChecked) {
+    return (
+      <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "#f8fafc", gap: "16px" }}>
+        <Loader2 className="animate-spin" size={36} color="#0a2540" />
+        <div style={{ fontSize: "16px", fontWeight: 700, color: "#0a2540" }}>
+          Verifying Admin Credentials...
+        </div>
+        <p style={{ fontSize: "13px", color: "#64748b" }}>Encrypted Neon RBAC Protected Portal</p>
+      </div>
+    );
+  }
+
   return (
     <div style={{ display: "flex", minHeight: "100vh", background: "#f8fafc", color: "#0f172a" }}>
       {/* 1. ADMIN SIDEBAR NAVIGATION MENU */}
@@ -810,33 +858,54 @@ export default function AdminDashboardPage() {
         {/* Sidebar Footer User Card */}
         <div style={{ borderTop: "1px solid #f1f5f9", paddingTop: "16px" }}>
           <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: "10px", padding: "12px", marginBottom: "12px" }}>
-            <div style={{ fontSize: "11px", color: "#64748b", fontWeight: 700, textTransform: "uppercase", marginBottom: "2px" }}>
-              Active Session
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "3px" }}>
+              <span style={{ fontSize: "11px", color: "#64748b", fontWeight: 700, textTransform: "uppercase" }}>
+                Active Session
+              </span>
+              <span style={{ fontSize: "10px", fontWeight: 700, color: sessionSecondsLeft < 300 ? "#ef4444" : "#0284c7", display: "inline-flex", alignItems: "center", gap: "3px" }}>
+                <Clock size={10} /> {formatSessionTime(sessionSecondsLeft)}
+              </span>
             </div>
             <div style={{ fontSize: "13px", fontWeight: 700, color: "#0a2540", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
               {currentUser.email}
             </div>
-            <div style={{ display: "inline-block", marginTop: "6px", fontSize: "10px", fontWeight: 800, background: "#e0f2fe", color: "#0369a1", padding: "2px 8px", borderRadius: "999px", textTransform: "uppercase" }}>
-              {currentUser.role}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "6px" }}>
+              <span style={{ display: "inline-block", fontSize: "10px", fontWeight: 800, background: "#e0f2fe", color: "#0369a1", padding: "2px 8px", borderRadius: "999px", textTransform: "uppercase" }}>
+                {currentUser.role}
+              </span>
+              <span style={{ fontSize: "10px", color: "#94a3b8" }}>
+                1h Auto-Logout
+              </span>
             </div>
           </div>
 
-          <div style={{ display: "flex", gap: "8px", marginBottom: "12px" }}>
+          <div style={{ display: "flex", gap: "8px", marginBottom: "10px" }}>
             <button
               onClick={loadDashboardData}
               className="btn-secondary"
-              style={{ flex: 1, padding: "8px 12px", fontSize: "12px", justifyContent: "center" }}
+              style={{ flex: 1, padding: "8px 10px", fontSize: "12px", justifyContent: "center" }}
               title="Refresh Data"
             >
               <RefreshCw size={14} className={loading ? "animate-spin" : ""} /> Refresh
             </button>
             <button
               onClick={handleLogout}
-              className="btn-secondary"
-              style={{ padding: "8px 12px", fontSize: "12px", color: "#b91c1c" }}
-              title="Exit Dashboard"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "5px",
+                padding: "8px 12px",
+                fontSize: "12px",
+                fontWeight: 700,
+                color: "#dc2626",
+                background: "#fef2f2",
+                border: "1px solid #fecaca",
+                borderRadius: "8px",
+                cursor: "pointer",
+              }}
+              title="Sign out of Admin Dashboard"
             >
-              <LogOut size={14} />
+              <LogOut size={14} /> Log Out
             </button>
           </div>
 
@@ -859,7 +928,76 @@ export default function AdminDashboardPage() {
       </aside>
 
       {/* 2. MAIN CONTENT AREA */}
-      <main style={{ flex: 1, padding: "36px 40px", overflowY: "auto", minHeight: "100vh" }}>
+      <main style={{ flex: 1, padding: "28px 36px", overflowY: "auto", minHeight: "100vh" }}>
+        {/* Global Admin Header Bar with Session Status & Prominent Log Out */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "12px 20px",
+            background: "#ffffff",
+            border: "1px solid #e2e8f0",
+            borderRadius: "12px",
+            marginBottom: "28px",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.03)",
+            flexWrap: "wrap",
+            gap: "12px",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <span style={{ width: "9px", height: "9px", borderRadius: "50%", background: "#10b981", display: "inline-block" }} />
+            <span style={{ fontSize: "13px", fontWeight: 700, color: "#0a2540" }}>
+              Verified: <strong style={{ color: "#0284c7" }}>{currentUser.email}</strong>
+            </span>
+            <span style={{ fontSize: "10px", fontWeight: 800, background: "#f1f5f9", color: "#475569", padding: "2px 8px", borderRadius: "999px", textTransform: "uppercase" }}>
+              {currentUser.role}
+            </span>
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                fontSize: "12px",
+                fontWeight: 600,
+                color: sessionSecondsLeft < 300 ? "#ef4444" : "#64748b",
+                background: "#f8fafc",
+                padding: "6px 12px",
+                borderRadius: "6px",
+                border: "1px solid #e2e8f0",
+              }}
+              title="Session automatically logs out after 1 hour"
+            >
+              <Clock size={13} color={sessionSecondsLeft < 300 ? "#ef4444" : "#64748b"} />
+              <span>Session: <strong style={{ color: sessionSecondsLeft < 300 ? "#ef4444" : "#0f172a" }}>{formatSessionTime(sessionSecondsLeft)}</strong> left</span>
+            </div>
+
+            <button
+              onClick={handleLogout}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                padding: "7px 16px",
+                fontSize: "13px",
+                fontWeight: 700,
+                color: "#dc2626",
+                background: "#fef2f2",
+                border: "1px solid #fecaca",
+                borderRadius: "8px",
+                cursor: "pointer",
+                transition: "all 0.15s ease",
+              }}
+              title="Click to sign out of admin panel"
+            >
+              <LogOut size={14} /> Log Out
+            </button>
+          </div>
+        </div>
+
         {/* TAB 1: OVERVIEW */}
         {activeTab === "overview" && (
           <div>

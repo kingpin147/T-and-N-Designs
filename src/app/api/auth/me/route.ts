@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
-import { getCurrentUser, getOwnerFallback } from "@/lib/auth";
+import { getCurrentUser } from "@/lib/auth";
 
 export async function GET() {
-  let user = await getCurrentUser();
+  const user = await getCurrentUser();
   if (!user) {
-    // Direct /admin URL navigation: provide verified owner access
-    user = await getOwnerFallback();
+    return NextResponse.json({
+      authenticated: false,
+      user: null,
+    }, { status: 401 });
   }
 
   return NextResponse.json({
