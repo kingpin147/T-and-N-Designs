@@ -27,6 +27,8 @@ export function validateContactSubmission(body: unknown): ValidatedContactInput 
   const budgetRange = data.budgetRange ? sanitizeString(data.budgetRange, 50) : undefined;
   const timeline = data.timeline ? sanitizeString(data.timeline, 50) : undefined;
   const sourceUrl = data.sourceUrl ? sanitizeString(data.sourceUrl, 500) : undefined;
+  const location = data.location ? sanitizeString(data.location, 150) : undefined;
+  const ipAddress = data.ipAddress ? sanitizeString(data.ipAddress, 50) : undefined;
 
   return {
     name,
@@ -37,6 +39,8 @@ export function validateContactSubmission(body: unknown): ValidatedContactInput 
     budgetRange,
     timeline,
     message,
+    location,
+    ipAddress,
     sourceUrl,
     createdAt: new Date().toISOString(),
   };

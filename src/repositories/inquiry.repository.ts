@@ -19,7 +19,7 @@ export async function createInquiry(inquiry: Inquiry): Promise<{ id: string }> {
   const rows = await sql`
     INSERT INTO inquiries (
       name, email, phone, company, project_type, 
-      budget_range, timeline, message, source_url, status
+      budget_range, timeline, message, location, ip_address, source_url, status
     ) VALUES (
       ${inquiry.name},
       ${inquiry.email},
@@ -29,6 +29,8 @@ export async function createInquiry(inquiry: Inquiry): Promise<{ id: string }> {
       ${inquiry.budgetRange || null},
       ${inquiry.timeline || null},
       ${inquiry.message},
+      ${inquiry.location || null},
+      ${inquiry.ipAddress || null},
       ${inquiry.sourceUrl || null},
       'new'
     )
@@ -47,7 +49,9 @@ export async function getAllInquiries(): Promise<Inquiry[]> {
       id, name, email, phone, company, 
       project_type as "projectType", 
       budget_range as "budgetRange", 
-      timeline, message, status, 
+      timeline, message, location,
+      ip_address as "ipAddress",
+      status, 
       created_at as "createdAt"
     FROM inquiries 
     ORDER BY created_at DESC;

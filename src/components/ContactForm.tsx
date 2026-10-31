@@ -1,6 +1,6 @@
-﻿"use client";
+"use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowRight, CheckCircle2, Loader2, Send } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
@@ -21,6 +21,49 @@ export default function ContactForm({ redirectOnSuccess = false }: ContactFormPr
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [detectedGeo, setDetectedGeo] = useState<{ location?: string; ip?: string }>({});
+
+  useEffect(() => {
+    // Non-blocking client-side auto location detection
+    let isMounted = true;
+    const detectLocation = async () => {
+      try {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const tzParts = tz.split("/");
+        const cityGuess = tzParts[tzParts.length - 1]?.replace(/_/g, " ");
+
+        const res = await fetch("https://freeipapi.com/api/json", {
+          signal: AbortSignal.timeout(2500),
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted && data.cityName && data.countryName) {
+            setDetectedGeo({
+              location: `${data.cityName}, ${data.countryName}`,
+              ip: data.ipAddress,
+            });
+            return;
+          }
+        }
+        if (isMounted && cityGuess) {
+          setDetectedGeo({ location: cityGuess });
+        }
+      } catch {
+        try {
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          const cityGuess = tz.split("/").pop()?.replace(/_/g, " ");
+          if (isMounted && cityGuess) {
+            setDetectedGeo({ location: cityGuess });
+          }
+        } catch {}
+      }
+    };
+
+    detectLocation();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,6 +81,8 @@ export default function ContactForm({ redirectOnSuccess = false }: ContactFormPr
           company: formData.company,
           projectType: formData.serviceInterest,
           message: formData.message,
+          location: detectedGeo.location,
+          ipAddress: detectedGeo.ip,
         }),
       });
 
@@ -49,6 +94,7 @@ export default function ContactForm({ redirectOnSuccess = false }: ContactFormPr
       setSuccess(true);
       trackEvent("contact_form_submitted", {
         service: formData.serviceInterest,
+        location: detectedGeo.location,
       });
     } catch (err: unknown) {
       setErrorMsg(err instanceof Error ? err.message : "Submission error. Please try again.");

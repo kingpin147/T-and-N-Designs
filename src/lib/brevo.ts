@@ -92,6 +92,7 @@ export async function sendInquiryEmails(inquiry: Inquiry) {
         </tr>
         ${inquiry.budgetRange ? `<tr><td style="padding: 10px 0; color: #9ca3af;">Budget:</td><td style="padding: 10px 0; color: #f59e0b; font-weight: 600;">${inquiry.budgetRange}</td></tr>` : ''}
         ${inquiry.timeline ? `<tr><td style="padding: 10px 0; color: #9ca3af;">Target Timeline:</td><td style="padding: 10px 0; color: #ffffff;">${inquiry.timeline}</td></tr>` : ''}
+        ${inquiry.location ? `<tr><td style="padding: 10px 0; color: #9ca3af;">Location:</td><td style="padding: 10px 0; color: #38bdf8; font-weight: 600;">📍 ${inquiry.location} ${inquiry.ipAddress ? `<span style="color: #64748b; font-size: 12px; font-weight: normal;">(IP: ${inquiry.ipAddress})</span>` : ''}</td></tr>` : ''}
       </table>
 
       <div style="background: #141824; padding: 18px; border-radius: 8px; border-left: 3px solid #3b82f6; margin-bottom: 24px;">

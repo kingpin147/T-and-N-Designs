@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
@@ -41,7 +41,8 @@ import {
   FileText,
   Settings,
   Download,
-  AlertCircle
+  AlertCircle,
+  MapPin,
 } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import PostHogAnalyticsDashboard from "@/components/admin/PostHogAnalyticsDashboard";
@@ -82,6 +83,8 @@ interface Inquiry {
   budgetRange?: string;
   timeline?: string;
   message: string;
+  location?: string;
+  ipAddress?: string;
   status: string;
   createdAt: string;
 }
@@ -408,13 +411,15 @@ export default function AdminDashboardPage() {
       showToast("No inquiries available to export.", "error");
       return;
     }
-    const headers = ["ID", "Name", "Email", "Phone", "Company", "Service", "Status", "Date", "Message"];
+    const headers = ["ID", "Name", "Email", "Phone", "Company", "Location", "IP Address", "Service", "Status", "Date", "Message"];
     const rows = filteredInquiries.map((inq) => [
       `"${inq.id || ""}"`,
       `"${(inq.name || "").replace(/"/g, '""')}"`,
       `"${(inq.email || "").replace(/"/g, '""')}"`,
       `"${(inq.phone || "").replace(/"/g, '""')}"`,
       `"${(inq.company || "").replace(/"/g, '""')}"`,
+      `"${(inq.location || "").replace(/"/g, '""')}"`,
+      `"${(inq.ipAddress || "").replace(/"/g, '""')}"`,
       `"${(inq.projectType || "").replace(/"/g, '""')}"`,
       `"${(inq.status || "").replace(/"/g, '""')}"`,
       `"${new Date(inq.createdAt).toLocaleString()}"`,
@@ -1178,16 +1183,40 @@ export default function AdminDashboardPage() {
                   <div key={inq.id} style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", padding: "24px", boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "12px", marginBottom: "16px" }}>
                       <div>
-                        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
                           <h3 style={{ fontSize: "18px", fontWeight: 700, color: "#0f172a" }}>{inq.name}</h3>
                           {inq.company && (
                             <span style={{ fontSize: "12px", background: "#f1f5f9", padding: "3px 8px", borderRadius: "6px", color: "#475569", fontWeight: 600 }}>
                               {inq.company}
                             </span>
                           )}
+                          {inq.location && (
+                            <span
+                              style={{
+                                fontSize: "12px",
+                                background: "#eff6ff",
+                                color: "#1d4ed8",
+                                border: "1px solid #bfdbfe",
+                                padding: "3px 10px",
+                                borderRadius: "999px",
+                                fontWeight: 600,
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: "5px",
+                              }}
+                              title={inq.ipAddress ? `Client IP: ${inq.ipAddress}` : undefined}
+                            >
+                              <MapPin size={12} color="#2563eb" /> {inq.location}
+                            </span>
+                          )}
                         </div>
-                        <div style={{ fontSize: "13px", color: "#64748b", marginTop: "4px" }}>
-                          Received on {new Date(inq.createdAt).toLocaleString()}
+                        <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "13px", color: "#64748b", marginTop: "4px", flexWrap: "wrap" }}>
+                          <span>Received on {new Date(inq.createdAt).toLocaleString()}</span>
+                          {inq.ipAddress && (
+                            <span style={{ fontSize: "12px", color: "#94a3b8" }}>
+                              • IP: {inq.ipAddress}
+                            </span>
+                          )}
                         </div>
                       </div>
 

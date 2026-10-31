@@ -25,7 +25,10 @@ export interface Inquiry {
   budgetRange?: string;
   timeline?: string;
   message: string;
+  location?: string;
+  ipAddress?: string;
   sourceUrl?: string;
+  status?: string;
   createdAt?: string;
 }
 
