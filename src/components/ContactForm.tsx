@@ -14,7 +14,9 @@ export default function ContactForm({ redirectOnSuccess = false }: ContactFormPr
     email: "",
     phone: "",
     company: "",
-    serviceInterest: "Custom Web Design & Development",
+    serviceInterest: "Custom Wix Studio & Velo",
+    budget: "",
+    timeline: "",
     message: "",
   });
 
@@ -80,6 +82,8 @@ export default function ContactForm({ redirectOnSuccess = false }: ContactFormPr
           phone: formData.phone,
           company: formData.company,
           projectType: formData.serviceInterest,
+          budgetRange: formData.budget || undefined,
+          timeline: formData.timeline || undefined,
           message: formData.message,
           location: detectedGeo.location,
           ipAddress: detectedGeo.ip,
@@ -145,7 +149,9 @@ export default function ContactForm({ redirectOnSuccess = false }: ContactFormPr
               email: "",
               phone: "",
               company: "",
-              serviceInterest: "Custom Web Design & Development",
+              serviceInterest: "Custom Wix Studio & Velo",
+              budget: "",
+              timeline: "",
               message: "",
             });
           }}
@@ -279,32 +285,62 @@ export default function ContactForm({ redirectOnSuccess = false }: ContactFormPr
         </div>
       </div>
 
-      <div style={{ marginBottom: "20px" }}>
-        <label style={{ display: "block", fontSize: "14px", fontWeight: 600, color: "#1b2933", marginBottom: "8px" }}>
-          Service Needed
-        </label>
-        <select
-          value={formData.serviceInterest}
-          onChange={(e) => setFormData({ ...formData, serviceInterest: e.target.value })}
-          style={{
-            width: "100%",
-            padding: "12px 16px",
-            background: "#ffffff",
-            border: "1px solid #cbd5e1",
-            borderRadius: "8px",
-            color: "#1b2933",
-            fontSize: "15px",
-            outline: "none",
-          }}
-        >
-          <option value="Custom Wix Studio & Velo">Custom Wix Studio &amp; Velo</option>
-          <option value="Next.js Web Application">Next.js Web Application</option>
-          <option value="WordPress to Wix or Next.js Migration">WordPress to Wix / Next.js Migration</option>
-          <option value="Meta Ads & Growth Marketing">Meta Ads &amp; Performance Marketing</option>
-          <option value="Brand Identity & Graphic Design">Brand Identity &amp; Graphic Design</option>
-          <option value="E-Commerce & Integrations">E-Commerce Storefront</option>
-          <option value="Other / General Inquiry">Other / General Inquiry</option>
-        </select>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "20px", marginBottom: "20px" }}>
+        <div>
+          <label style={{ display: "block", fontSize: "14px", fontWeight: 600, color: "#1b2933", marginBottom: "8px" }}>
+            Service Needed
+          </label>
+          <select
+            value={formData.serviceInterest}
+            onChange={(e) => setFormData({ ...formData, serviceInterest: e.target.value })}
+            style={{
+              width: "100%",
+              padding: "12px 16px",
+              background: "#ffffff",
+              border: "1px solid #cbd5e1",
+              borderRadius: "8px",
+              color: "#1b2933",
+              fontSize: "15px",
+              outline: "none",
+            }}
+          >
+            <option value="Custom Wix Studio & Velo">Custom Wix Studio &amp; Velo</option>
+            <option value="Next.js Web Application">Next.js Web Application</option>
+            <option value="WordPress to Wix or Next.js Migration">WordPress to Wix / Next.js Migration</option>
+            <option value="Meta Ads & Growth Marketing">Meta Ads &amp; Performance Marketing</option>
+            <option value="Brand Identity & Graphic Design">Brand Identity &amp; Graphic Design</option>
+            <option value="E-Commerce & Integrations">E-Commerce Storefront</option>
+            <option value="Other / General Inquiry">Other / General Inquiry</option>
+          </select>
+        </div>
+
+        <div>
+          <label style={{ display: "block", fontSize: "14px", fontWeight: 600, color: "#1b2933", marginBottom: "8px" }}>
+            Estimated Budget (Optional)
+          </label>
+          <select
+            value={formData.budget}
+            onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+            style={{
+              width: "100%",
+              padding: "12px 16px",
+              background: "#ffffff",
+              border: "1px solid #cbd5e1",
+              borderRadius: "8px",
+              color: formData.budget ? "#1b2933" : "#64748b",
+              fontSize: "15px",
+              outline: "none",
+            }}
+          >
+            <option value="">Select a range (Optional)</option>
+            <option value="$500 - $1,500">$500 – $1,500 USD</option>
+            <option value="$1,500 - $3,000">$1,500 – $3,000 USD</option>
+            <option value="$3,000 - $5,000">$3,000 – $5,000 USD</option>
+            <option value="$5,000 - $10,000">$5,000 – $10,000 USD</option>
+            <option value="$10,000+">$10,000+ USD</option>
+            <option value="Flexible / To be discussed">Flexible / To be discussed</option>
+          </select>
+        </div>
       </div>
 
       <div style={{ marginBottom: "28px" }}>
