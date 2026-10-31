@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ArrowRight, CheckCircle2, Loader2, Send } from "lucide-react";
+import { ArrowRight, CheckCircle2, Loader2, Send, ShieldCheck, Check } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 
 interface ContactFormProps {
@@ -24,6 +24,22 @@ export default function ContactForm({ redirectOnSuccess = false }: ContactFormPr
   const [success, setSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [detectedGeo, setDetectedGeo] = useState<{ location?: string; ip?: string }>({});
+
+  // Zero-friction human verification states
+  const [isVerified, setIsVerified] = useState(false);
+  const [verifying, setVerifying] = useState(false);
+  const [honeypotValue, setHoneypotValue] = useState("");
+  const [formLoadTimestamp, setFormLoadTimestamp] = useState<number>(() => Date.now());
+
+  const handleVerify = () => {
+    if (isVerified || verifying) return;
+    setVerifying(true);
+    setTimeout(() => {
+      setIsVerified(true);
+      setVerifying(false);
+      setErrorMsg((prev) => (prev.includes("robot") ? "" : prev));
+    }, 400);
+  };
 
   useEffect(() => {
     // Non-blocking client-side auto location detection
@@ -69,6 +85,12 @@ export default function ContactForm({ redirectOnSuccess = false }: ContactFormPr
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!isVerified) {
+      setErrorMsg("Please complete the 'I am not a robot' verification checkbox.");
+      return;
+    }
+
     setLoading(true);
     setErrorMsg("");
 
@@ -87,6 +109,9 @@ export default function ContactForm({ redirectOnSuccess = false }: ContactFormPr
           message: formData.message,
           location: detectedGeo.location,
           ipAddress: detectedGeo.ip,
+          b_url_trap: honeypotValue,
+          humanVerified: isVerified,
+          submissionDurationMs: Date.now() - formLoadTimestamp,
         }),
       });
 
@@ -144,6 +169,9 @@ export default function ContactForm({ redirectOnSuccess = false }: ContactFormPr
           type="button"
           onClick={() => {
             setSuccess(false);
+            setIsVerified(false);
+            setHoneypotValue("");
+            setFormLoadTimestamp(Date.now());
             setFormData({
               name: "",
               email: "",
@@ -366,6 +394,76 @@ export default function ContactForm({ redirectOnSuccess = false }: ContactFormPr
             lineHeight: 1.6,
           }}
         />
+      </div>
+
+      {/* Invisible Honeypot Trap (Automated bots fill this; humans never see it) */}
+      <div style={{ position: "absolute", left: "-9999px", opacity: 0, height: 0, overflow: "hidden" }} aria-hidden="true">
+        <input
+          type="text"
+          name="b_url_trap"
+          tabIndex={-1}
+          autoComplete="off"
+          value={honeypotValue}
+          onChange={(e) => setHoneypotValue(e.target.value)}
+        />
+      </div>
+
+      {/* Interactive Human Verification Checkbox Widget */}
+      <div
+        onClick={handleVerify}
+        role="checkbox"
+        aria-checked={isVerified}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === " " || e.key === "Enter") {
+            e.preventDefault();
+            handleVerify();
+          }
+        }}
+        style={{
+          background: isVerified ? "#f0fdf4" : "#f8fafc",
+          border: isVerified ? "1px solid #86efac" : "1px solid #cbd5e1",
+          borderRadius: "10px",
+          padding: "14px 18px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: "24px",
+          cursor: isVerified ? "default" : "pointer",
+          userSelect: "none",
+          transition: "all 0.25s ease",
+          boxShadow: isVerified ? "0 2px 10px rgba(16, 185, 129, 0.08)" : "none",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <div
+            style={{
+              width: "24px",
+              height: "24px",
+              borderRadius: "6px",
+              border: isVerified ? "2px solid #10b981" : "2px solid #94a3b8",
+              background: isVerified ? "#10b981" : "#ffffff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              transition: "all 0.2s ease",
+            }}
+          >
+            {verifying ? (
+              <Loader2 size={14} className="animate-spin" color="#123968" />
+            ) : isVerified ? (
+              <Check size={16} color="#ffffff" strokeWidth={3} />
+            ) : null}
+          </div>
+          <span style={{ fontSize: "14px", fontWeight: 600, color: isVerified ? "#166534" : "#1b2933" }}>
+            {isVerified ? "Verified Human" : "I am not a robot"}
+          </span>
+        </div>
+
+        <div style={{ display: "flex", alignItems: "center", gap: "6px", color: isVerified ? "#16a34a" : "#64748b", fontSize: "11px", fontWeight: 500 }}>
+          <ShieldCheck size={18} color={isVerified ? "#10b981" : "#123968"} />
+          <span>T&amp;N Bot Shield</span>
+        </div>
       </div>
 
       <button
