@@ -44,11 +44,7 @@ export default function Navbar() {
     };
   }, [mobileMenuOpen]);
 
-  // Do not render public floating navbar on admin routes
-  if (pathname?.startsWith("/admin")) {
-    return null;
-  }
-
+  // Scroll listener (declared before any early returns to satisfy React Rules of Hooks)
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 25);
@@ -56,6 +52,11 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Do not render public floating navbar on admin routes
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   return (
     <>

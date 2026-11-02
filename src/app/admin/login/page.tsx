@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Lock, Mail, ArrowRight, ArrowLeft, Loader2 } from "lucide-react";
@@ -42,9 +41,9 @@ export default function AdminLoginPage() {
   return (
     <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px", background: "#f8fafc", position: "relative" }}>
       <div style={{ width: "100%", maxWidth: "440px", zIndex: 1 }}>
-        <Link href="/" style={{ color: "#123968", fontSize: "14px", display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "20px", fontWeight: 600, textDecoration: "none" }}>
+        <a href="/" style={{ color: "#123968", fontSize: "14px", display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "20px", fontWeight: 600, textDecoration: "none" }}>
           <ArrowLeft size={16} /> Return to Homepage
-        </Link>
+        </a>
 
         <div
           className="glass-panel"
@@ -58,7 +57,7 @@ export default function AdminLoginPage() {
         >
           {/* Brand Logo Header */}
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: "28px" }}>
-            <Link href="/" style={{ display: "inline-block" }}>
+            <a href="/" style={{ display: "inline-block" }}>
               <Image
                 src="/logo.svg"
                 alt="T & N Designs"
@@ -67,7 +66,7 @@ export default function AdminLoginPage() {
                 priority
                 style={{ objectFit: "contain", borderRadius: "12px" }}
               />
-            </Link>
+            </a>
           </div>
 
           {errorMsg && (

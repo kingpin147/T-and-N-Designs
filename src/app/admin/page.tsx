@@ -960,7 +960,7 @@ export default function AdminDashboardPage() {
             </button>
           </div>
 
-          <Link
+          <a
             href="/"
             style={{
               display: "flex",
@@ -974,7 +974,7 @@ export default function AdminDashboardPage() {
             }}
           >
             <ArrowLeft size={14} /> Back to Public Website
-          </Link>
+          </a>
         </div>
       </aside>
 
