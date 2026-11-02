@@ -139,7 +139,7 @@ export default function ContactForm({ redirectOnSuccess = false }: ContactFormPr
           background: "#ffffff",
           border: "1px solid #e2e8f0",
           borderRadius: "14px",
-          padding: "48px 32px",
+          padding: "clamp(32px, 5vw, 48px) clamp(20px, 4vw, 32px)",
           textAlign: "center",
           boxShadow: "0 4px 20px rgba(0, 0, 0, 0.04)",
         }}
@@ -199,7 +199,7 @@ export default function ContactForm({ redirectOnSuccess = false }: ContactFormPr
         background: "#ffffff",
         border: "1px solid #e2e8f0",
         borderRadius: "14px",
-        padding: "36px",
+        padding: "clamp(20px, 4vw, 36px)",
         boxShadow: "0 4px 20px rgba(0, 0, 0, 0.04)",
       }}
     >

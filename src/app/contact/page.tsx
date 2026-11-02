@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import Link from "next/link";
 import { Mail, MapPin, Clock, ShieldCheck } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
@@ -36,7 +36,7 @@ export default function ContactPage() {
         </div>
 
         {/* Content Grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "48px", alignItems: "flex-start" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))", gap: "36px", alignItems: "flex-start" }}>
           {/* Left: Contact Form */}
           <div>
             <Card3DTilt maxTilt={4}>

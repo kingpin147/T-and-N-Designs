@@ -119,18 +119,34 @@ export default function ThreeHeroCanvas() {
     const updateGemPosition = () => {
       if (!mount) return;
       const width = mount.clientWidth;
-      if (width < 768) {
+      if (width < 640) {
         gemMesh.position.x = 4.0;
-        baseY = 5.6;
-        gemMesh.scale.set(0.65, 0.65, 0.65);
+        gemMesh.position.z = -9;
+        baseY = 9.5;
+        gemMesh.scale.set(0.35, 0.35, 0.35);
+        gemMat.opacity = 0.08;
+        innerMat.opacity = 0.04;
+      } else if (width < 768) {
+        gemMesh.position.x = 5.5;
+        gemMesh.position.z = -5;
+        baseY = 7.0;
+        gemMesh.scale.set(0.5, 0.5, 0.5);
+        gemMat.opacity = 0.12;
+        innerMat.opacity = 0.06;
       } else if (width < 1200) {
         gemMesh.position.x = 7.5;
+        gemMesh.position.z = -2;
         baseY = 4.8;
         gemMesh.scale.set(0.85, 0.85, 0.85);
+        gemMat.opacity = 0.22;
+        innerMat.opacity = 0.12;
       } else {
         gemMesh.position.x = 8.5;
+        gemMesh.position.z = -2;
         baseY = 4.8;
         gemMesh.scale.set(1, 1, 1);
+        gemMat.opacity = 0.22;
+        innerMat.opacity = 0.12;
       }
     };
     updateGemPosition();

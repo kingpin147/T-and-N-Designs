@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import { 
@@ -205,7 +205,7 @@ export default function Testimonials() {
       <div 
         className="glass-panel" 
         style={{ 
-          padding: "28px 32px", 
+          padding: "clamp(20px, 4vw, 28px) clamp(16px, 4vw, 32px)", 
           marginBottom: "40px", 
           display: "flex", 
           justifyContent: "space-between", 
@@ -337,14 +337,14 @@ export default function Testimonials() {
       </div>
 
       {/* REVIEWS GRID */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "24px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))", gap: "24px" }}>
         {filteredReviews.map((rev) => (
           <Card3DTilt key={rev.id} maxTilt={5}>
             <div
               className="glass-panel"
               style={{
                 height: "100%",
-                padding: "28px",
+                padding: "clamp(20px, 4vw, 28px)",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",

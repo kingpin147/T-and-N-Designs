@@ -82,7 +82,7 @@ export default async function BlogArchivePage() {
         </div>
 
         {/* Blog Grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(360px, 1fr))", gap: "32px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 340px), 1fr))", gap: "28px" }}>
           {posts.map((post) => (
             <Card3DTilt key={post.id} maxTilt={6}>
               <Link href={`/blog/${post.slug}`} style={{ textDecoration: "none", display: "block", height: "100%" }}>

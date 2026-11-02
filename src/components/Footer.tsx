@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -14,7 +14,7 @@ export default function Footer() {
     return null;
   }
   return (
-    <footer style={{ borderTop: "1px solid #e2e8f0", background: "#f8fafc", padding: "80px 0 40px 0", position: "relative", zIndex: 1, color: "#0f172a" }}>
+    <footer style={{ borderTop: "1px solid #e2e8f0", background: "#f8fafc", padding: "clamp(48px, 6vw, 80px) 0 36px 0", position: "relative", zIndex: 1, color: "#0f172a" }}>
       <div className="container">
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "48px", marginBottom: "60px" }}>
           {/* Brand Info */}

@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import Link from "next/link";
 import { ArrowRight, Globe, Layout, ArrowRightLeft, Target, Palette, ShoppingBag, Check } from "lucide-react";
 import Card3DTilt from "@/components/Card3DTilt";
@@ -122,7 +122,7 @@ export default function ServicesPage() {
         </div>
 
         {/* Services List with Tactile Elevation */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: "32px", marginBottom: "80px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "28px", marginBottom: "80px" }}>
           {serviceDetails.map((service, index) => {
             const Icon = service.icon;
             return (
@@ -131,7 +131,7 @@ export default function ServicesPage() {
                 className="interactive-service-card"
                 style={{
                   height: "100%",
-                  padding: "36px 32px",
+                  padding: "clamp(24px, 4vw, 36px) clamp(18px, 3.5vw, 32px)",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",

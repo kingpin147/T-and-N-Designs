@@ -44,6 +44,8 @@ import {
   AlertCircle,
   MapPin,
   Eye,
+  Menu,
+  X,
 } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import PostHogAnalyticsDashboard from "@/components/admin/PostHogAnalyticsDashboard";
@@ -136,6 +138,7 @@ export default function AdminDashboardPage() {
   // Initialize with verified owner profile so tabs and data are never blank
   const [currentUser, setCurrentUser] = useState<UserProfile>(DEFAULT_OWNER_PROFILE);
   const [activeTab, setActiveTab] = useState<"overview" | "leads" | "projects" | "blog" | "users" | "analytics">("overview");
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [testEventStatus, setTestEventStatus] = useState<{ fired: boolean; time: string; event: string } | null>(null);
   const [proxyTestStatus, setProxyTestStatus] = useState<{ testing: boolean; success: boolean; latency?: number; message?: string } | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -683,9 +686,18 @@ export default function AdminDashboardPage() {
   }
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh", background: "#f8fafc", color: "#0f172a" }}>
+    <div style={{ display: "flex", minHeight: "100vh", background: "#f8fafc", color: "#0f172a", position: "relative" }}>
+      {/* Mobile Drawer Backdrop */}
+      {mobileSidebarOpen && (
+        <div
+          className="admin-sidebar-backdrop"
+          onClick={() => setMobileSidebarOpen(false)}
+        />
+      )}
+
       {/* 1. ADMIN SIDEBAR NAVIGATION MENU */}
       <aside
+        className={`admin-sidebar ${mobileSidebarOpen ? "open" : ""}`}
         style={{
           width: "280px",
           background: "#ffffff",
@@ -699,34 +711,55 @@ export default function AdminDashboardPage() {
           padding: "24px 18px",
           flexShrink: 0,
           boxShadow: "2px 0 12px rgba(18, 57, 104, 0.03)",
-          zIndex: 40,
+          zIndex: 160,
         }}
       >
         <div>
           {/* Brand Header */}
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", paddingBottom: "20px", marginBottom: "20px", borderBottom: "1px solid #f1f5f9" }}>
-            <Image
-              src="/logo.svg"
-              alt="T & N Designs"
-              width={34}
-              height={34}
-              priority
-              style={{ objectFit: "contain", borderRadius: "6px" }}
-            />
-            <div>
-              <div style={{ fontSize: "16px", fontWeight: 800, color: "#123968", letterSpacing: "-0.3px" }}>
-                T &amp; N Designs
-              </div>
-              <div style={{ fontSize: "11px", fontWeight: 700, color: "#059669", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-                ● Admin Control Panel
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingBottom: "20px", marginBottom: "20px", borderBottom: "1px solid #f1f5f9" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <Image
+                src="/logo.svg"
+                alt="T & N Designs"
+                width={34}
+                height={34}
+                priority
+                style={{ objectFit: "contain", borderRadius: "6px" }}
+              />
+              <div>
+                <div style={{ fontSize: "16px", fontWeight: 800, color: "#123968", letterSpacing: "-0.3px" }}>
+                  T &amp; N Designs
+                </div>
+                <div style={{ fontSize: "11px", fontWeight: 700, color: "#059669", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                  ● Admin Control Panel
+                </div>
               </div>
             </div>
+
+            <button
+              onClick={() => setMobileSidebarOpen(false)}
+              className="admin-sidebar-close-btn"
+              style={{
+                background: "#f1f5f9",
+                border: "none",
+                borderRadius: "8px",
+                width: "32px",
+                height: "32px",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                color: "#64748b",
+              }}
+              title="Close Menu"
+            >
+              <X size={18} />
+            </button>
           </div>
 
           {/* Navigation Menu Links */}
           <nav style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
             <button
-              onClick={() => setActiveTab("overview")}
+              onClick={() => { setActiveTab("overview"); setMobileSidebarOpen(false); }}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -750,7 +783,7 @@ export default function AdminDashboardPage() {
             </button>
 
             <button
-              onClick={() => setActiveTab("leads")}
+              onClick={() => { setActiveTab("leads"); setMobileSidebarOpen(false); }}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -786,7 +819,7 @@ export default function AdminDashboardPage() {
             </button>
 
             <button
-              onClick={() => setActiveTab("projects")}
+              onClick={() => { setActiveTab("projects"); setMobileSidebarOpen(false); }}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -822,7 +855,7 @@ export default function AdminDashboardPage() {
             </button>
 
             <button
-              onClick={() => setActiveTab("blog")}
+              onClick={() => { setActiveTab("blog"); setMobileSidebarOpen(false); }}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -858,7 +891,7 @@ export default function AdminDashboardPage() {
             </button>
 
             <button
-              onClick={() => setActiveTab("users")}
+              onClick={() => { setActiveTab("users"); setMobileSidebarOpen(false); }}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -882,7 +915,7 @@ export default function AdminDashboardPage() {
             </button>
 
             <button
-              onClick={() => setActiveTab("analytics")}
+              onClick={() => { setActiveTab("analytics"); setMobileSidebarOpen(false); }}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -991,8 +1024,64 @@ export default function AdminDashboardPage() {
         </div>
       </aside>
 
-      {/* 2. MAIN CONTENT AREA */}
-      <main style={{ flex: 1, padding: "28px 36px", overflowY: "auto", minHeight: "100vh" }}>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0, overflow: "hidden" }}>
+        {/* Mobile Sticky Top Header (< 1024px) */}
+        <div className="admin-mobile-topbar">
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <button
+              onClick={() => setMobileSidebarOpen(true)}
+              style={{
+                background: "#f8fafc",
+                border: "1px solid #cbd5e1",
+                borderRadius: "8px",
+                width: "38px",
+                height: "38px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#123968",
+                cursor: "pointer",
+              }}
+              aria-label="Open Admin Menu"
+            >
+              <Menu size={20} />
+            </button>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+              <Image src="/logo.svg" alt="T & N Designs" width={26} height={26} />
+              <span style={{ fontSize: "15px", fontWeight: 800, color: "#123968" }}>
+                Admin Panel
+              </span>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <span style={{ fontSize: "11px", fontWeight: 700, color: sessionSecondsLeft < 300 ? "#ef4444" : "#0284c7", background: "#f1f5f9", padding: "4px 8px", borderRadius: "6px" }}>
+              {formatSessionTime(sessionSecondsLeft)}
+            </span>
+            <button
+              onClick={handleLogout}
+              style={{
+                background: "#fef2f2",
+                border: "1px solid #fecaca",
+                color: "#dc2626",
+                borderRadius: "8px",
+                padding: "6px 10px",
+                fontSize: "12px",
+                fontWeight: 700,
+                cursor: "pointer",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "4px",
+              }}
+              title="Log Out"
+            >
+              <LogOut size={13} />
+            </button>
+          </div>
+        </div>
+
+        {/* 2. MAIN CONTENT AREA */}
+        <main className="admin-main-content" style={{ flex: 1, padding: "28px 36px", overflowY: "auto", minHeight: "100vh" }}>
         {/* Global Admin Header Bar with Session Status & Prominent Log Out */}
         <div
           style={{
@@ -1326,12 +1415,12 @@ export default function AdminDashboardPage() {
                     </div>
 
                     <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", alignItems: "center" }}>
-                      <a href={`mailto:${inq.email}?subject=Regarding%20your%20project%20inquiry%20with%20T%20%26%20N%20Designs`} className="btn-primary" style={{ padding: "8px 16px", fontSize: "13px" }}>
-                        <Mail size={14} /> Send Email ({inq.email})
+                      <a href={`mailto:${inq.email}?subject=Regarding%20your%20project%20inquiry%20with%20T%20%26%20N%20Designs`} className="btn-primary" style={{ padding: "8px 16px", fontSize: "13px", maxWidth: "100%", overflowWrap: "anywhere" }}>
+                        <Mail size={14} style={{ flexShrink: 0 }} /> <span>Send Email ({inq.email})</span>
                       </a>
                       {inq.phone && (
-                        <a href={`tel:${inq.phone}`} className="btn-secondary" style={{ padding: "8px 16px", fontSize: "13px" }}>
-                          <Phone size={14} /> Call ({inq.phone})
+                        <a href={`tel:${inq.phone}`} className="btn-secondary" style={{ padding: "8px 16px", fontSize: "13px", maxWidth: "100%", overflowWrap: "anywhere" }}>
+                          <Phone size={14} style={{ flexShrink: 0 }} /> <span>Call ({inq.phone})</span>
                         </a>
                       )}
                       <button
@@ -1413,7 +1502,7 @@ export default function AdminDashboardPage() {
                 No projects found matching the current search or category filter.
               </div>
             ) : (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "24px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))", gap: "24px" }}>
                 {filteredProjects.map((proj) => (
                   <div key={proj.id} style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", overflow: "hidden", display: "flex", flexDirection: "column", boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
                     {/* Media Image Container */}
@@ -1558,7 +1647,7 @@ export default function AdminDashboardPage() {
                 No blog articles found matching the current search.
               </div>
             ) : (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "24px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))", gap: "24px" }}>
                 {filteredPosts.map((post) => {
                   const isScheduled = Boolean(post.published && post.publishedAt && new Date(post.publishedAt).getTime() > Date.now());
                   const isDraft = !post.published;
@@ -1880,7 +1969,8 @@ export default function AdminDashboardPage() {
             <PostHogAnalyticsDashboard />
           </div>
         )}
-      </main>
+        </main>
+      </div>
 
       {/* 2026 RESPONSIVE MODAL: PROJECT EDIT / CREATE */}
       {projectModalOpen && (

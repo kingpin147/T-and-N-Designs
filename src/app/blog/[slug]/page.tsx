@@ -77,7 +77,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {/* Cover Image */}
         {post.coverImageUrl && (
-          <div style={{ position: "relative", width: "100%", height: "420px", borderRadius: "14px", overflow: "hidden", marginBottom: "48px", background: "#f1f5f9", border: "1px solid #e2e8f0" }}>
+          <div style={{ position: "relative", width: "100%", height: "clamp(220px, 45vw, 420px)", borderRadius: "14px", overflow: "hidden", marginBottom: "48px", background: "#f1f5f9", border: "1px solid #e2e8f0" }}>
             <Image
               src={post.coverImageUrl}
               alt={post.title}

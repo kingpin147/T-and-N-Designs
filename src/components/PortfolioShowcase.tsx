@@ -103,8 +103,8 @@ export default function PortfolioShowcase({ initialProjects }: PortfolioShowcase
         layout
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(360px, 1fr))",
-          gap: "28px",
+          gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 340px), 1fr))",
+          gap: "24px",
         }}
       >
         <AnimatePresence>
