@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect, useId } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -153,9 +153,7 @@ export default function PostHogAnalyticsDashboard() {
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const [hoveredPoint, setHoveredPoint] = useState<any | null>(null);
   const [activeReportModal, setActiveReportModal] = useState<string | null>(null);
-  const [showConfigDrawer, setShowConfigDrawer] = useState<boolean>(false);
   const [exportNotice, setExportNotice] = useState<string | null>(null);
-  const [testPingFired, setTestPingFired] = useState<boolean>(false);
 
   // Fetch analytics data
   const fetchAnalytics = async (range: string = timeRange, isManual: boolean = false) => {
@@ -199,19 +197,6 @@ export default function PostHogAnalyticsDashboard() {
     setTimeout(() => setExportNotice(null), 3500);
   };
 
-  const handleFireTelemetryPing = () => {
-    trackEvent("analytics_dashboard_ping", {
-      time: new Date().toISOString(),
-      source: "PostHog Wix-style Dashboard",
-      subTab: selectedSubTab,
-    });
-    setTestPingFired(true);
-    setTimeout(() => {
-      fetchAnalytics(timeRange, true);
-      setTestPingFired(false);
-    }, 800);
-  };
-
   const navItems = [
     { id: "highlights", label: "Highlights", icon: Sparkles },
     { id: "realtime", label: "Real-time", icon: Radio, badge: "LIVE" },
@@ -231,164 +216,6 @@ export default function PostHogAnalyticsDashboard() {
       transition={{ duration: 0.35, ease: "easeOut" }}
       style={{ display: "flex", flexDirection: "column", gap: "20px", color: "var(--text-primary)" }}
     >
-      {/* Top Banner: PostHog Live Ingestion Proxy Status */}
-      <motion.div
-        layout
-        style={{
-          background: "linear-gradient(90deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%)",
-          border: "1px solid rgba(255, 255, 255, 0.1)",
-          borderRadius: "12px",
-          padding: "12px 20px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexWrap: "wrap",
-          gap: "12px",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          {/* Framer motion pulsing dot */}
-          <motion.div
-            animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
-            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-            style={{
-              width: "10px",
-              height: "10px",
-              borderRadius: "50%",
-              background: "#10b981",
-              boxShadow: "0 0 10px #10b981",
-            }}
-          />
-          <div style={{ fontSize: "13px" }}>
-            <span style={{ fontWeight: 600, color: "#fff" }}>PostHog Ingestion Engine:</span>{" "}
-            <span style={{ color: "#34d399", fontWeight: 500 }}>Active (Bypassing Ad-blockers via /ingest proxy)</span>
-            <span style={{ color: "var(--text-muted)", marginLeft: "8px", fontSize: "12px" }}>
-              • Capturing Session Replays, Clicks &amp; $pageview
-            </span>
-          </div>
-        </div>
-
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            onClick={handleFireTelemetryPing}
-            style={{
-              background: testPingFired ? "rgba(16, 185, 129, 0.2)" : "rgba(255, 255, 255, 0.06)",
-              border: `1px solid ${testPingFired ? "#10b981" : "rgba(255, 255, 255, 0.12)"}`,
-              color: testPingFired ? "#34d399" : "#e2e8f0",
-              padding: "6px 12px",
-              borderRadius: "6px",
-              fontSize: "12px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "6px",
-              transition: "all 0.2s ease",
-            }}
-          >
-            <Zap size={13} color={testPingFired ? "#34d399" : "#f59e0b"} />
-            {testPingFired ? "Telemetry Ping Sent!" : "Send Test Ping"}
-          </motion.button>
-
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            onClick={() => setShowConfigDrawer(!showConfigDrawer)}
-            style={{
-              background: "rgba(255, 255, 255, 0.06)",
-              border: "1px solid rgba(255, 255, 255, 0.12)",
-              color: "#e2e8f0",
-              padding: "6px 12px",
-              borderRadius: "6px",
-              fontSize: "12px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "6px",
-            }}
-          >
-            <ShieldCheck size={14} color="#38bdf8" /> PostHog Config
-          </motion.button>
-
-          <motion.a
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            href="https://us.posthog.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              background: "linear-gradient(135deg, #ec4899, #8b5cf6)",
-              color: "#fff",
-              padding: "6px 14px",
-              borderRadius: "6px",
-              fontSize: "12px",
-              fontWeight: 600,
-              textDecoration: "none",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "6px",
-            }}
-          >
-            Open PostHog Cloud <ExternalLink size={12} />
-          </motion.a>
-        </div>
-      </motion.div>
-
-      {/* PostHog Configuration Drawer with Framer Motion AnimatePresence */}
-      <AnimatePresence>
-        {showConfigDrawer && (
-          <motion.div
-            initial={{ opacity: 0, height: 0, scale: 0.98 }}
-            animate={{ opacity: 1, height: "auto", scale: 1 }}
-            exit={{ opacity: 0, height: 0, scale: 0.98 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
-            style={{
-              background: "rgba(15, 23, 42, 0.95)",
-              border: "1px solid rgba(56, 189, 248, 0.3)",
-              borderRadius: "12px",
-              padding: "20px",
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "20px",
-              overflow: "hidden",
-            }}
-          >
-            <div>
-              <h4 style={{ color: "#fff", fontSize: "14px", margin: "0 0 6px 0" }}>Client Ingestion Key</h4>
-              <p style={{ color: "var(--text-muted)", fontSize: "12px", margin: "0 0 10px 0" }}>
-                Public key active in next.config.ts reverse proxy
-              </p>
-              <div style={{ background: "rgba(0,0,0,0.4)", padding: "8px 12px", borderRadius: "6px", border: "1px solid var(--border-subtle)" }}>
-                <code style={{ color: "#ec4899", fontSize: "13px" }}>
-                  {analytics?.posthogConfig.apiKeyPrefix || "phc_active...proxy"}
-                </code>
-              </div>
-            </div>
-
-            <div>
-              <h4 style={{ color: "#fff", fontSize: "14px", margin: "0 0 6px 0" }}>Ingestion Proxy Route</h4>
-              <p style={{ color: "var(--text-muted)", fontSize: "12px", margin: "0 0 10px 0" }}>
-                First-party proxy bypassing browser privacy extensions
-              </p>
-              <div style={{ background: "rgba(0,0,0,0.4)", padding: "8px 12px", borderRadius: "6px", border: "1px solid var(--border-subtle)" }}>
-                <code style={{ color: "#38bdf8", fontSize: "13px" }}>/ingest → https://us.i.posthog.com</code>
-              </div>
-            </div>
-
-            <div>
-              <h4 style={{ color: "#fff", fontSize: "14px", margin: "0 0 6px 0" }}>Session Recording Status</h4>
-              <p style={{ color: "var(--text-muted)", fontSize: "12px", margin: "0 0 10px 0" }}>
-                Autocapture and session replay sampling
-              </p>
-              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <span style={{ fontSize: "12px", color: "#34d399", fontWeight: 600 }}>● 100% Full Sessions Captured</span>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Main Wix-Style Analytics Container */}
       <div
         style={{
@@ -1442,7 +1269,7 @@ export default function PostHogAnalyticsDashboard() {
                       className="btn-secondary"
                       style={{ background: "rgba(255,255,255,0.1)", color: "#ffffff", borderColor: "rgba(255,255,255,0.2)", fontSize: "12px", padding: "8px 14px" }}
                     >
-                      <Zap size={14} /> Test MCP Endpoint <ExternalLink size={12} />
+                      <Zap size={14} /> View /api/mcp <ExternalLink size={12} />
                     </a>
                   </div>
                 </div>

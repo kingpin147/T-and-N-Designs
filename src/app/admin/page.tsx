@@ -139,58 +139,12 @@ export default function AdminDashboardPage() {
   const [currentUser, setCurrentUser] = useState<UserProfile>(DEFAULT_OWNER_PROFILE);
   const [activeTab, setActiveTab] = useState<"overview" | "leads" | "projects" | "blog" | "users" | "analytics">("overview");
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-  const [testEventStatus, setTestEventStatus] = useState<{ fired: boolean; time: string; event: string } | null>(null);
-  const [proxyTestStatus, setProxyTestStatus] = useState<{ testing: boolean; success: boolean; latency?: number; message?: string } | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const handleCopyId = (id: string, text: string) => {
     navigator.clipboard.writeText(text);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
-  };
-
-  const handleSendTestTelemetry = () => {
-    trackEvent("admin_dashboard_ping", {
-      dispatchedBy: currentUser?.email || "admin",
-      timestamp: new Date().toISOString(),
-      source: "T & N Designs Admin Console",
-      status: "verified",
-    });
-    setTestEventStatus({
-      fired: true,
-      time: new Date().toLocaleTimeString(),
-      event: "admin_dashboard_ping",
-    });
-  };
-
-  const handleTestProxyEndpoint = async () => {
-    setProxyTestStatus({ testing: true, success: false });
-    const startTime = performance.now();
-    try {
-      const res = await fetch("/ingest/static/array.js", { method: "HEAD" });
-      const latency = Math.round(performance.now() - startTime);
-      if (res.ok) {
-        setProxyTestStatus({
-          testing: false,
-          success: true,
-          latency,
-          message: `200 OK (${latency}ms) — Ingestion proxy active`,
-        });
-      } else {
-        setProxyTestStatus({
-          testing: false,
-          success: false,
-          latency,
-          message: `Response status: ${res.status}`,
-        });
-      }
-    } catch (e: unknown) {
-      setProxyTestStatus({
-        testing: false,
-        success: false,
-        message: e instanceof Error ? e.message : "Failed to reach /ingest proxy endpoint",
-      });
-    }
   };
 
   // State Data
@@ -1209,35 +1163,7 @@ export default function AdminDashboardPage() {
                     Status for Google Analytics 4, GTM, PostHog, and AI Agent MCP protocol.
                   </p>
                 </div>
-                <div style={{ display: "flex", gap: "10px" }}>
-                  <button
-                    onClick={handleSendTestTelemetry}
-                    className="btn-secondary"
-                    style={{ padding: "8px 16px", fontSize: "13px" }}
-                  >
-                    <Zap size={14} color="#d97706" /> Test Telemetry Ping
-                  </button>
-                  <button
-                    onClick={handleTestProxyEndpoint}
-                    className="btn-secondary"
-                    style={{ padding: "8px 16px", fontSize: "13px" }}
-                  >
-                    <Activity size={14} color="#059669" /> Test Proxy Latency
-                  </button>
-                </div>
               </div>
-
-              {testEventStatus && (
-                <div style={{ background: "#f0fdf4", border: "1px solid #bbf7d0", color: "#166534", padding: "10px 14px", borderRadius: "8px", fontSize: "13px", marginBottom: "16px" }}>
-                  ✓ Dispatched telemetry event: <strong>{testEventStatus.event}</strong> at {testEventStatus.time}
-                </div>
-              )}
-
-              {proxyTestStatus && (
-                <div style={{ background: proxyTestStatus.success ? "#f0fdf4" : "#fef2f2", border: `1px solid ${proxyTestStatus.success ? "#bbf7d0" : "#fecaca"}`, color: proxyTestStatus.success ? "#166534" : "#991b1b", padding: "10px 14px", borderRadius: "8px", fontSize: "13px", marginBottom: "16px" }}>
-                  {proxyTestStatus.message}
-                </div>
-              )}
 
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px" }}>
                 <div style={{ background: "#f8fafc", padding: "16px", borderRadius: "10px", border: "1px solid #e2e8f0" }}>
