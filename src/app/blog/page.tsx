@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import fs from "node:fs";
@@ -28,13 +28,57 @@ export default async function BlogArchivePage() {
 
       <div className="container" style={{ maxWidth: "1240px", position: "relative", zIndex: 1 }}>
         {/* Header */}
-        <div style={{ maxWidth: "760px", marginBottom: "50px" }}>
+        <div style={{ maxWidth: "760px", marginBottom: "36px" }}>
           <h1 style={{ fontSize: "clamp(34px, 4.4vw, 52px)", fontWeight: 800, color: "#1b2933", letterSpacing: "-0.025em", lineHeight: 1.15, marginBottom: "16px" }}>
             Articles &amp; Technical Insights
           </h1>
           <p style={{ fontSize: "17px", color: "#465868", lineHeight: 1.65 }}>
             Articles and deep-dive technical breakdowns on web design, modern frontends, SEO migrations, and digital growth.
           </p>
+        </div>
+
+        {/* Category Pills */}
+        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "44px" }}>
+          <Link
+            href="/blog"
+            style={{
+              padding: "8px 18px",
+              borderRadius: "999px",
+              fontSize: "13px",
+              fontWeight: 600,
+              textDecoration: "none",
+              background: "#123968",
+              color: "#ffffff",
+              border: "1px solid #0a223f",
+            }}
+          >
+            All Insights
+          </Link>
+          {[
+            { label: "Agentic AI", slug: "agentic-ai" },
+            { label: "Next.js & Full-Stack", slug: "nextjs-fullstack" },
+            { label: "Cloud & DevOps", slug: "cloud-infrastructure" },
+            { label: "SaaS Growth", slug: "saas-growth" },
+            { label: "Cybersecurity", slug: "cybersecurity" },
+            { label: "Web Development", slug: "web-development" },
+          ].map((cat) => (
+            <Link
+              key={cat.slug}
+              href={`/blog/categories/${cat.slug}`}
+              style={{
+                padding: "8px 18px",
+                borderRadius: "999px",
+                fontSize: "13px",
+                fontWeight: 600,
+                textDecoration: "none",
+                background: "#ffffff",
+                color: "#475569",
+                border: "1px solid #cbd5e1",
+              }}
+            >
+              {cat.label}
+            </Link>
+          ))}
         </div>
 
         {/* Blog Grid */}

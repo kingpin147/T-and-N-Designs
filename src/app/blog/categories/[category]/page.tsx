@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Clock, Calendar, ArrowRight } from "lucide-react";
@@ -12,6 +12,11 @@ export async function generateStaticParams() {
   return [
     { category: "latest-advancements-in-ai" },
     { category: "ai" },
+    { category: "agentic-ai" },
+    { category: "nextjs-fullstack" },
+    { category: "cloud-infrastructure" },
+    { category: "saas-growth" },
+    { category: "cybersecurity" },
     { category: "digital-marketing" },
     { category: "web-development" },
   ];
