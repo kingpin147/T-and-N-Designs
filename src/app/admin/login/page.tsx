@@ -2,8 +2,9 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Lock, Mail, ArrowRight, ShieldCheck, ArrowLeft, Loader2, UserCheck } from "lucide-react";
+import { Lock, Mail, ArrowRight, ArrowLeft, Loader2 } from "lucide-react";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -39,40 +40,49 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px", position: "relative" }}>
-      <div className="ambient-glow glow-top-left" />
-      <div className="ambient-glow glow-top-right" />
-
-      <div style={{ width: "100%", maxWidth: "460px", zIndex: 1 }}>
-        <Link href="/" style={{ color: "var(--accent-cyan)", fontSize: "14px", display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "24px" }}>
+    <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px", background: "#f8fafc", position: "relative" }}>
+      <div style={{ width: "100%", maxWidth: "440px", zIndex: 1 }}>
+        <Link href="/" style={{ color: "#123968", fontSize: "14px", display: "inline-flex", alignItems: "center", gap: "6px", marginBottom: "20px", fontWeight: 600, textDecoration: "none" }}>
           <ArrowLeft size={16} /> Return to Homepage
         </Link>
 
-        <div className="glass-panel" style={{ padding: "40px 32px" }}>
-          {/* Header */}
-          <div style={{ textAlign: "center", marginBottom: "32px" }}>
-            <div style={{ width: "52px", height: "52px", borderRadius: "14px", background: "linear-gradient(135deg, var(--accent-cyan), var(--accent-indigo))", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px auto", boxShadow: "0 0 20px rgba(6, 182, 212, 0.4)" }}>
-              <ShieldCheck size={28} color="#fff" />
-            </div>
-            <h1 style={{ fontSize: "26px", color: "#fff", marginBottom: "6px" }}>T &amp; N Designs Portal</h1>
-            <p style={{ fontSize: "14px", color: "var(--text-secondary)" }}>
-              Neon Auth Verified Control Center
-            </p>
+        <div
+          className="glass-panel"
+          style={{
+            padding: "36px 32px",
+            background: "#ffffff",
+            border: "1px solid #e2e8f0",
+            borderRadius: "20px",
+            boxShadow: "0 10px 30px rgba(18, 57, 104, 0.08)",
+          }}
+        >
+          {/* Brand Logo Header */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: "28px" }}>
+            <Link href="/" style={{ display: "inline-block" }}>
+              <Image
+                src="/logo.svg"
+                alt="T & N Designs"
+                width={64}
+                height={64}
+                priority
+                style={{ objectFit: "contain", borderRadius: "12px" }}
+              />
+            </Link>
           </div>
 
           {errorMsg && (
-            <div style={{ background: "rgba(239, 68, 68, 0.15)", border: "1px solid #ef4444", color: "#fca5a5", padding: "12px", borderRadius: "8px", fontSize: "13px", marginBottom: "20px" }}>
+            <div style={{ background: "#fef2f2", border: "1px solid #fecaca", color: "#b91c1c", padding: "12px 14px", borderRadius: "10px", fontSize: "13px", fontWeight: 600, marginBottom: "20px" }}>
               {errorMsg}
             </div>
           )}
 
           <form onSubmit={handleLogin}>
             <div style={{ marginBottom: "18px" }}>
-              <label style={{ display: "block", fontSize: "13px", fontWeight: 600, color: "var(--text-secondary)", marginBottom: "6px" }}>
+              <label style={{ display: "block", fontSize: "13px", fontWeight: 700, color: "#1e293b", marginBottom: "6px" }}>
                 Email Address
               </label>
               <div style={{ position: "relative" }}>
-                <Mail size={16} color="var(--text-muted)" style={{ position: "absolute", left: "14px", top: "14px" }} />
+                <Mail size={16} color="#94a3b8" style={{ position: "absolute", left: "14px", top: "14px" }} />
                 <input
                   type="email"
                   required
@@ -81,11 +91,11 @@ export default function AdminLoginPage() {
                   placeholder="admin@tnndesigns.com"
                   style={{
                     width: "100%",
-                    padding: "12px 14px 12px 40px",
-                    background: "rgba(255, 255, 255, 0.04)",
-                    border: "1px solid var(--border-subtle)",
-                    borderRadius: "var(--radius-sm)",
-                    color: "#fff",
+                    padding: "12px 14px 12px 42px",
+                    background: "#f8fafc",
+                    border: "1px solid #cbd5e1",
+                    borderRadius: "10px",
+                    color: "#0f172a",
                     fontSize: "14px",
                     outline: "none",
                   }}
@@ -93,12 +103,12 @@ export default function AdminLoginPage() {
               </div>
             </div>
 
-            <div style={{ marginBottom: "28px" }}>
-              <label style={{ display: "block", fontSize: "13px", fontWeight: 600, color: "var(--text-secondary)", marginBottom: "6px" }}>
+            <div style={{ marginBottom: "26px" }}>
+              <label style={{ display: "block", fontSize: "13px", fontWeight: 700, color: "#1e293b", marginBottom: "6px" }}>
                 Password
               </label>
               <div style={{ position: "relative" }}>
-                <Lock size={16} color="var(--text-muted)" style={{ position: "absolute", left: "14px", top: "14px" }} />
+                <Lock size={16} color="#94a3b8" style={{ position: "absolute", left: "14px", top: "14px" }} />
                 <input
                   type="password"
                   required
@@ -107,11 +117,11 @@ export default function AdminLoginPage() {
                   placeholder="••••••••••••"
                   style={{
                     width: "100%",
-                    padding: "12px 14px 12px 40px",
-                    background: "rgba(255, 255, 255, 0.04)",
-                    border: "1px solid var(--border-subtle)",
-                    borderRadius: "var(--radius-sm)",
-                    color: "#fff",
+                    padding: "12px 14px 12px 42px",
+                    background: "#f8fafc",
+                    border: "1px solid #cbd5e1",
+                    borderRadius: "10px",
+                    color: "#0f172a",
                     fontSize: "14px",
                     outline: "none",
                   }}
@@ -123,7 +133,15 @@ export default function AdminLoginPage() {
               type="submit"
               disabled={loading}
               className="btn-primary"
-              style={{ width: "100%", padding: "14px", justifyContent: "center", fontSize: "15px" }}
+              style={{
+                width: "100%",
+                padding: "13px",
+                justifyContent: "center",
+                fontSize: "15px",
+                fontWeight: 700,
+                borderRadius: "12px",
+                background: "#123968",
+              }}
             >
               {loading ? (
                 <>
@@ -136,13 +154,6 @@ export default function AdminLoginPage() {
               )}
             </button>
           </form>
-
-          {/* Security Notice */}
-          <div style={{ marginTop: "24px", paddingTop: "20px", borderTop: "1px solid var(--border-subtle)", textAlign: "center" }}>
-            <span style={{ fontSize: "12px", color: "var(--text-muted)" }}>
-              Protected by encrypted session authentication &amp; Neon RBAC.
-            </span>
-          </div>
         </div>
       </div>
     </div>

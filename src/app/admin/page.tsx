@@ -680,7 +680,7 @@ export default function AdminDashboardPage() {
         <div style={{ fontSize: "16px", fontWeight: 700, color: "#123968" }}>
           Verifying Admin Credentials...
         </div>
-        <p style={{ fontSize: "13px", color: "#64748b" }}>Encrypted Neon RBAC Protected Portal</p>
+        <p style={{ fontSize: "13px", color: "#64748b" }}>Admin Control Panel</p>
       </div>
     );
   }
