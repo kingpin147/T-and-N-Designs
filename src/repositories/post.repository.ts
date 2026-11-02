@@ -11,9 +11,9 @@ function getSql() {
   return neon(connectionString);
 }
 
-export async function findAllPosts(fresh = false): Promise<Post[]> {
+export async function findAllPosts(fresh = false, includeAll = false): Promise<Post[]> {
   if (fresh) {
-    return fetchPostsDirect();
+    return fetchPostsDirect(includeAll);
   }
   return fetchPosts();
 }
@@ -24,10 +24,12 @@ export async function insertPost(data: ValidatedPostInput): Promise<{ id: string
     throw new Error("Database connection is not configured.");
   }
 
+  const pubAt = data.publishedAt ? new Date(data.publishedAt).toISOString() : new Date().toISOString();
+
   const rows = await sql`
     INSERT INTO posts (
       title, slug, excerpt, content, cover_image_url, 
-      read_time, tags, published
+      read_time, tags, published, published_at
     ) VALUES (
       ${data.title}, 
       ${data.slug}, 
@@ -36,7 +38,8 @@ export async function insertPost(data: ValidatedPostInput): Promise<{ id: string
       ${data.coverImageUrl}, 
       ${data.readTime}, 
       ${JSON.stringify(data.tags)}::jsonb, 
-      ${data.published}
+      ${data.published},
+      ${pubAt}
     )
     RETURNING id, slug;
   `;
@@ -50,6 +53,8 @@ export async function updatePost(data: ValidatedPostInput): Promise<boolean> {
     throw new Error("Database connection is not configured.");
   }
 
+  const pubAt = data.publishedAt ? new Date(data.publishedAt).toISOString() : new Date().toISOString();
+
   await sql`
     UPDATE posts SET
       title = ${data.title},
@@ -60,8 +65,26 @@ export async function updatePost(data: ValidatedPostInput): Promise<boolean> {
       read_time = ${data.readTime},
       tags = ${JSON.stringify(data.tags)}::jsonb,
       published = ${data.published},
+      published_at = ${pubAt},
       updated_at = NOW()
     WHERE id = ${data.id};
+  `;
+
+  return true;
+}
+
+export async function publishPostImmediately(id: string): Promise<boolean> {
+  const sql = getSql();
+  if (!sql) {
+    throw new Error("Database connection is not configured.");
+  }
+
+  await sql`
+    UPDATE posts SET
+      published = true,
+      published_at = NOW(),
+      updated_at = NOW()
+    WHERE id = ${id};
   `;
 
   return true;

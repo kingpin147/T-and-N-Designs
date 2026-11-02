@@ -195,20 +195,30 @@ export const fetchProjectBySlug = cache(async (slug: string): Promise<Project | 
 });
 
 // Raw database query for blog posts with disk fallback
-async function queryPostsFromDb(): Promise<Post[]> {
+async function queryPostsFromDb(includeAll = false): Promise<Post[]> {
   const sql = getDb();
   if (sql) {
     try {
-      const rows = await sql`
-        SELECT 
-          id, title, slug, excerpt, content, cover_image_url as "coverImageUrl",
-          read_time as "readTime", tags, published, published_at as "publishedAt",
-          COALESCE(views, 0) as views,
-          created_at as "createdAt"
-        FROM posts
-        WHERE published = true
-        ORDER BY published_at DESC;
-      `;
+      const rows = includeAll
+        ? await sql`
+            SELECT 
+              id, title, slug, excerpt, content, cover_image_url as "coverImageUrl",
+              read_time as "readTime", tags, published, published_at as "publishedAt",
+              COALESCE(views, 0) as views,
+              created_at as "createdAt"
+            FROM posts
+            ORDER BY published_at DESC, created_at DESC;
+          `
+        : await sql`
+            SELECT 
+              id, title, slug, excerpt, content, cover_image_url as "coverImageUrl",
+              read_time as "readTime", tags, published, published_at as "publishedAt",
+              COALESCE(views, 0) as views,
+              created_at as "createdAt"
+            FROM posts
+            WHERE published = true AND published_at <= NOW()
+            ORDER BY published_at DESC;
+          `;
       if (rows && rows.length > 0) {
         return rows as Post[];
       }
@@ -220,7 +230,10 @@ async function queryPostsFromDb(): Promise<Post[]> {
   try {
     const jsonPath = path.join(process.cwd(), "src", "data", "posts.json");
     if (fs.existsSync(jsonPath)) {
-      return JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
+      const all = JSON.parse(fs.readFileSync(jsonPath, "utf-8")) as Post[];
+      if (includeAll) return all;
+      const now = new Date();
+      return all.filter((p) => (p.published ?? true) && new Date(p.publishedAt) <= now);
     }
   } catch (err) {
     console.error("❌ Failed to read posts.json:", err);
@@ -229,8 +242,8 @@ async function queryPostsFromDb(): Promise<Post[]> {
   return [];
 }
 
-export async function fetchPostsDirect(): Promise<Post[]> {
-  return queryPostsFromDb();
+export async function fetchPostsDirect(includeAll = false): Promise<Post[]> {
+  return queryPostsFromDb(includeAll);
 }
 
 /**

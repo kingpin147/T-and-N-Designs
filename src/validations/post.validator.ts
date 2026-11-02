@@ -16,6 +16,7 @@ export interface ValidatedPostInput {
   readTime: number;
   tags: string[];
   published: boolean;
+  publishedAt?: string;
 }
 
 export function validatePostInput(body: unknown, isUpdate = false): ValidatedPostInput {
@@ -40,6 +41,14 @@ export function validatePostInput(body: unknown, isUpdate = false): ValidatedPos
   const readTime = typeof data.readTime === "number" && data.readTime > 0 ? Math.min(Math.round(data.readTime), 120) : Math.max(1, Math.ceil(content.split(/\s+/).length / 200));
   const published = data.published !== undefined ? Boolean(data.published) : true;
 
+  let publishedAt: string | undefined = undefined;
+  if (data.publishedAt && typeof data.publishedAt === "string") {
+    const parsed = new Date(data.publishedAt);
+    if (!isNaN(parsed.getTime())) {
+      publishedAt = parsed.toISOString();
+    }
+  }
+
   return {
     id,
     title,
@@ -50,6 +59,7 @@ export function validatePostInput(body: unknown, isUpdate = false): ValidatedPos
     readTime,
     tags,
     published,
+    publishedAt,
   };
 }
 

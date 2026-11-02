@@ -4,11 +4,12 @@ import {
   insertPost,
   updatePost,
   deletePostById,
+  publishPostImmediately,
 } from "@/repositories/post.repository";
 import { revalidatePostsCache } from "@/lib/db";
 
-export async function listAllPosts(fresh = false) {
-  return findAllPosts(fresh);
+export async function listAllPosts(fresh = false, includeAll = false) {
+  return findAllPosts(fresh, includeAll);
 }
 
 export async function createNewPost(rawPayload: unknown) {
@@ -23,6 +24,15 @@ export async function editPost(rawPayload: unknown) {
   await updatePost(cleanData);
   revalidatePostsCache(cleanData.slug);
   return { updatedId: cleanData.id };
+}
+
+export async function quickPublishPost(id: string) {
+  if (!id || typeof id !== "string") {
+    throw new Error("Valid article ID is required.");
+  }
+  await publishPostImmediately(id.trim());
+  revalidatePostsCache();
+  return { publishedId: id };
 }
 
 export async function removePost(id: string) {

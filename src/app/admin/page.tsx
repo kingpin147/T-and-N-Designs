@@ -224,6 +224,8 @@ export default function AdminDashboardPage() {
   const [currentProject, setCurrentProject] = useState<Partial<Project>>({});
   const [postModalOpen, setPostModalOpen] = useState(false);
   const [currentPost, setCurrentPost] = useState<Partial<Post>>({});
+  const [postPublishMode, setPostPublishMode] = useState<"immediate" | "schedule" | "draft">("immediate");
+  const [scheduledDateTime, setScheduledDateTime] = useState<string>("");
   const [inviteModalOpen, setInviteModalOpen] = useState(false);
   const [inviteForm, setInviteForm] = useState({
     name: "",
@@ -496,20 +498,74 @@ export default function AdminDashboardPage() {
     }
   };
 
-  // Save Blog Post
+  // Quick Publish Immediately (for Scheduled or Draft posts)
+  const handleQuickPublish = async (post: Post) => {
+    try {
+      const res = await fetch("/api/admin/posts", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: post.id }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        showToast(`"${post.title}" is now published immediately!`, "success");
+        loadDashboardData();
+      } else {
+        showToast(data.error || "Failed to publish immediately.", "error");
+      }
+    } catch (err) {
+      console.error("Quick publish error:", err);
+      showToast("Network error publishing article.", "error");
+    }
+  };
+
+  // Save Blog Post (Immediate, Scheduled, or Draft)
   const handleSavePost = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    let published = true;
+    let publishedAt = new Date().toISOString();
+
+    if (postPublishMode === "immediate") {
+      published = true;
+      publishedAt = new Date().toISOString();
+    } else if (postPublishMode === "schedule") {
+      if (!scheduledDateTime) {
+        showToast("Please choose a date and time to schedule the article.", "error");
+        return;
+      }
+      published = true;
+      publishedAt = new Date(scheduledDateTime).toISOString();
+    } else if (postPublishMode === "draft") {
+      published = false;
+      publishedAt = currentPost.publishedAt || new Date().toISOString();
+    }
+
+    const payload = {
+      ...currentPost,
+      published,
+      publishedAt,
+    };
+
     const method = currentPost.id ? "PUT" : "POST";
     try {
       const res = await fetch("/api/admin/posts", {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(currentPost),
+        body: JSON.stringify(payload),
       });
       const data = await res.json();
       if (res.ok && data.success) {
         setPostModalOpen(false);
-        showToast(currentPost.id ? "Article updated successfully!" : "Article published successfully!", "success");
+        const toastMsg =
+          postPublishMode === "schedule"
+            ? `Article scheduled for ${new Date(publishedAt).toLocaleString()}`
+            : postPublishMode === "draft"
+            ? "Article saved as draft."
+            : currentPost.id
+            ? "Article updated and live!"
+            : "Article published immediately!";
+        showToast(toastMsg, "success");
         loadDashboardData();
       } else {
         showToast(data.error || "Failed to save article.", "error");
@@ -1485,6 +1541,8 @@ export default function AdminDashboardPage() {
                 <button
                   onClick={() => {
                     setCurrentPost({ title: "", content: "", excerpt: "", readTime: 5, tags: ["AI", "Web Design"], published: true });
+                    setPostPublishMode("immediate");
+                    setScheduledDateTime("");
                     setPostModalOpen(true);
                   }}
                   className="btn-primary"
@@ -1501,25 +1559,70 @@ export default function AdminDashboardPage() {
               </div>
             ) : (
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "24px" }}>
-                {filteredPosts.map((post) => (
+                {filteredPosts.map((post) => {
+                  const isScheduled = Boolean(post.published && post.publishedAt && new Date(post.publishedAt).getTime() > Date.now());
+                  const isDraft = !post.published;
+
+                  return (
                   <div key={post.id} style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", overflow: "hidden", display: "flex", flexDirection: "column", boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
                     {post.coverImageUrl && (
                       <div style={{ position: "relative", width: "100%", height: "180px", background: "#f1f5f9" }}>
                         <Image src={post.coverImageUrl} alt={post.title} fill unoptimized sizes="340px" style={{ objectFit: "cover" }} />
                         <div style={{ position: "absolute", top: "12px", right: "12px" }}>
-                          <span
-                            style={{
-                              fontSize: "11px",
-                              fontWeight: 700,
-                              background: post.published ? "rgba(5, 150, 105, 0.9)" : "rgba(220, 38, 38, 0.9)",
-                              color: "#ffffff",
-                              padding: "3px 8px",
-                              borderRadius: "6px",
-                              backdropFilter: "blur(4px)",
-                            }}
-                          >
-                            {post.published ? "Published" : "Draft"}
-                          </span>
+                          {isDraft ? (
+                            <span
+                              style={{
+                                fontSize: "11px",
+                                fontWeight: 700,
+                                background: "rgba(100, 116, 139, 0.92)",
+                                color: "#ffffff",
+                                padding: "4px 8px",
+                                borderRadius: "6px",
+                                backdropFilter: "blur(4px)",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: "4px",
+                              }}
+                            >
+                              <FileText size={11} /> Draft
+                            </span>
+                          ) : isScheduled ? (
+                            <span
+                              style={{
+                                fontSize: "11px",
+                                fontWeight: 700,
+                                background: "rgba(79, 70, 229, 0.95)",
+                                color: "#ffffff",
+                                padding: "4px 8px",
+                                borderRadius: "6px",
+                                backdropFilter: "blur(4px)",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: "4px",
+                                boxShadow: "0 2px 6px rgba(79, 70, 229, 0.3)",
+                              }}
+                              title={`Scheduled for ${new Date(post.publishedAt).toLocaleString()}`}
+                            >
+                              <Clock size={11} /> Scheduled: {new Date(post.publishedAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+                            </span>
+                          ) : (
+                            <span
+                              style={{
+                                fontSize: "11px",
+                                fontWeight: 700,
+                                background: "rgba(5, 150, 105, 0.9)",
+                                color: "#ffffff",
+                                padding: "4px 8px",
+                                borderRadius: "6px",
+                                backdropFilter: "blur(4px)",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: "4px",
+                              }}
+                            >
+                              <CheckCircle2 size={11} /> Published
+                            </span>
+                          )}
                         </div>
                       </div>
                     )}
@@ -1528,6 +1631,13 @@ export default function AdminDashboardPage() {
                       <p style={{ fontSize: "13px", color: "#475569", lineHeight: 1.55, marginBottom: "16px", flexGrow: 1, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
                         {post.excerpt || post.content.slice(0, 120)}
                       </p>
+
+                      {isScheduled && (
+                        <div style={{ fontSize: "11px", color: "#4f46e5", background: "#eef2ff", border: "1px solid #e0e7ff", padding: "4px 8px", borderRadius: "6px", marginBottom: "12px", display: "inline-flex", alignItems: "center", gap: "5px" }}>
+                          <Clock size={12} /> Auto-release: {new Date(post.publishedAt).toLocaleString()}
+                        </div>
+                      )}
+
                       <div style={{ borderTop: "1px solid #f1f5f9", paddingTop: "12px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                           <span style={{ fontSize: "12px", color: "#64748b" }}>
@@ -1552,13 +1662,49 @@ export default function AdminDashboardPage() {
                             <span>{post.views || 0} views</span>
                           </span>
                         </div>
-                      <div style={{ display: "flex", gap: "8px" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                        {(isDraft || isScheduled) && (
+                          <button
+                            type="button"
+                            onClick={() => handleQuickPublish(post)}
+                            title="Publish immediately to live public site"
+                            style={{
+                              padding: "5px 9px",
+                              fontSize: "11px",
+                              fontWeight: 700,
+                              background: "#059669",
+                              color: "#ffffff",
+                              border: "none",
+                              borderRadius: "6px",
+                              cursor: "pointer",
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "4px",
+                              boxShadow: "0 1px 3px rgba(5, 150, 105, 0.25)",
+                            }}
+                          >
+                            <Zap size={11} /> Publish Now
+                          </button>
+                        )}
                         <Link href={`/blog/${post.slug}`} target="_blank" className="btn-secondary" style={{ padding: "6px 10px", fontSize: "12px" }}>
                           <ExternalLink size={13} />
                         </Link>
                         <button
                           onClick={() => {
                             setCurrentPost(post);
+                            if (!post.published) {
+                              setPostPublishMode("draft");
+                              setScheduledDateTime("");
+                            } else if (post.publishedAt && new Date(post.publishedAt).getTime() > Date.now()) {
+                              setPostPublishMode("schedule");
+                              const dt = new Date(post.publishedAt);
+                              const offset = dt.getTimezoneOffset() * 60000;
+                              const localISOTime = new Date(dt.getTime() - offset).toISOString().slice(0, 16);
+                              setScheduledDateTime(localISOTime);
+                            } else {
+                              setPostPublishMode("immediate");
+                              setScheduledDateTime("");
+                            }
                             setPostModalOpen(true);
                           }}
                           className="btn-secondary"
@@ -1582,7 +1728,8 @@ export default function AdminDashboardPage() {
                     </div>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>
@@ -1929,31 +2076,136 @@ export default function AdminDashboardPage() {
                   />
                 </div>
 
-                <div style={{ marginBottom: "16px", display: "flex", gap: "16px", alignItems: "center" }}>
-                  <div style={{ flex: 1 }}>
-                    <label style={{ display: "block", fontSize: "13px", fontWeight: 600, color: "#334155", marginBottom: "6px" }}>Estimated Read Time (Minutes)</label>
-                    <input
-                      type="number"
-                      min="1"
-                      max="60"
-                      value={currentPost.readTime || 5}
-                      onChange={(e) => setCurrentPost({ ...currentPost, readTime: parseInt(e.target.value) || 5 })}
-                      style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "8px", color: "#0f172a" }}
-                    />
+                <div style={{ marginBottom: "16px" }}>
+                  <label style={{ display: "block", fontSize: "13px", fontWeight: 600, color: "#334155", marginBottom: "6px" }}>Estimated Read Time (Minutes)</label>
+                  <input
+                    type="number"
+                    min="1"
+                    max="60"
+                    value={currentPost.readTime || 5}
+                    onChange={(e) => setCurrentPost({ ...currentPost, readTime: parseInt(e.target.value) || 5 })}
+                    style={{ width: "100%", padding: "10px", background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: "8px", color: "#0f172a" }}
+                  />
+                </div>
+
+                {/* Publishing Schedule Control */}
+                <div style={{ marginBottom: "20px", background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: "10px", padding: "16px" }}>
+                  <label style={{ display: "block", fontSize: "13px", fontWeight: 700, color: "#0f172a", marginBottom: "10px" }}>
+                    Publishing Schedule
+                  </label>
+                  
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: "10px", marginBottom: "12px" }}>
+                    <button
+                      type="button"
+                      onClick={() => setPostPublishMode("immediate")}
+                      style={{
+                        padding: "10px 12px",
+                        borderRadius: "8px",
+                        border: postPublishMode === "immediate" ? "2px solid #059669" : "1px solid #cbd5e1",
+                        background: postPublishMode === "immediate" ? "rgba(5, 150, 105, 0.08)" : "#ffffff",
+                        color: postPublishMode === "immediate" ? "#047857" : "#475569",
+                        fontWeight: postPublishMode === "immediate" ? 700 : 500,
+                        fontSize: "13px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "6px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <Zap size={15} /> Publish Now
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPostPublishMode("schedule");
+                        if (!scheduledDateTime) {
+                          const tomorrow = new Date();
+                          tomorrow.setDate(tomorrow.getDate() + 1);
+                          tomorrow.setHours(9, 0, 0, 0);
+                          const offset = tomorrow.getTimezoneOffset() * 60000;
+                          const localISOTime = new Date(tomorrow.getTime() - offset).toISOString().slice(0, 16);
+                          setScheduledDateTime(localISOTime);
+                        }
+                      }}
+                      style={{
+                        padding: "10px 12px",
+                        borderRadius: "8px",
+                        border: postPublishMode === "schedule" ? "2px solid #4f46e5" : "1px solid #cbd5e1",
+                        background: postPublishMode === "schedule" ? "rgba(79, 70, 229, 0.08)" : "#ffffff",
+                        color: postPublishMode === "schedule" ? "#4338ca" : "#475569",
+                        fontWeight: postPublishMode === "schedule" ? 700 : 500,
+                        fontSize: "13px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "6px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <Clock size={15} /> Schedule
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setPostPublishMode("draft")}
+                      style={{
+                        padding: "10px 12px",
+                        borderRadius: "8px",
+                        border: postPublishMode === "draft" ? "2px solid #64748b" : "1px solid #cbd5e1",
+                        background: postPublishMode === "draft" ? "rgba(100, 116, 139, 0.08)" : "#ffffff",
+                        color: postPublishMode === "draft" ? "#334155" : "#475569",
+                        fontWeight: postPublishMode === "draft" ? 700 : 500,
+                        fontSize: "13px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "6px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <FileText size={15} /> Save Draft
+                    </button>
                   </div>
 
-                  <div style={{ display: "flex", alignItems: "center", gap: "8px", marginTop: "22px" }}>
-                    <input
-                      type="checkbox"
-                      id="postPublished"
-                      checked={currentPost.published ?? true}
-                      onChange={(e) => setCurrentPost({ ...currentPost, published: e.target.checked })}
-                      style={{ width: "18px", height: "18px", cursor: "pointer", accentColor: "#123968" }}
-                    />
-                    <label htmlFor="postPublished" style={{ fontSize: "13px", fontWeight: 600, color: "#334155", cursor: "pointer" }}>
-                      Published
-                    </label>
-                  </div>
+                  {postPublishMode === "schedule" && (
+                    <div style={{ background: "#ffffff", border: "1px solid #c7d2fe", borderRadius: "8px", padding: "12px", marginTop: "8px" }}>
+                      <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#3730a3", marginBottom: "6px" }}>
+                        Select Go-Live Date &amp; Time
+                      </label>
+                      <input
+                        type="datetime-local"
+                        required
+                        value={scheduledDateTime}
+                        onChange={(e) => setScheduledDateTime(e.target.value)}
+                        style={{
+                          width: "100%",
+                          padding: "8px 12px",
+                          borderRadius: "6px",
+                          border: "1px solid #cbd5e1",
+                          fontSize: "13px",
+                          color: "#0f172a",
+                          background: "#f8fafc",
+                        }}
+                      />
+                      <div style={{ fontSize: "11px", color: "#6366f1", marginTop: "6px" }}>
+                        ℹ️ This post will be automatically made live and visible to visitors on this date and time.
+                      </div>
+                    </div>
+                  )}
+
+                  {postPublishMode === "immediate" && (
+                    <div style={{ fontSize: "12px", color: "#059669", fontWeight: 500, marginTop: "4px" }}>
+                      ✓ Will be published live immediately upon clicking save.
+                    </div>
+                  )}
+
+                  {postPublishMode === "draft" && (
+                    <div style={{ fontSize: "12px", color: "#64748b", fontWeight: 500, marginTop: "4px" }}>
+                      🔒 Kept in draft mode. Only visible to admins in this dashboard.
+                    </div>
+                  )}
                 </div>
 
                 <div style={{ marginBottom: "16px" }}>
@@ -1970,7 +2222,9 @@ export default function AdminDashboardPage() {
 
               <div className="modern-modal-footer">
                 <button type="button" onClick={() => setPostModalOpen(false)} className="btn-secondary" style={{ padding: "8px 16px" }}>Cancel</button>
-                <button type="submit" className="btn-primary" style={{ padding: "8px 20px" }}>Publish Article</button>
+                <button type="submit" className="btn-primary" style={{ padding: "8px 20px" }}>
+                  {postPublishMode === "immediate" ? "Publish Immediately ⚡" : postPublishMode === "schedule" ? "Schedule Article 📅" : "Save as Draft 📝"}
+                </button>
               </div>
             </form>
           </div>
