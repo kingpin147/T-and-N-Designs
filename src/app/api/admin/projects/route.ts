@@ -8,9 +8,11 @@ import {
 import { apiSuccess, apiError, handleApiError } from "@/lib/api-response";
 import { getCurrentUser } from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
-    const projects = await listAllProjects();
+    const projects = await listAllProjects(true);
     return apiSuccess({ projects });
   } catch (err: unknown) {
     return handleApiError(err, "Failed to retrieve portfolio projects.");

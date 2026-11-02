@@ -7,8 +7,8 @@ import {
 } from "@/repositories/project.repository";
 import { revalidateProjectsCache } from "@/lib/db";
 
-export async function listAllProjects() {
-  return findAllProjects();
+export async function listAllProjects(fresh = false) {
+  return findAllProjects(fresh);
 }
 
 export async function createNewProject(rawPayload: unknown) {

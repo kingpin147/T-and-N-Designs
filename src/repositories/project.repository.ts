@@ -1,7 +1,7 @@
 import { neon } from "@neondatabase/serverless";
 import { Project } from "@/types";
 import { ValidatedProjectInput } from "@/validations/project.validator";
-import { fetchProjects } from "@/lib/db";
+import { fetchProjects, fetchProjectsDirect } from "@/lib/db";
 
 function getSql() {
   const connectionString = process.env.DATABASE_URL;
@@ -11,7 +11,10 @@ function getSql() {
   return neon(connectionString);
 }
 
-export async function findAllProjects(): Promise<Project[]> {
+export async function findAllProjects(fresh = false): Promise<Project[]> {
+  if (fresh) {
+    return fetchProjectsDirect();
+  }
   return fetchProjects();
 }
 

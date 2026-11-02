@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import fs from "node:fs";
@@ -10,6 +10,7 @@ import { Clock, Calendar, ArrowRight, Share2, Sparkles } from "lucide-react";
 import { fetchPostBySlug, fetchPosts } from "@/lib/db";
 import { Post } from "@/types";
 import FormattedContent from "@/components/FormattedContent";
+import ViewTracker from "@/components/ViewTracker";
 
 // Next.js Route Segment Cache (ISR: 1 hour background revalidation or instant on-demand)
 export const revalidate = 3600;
@@ -49,6 +50,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <article style={{ minHeight: "100vh", paddingTop: "130px", paddingBottom: "120px", background: "#ffffff", color: "#1b2933" }}>
+      <ViewTracker type="post" slug={post.slug} />
       <div className="container" style={{ maxWidth: "860px" }}>
         {/* Metadata */}
         <div style={{ display: "flex", alignItems: "center", gap: "16px", fontSize: "13px", color: "#64748b", marginBottom: "20px", flexWrap: "wrap" }}>

@@ -7,8 +7,8 @@ import {
 } from "@/repositories/post.repository";
 import { revalidatePostsCache } from "@/lib/db";
 
-export async function listAllPosts() {
-  return findAllPosts();
+export async function listAllPosts(fresh = false) {
+  return findAllPosts(fresh);
 }
 
 export async function createNewPost(rawPayload: unknown) {

@@ -8,9 +8,11 @@ import {
 import { apiSuccess, apiError, handleApiError } from "@/lib/api-response";
 import { getCurrentUser } from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
-    const posts = await listAllPosts();
+    const posts = await listAllPosts(true);
     return apiSuccess({ posts });
   } catch (err: unknown) {
     return handleApiError(err, "Failed to retrieve blog articles.");

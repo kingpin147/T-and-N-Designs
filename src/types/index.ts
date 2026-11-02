@@ -12,6 +12,7 @@ export interface Project {
   projectUrl?: string;
   featured?: boolean;
   sortOrder?: number;
+  views?: number;
   createdAt?: string;
 }
 
@@ -43,5 +44,6 @@ export interface Post {
   tags: string[];
   published?: boolean;
   publishedAt: string;
+  views?: number;
   createdAt?: string;
 }

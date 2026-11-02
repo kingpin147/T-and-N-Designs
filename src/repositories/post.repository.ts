@@ -1,7 +1,7 @@
 import { neon } from "@neondatabase/serverless";
 import { Post } from "@/types";
 import { ValidatedPostInput } from "@/validations/post.validator";
-import { fetchPosts } from "@/lib/db";
+import { fetchPosts, fetchPostsDirect } from "@/lib/db";
 
 function getSql() {
   const connectionString = process.env.DATABASE_URL;
@@ -11,7 +11,10 @@ function getSql() {
   return neon(connectionString);
 }
 
-export async function findAllPosts(): Promise<Post[]> {
+export async function findAllPosts(fresh = false): Promise<Post[]> {
+  if (fresh) {
+    return fetchPostsDirect();
+  }
   return fetchPosts();
 }
 

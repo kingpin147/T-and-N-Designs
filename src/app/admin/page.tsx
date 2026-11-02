@@ -43,6 +43,7 @@ import {
   Download,
   AlertCircle,
   MapPin,
+  Eye,
 } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import PostHogAnalyticsDashboard from "@/components/admin/PostHogAnalyticsDashboard";
@@ -100,6 +101,7 @@ interface Project {
   coverImageUrl: string;
   projectUrl?: string;
   featured?: boolean;
+  views?: number;
 }
 
 interface Post {
@@ -113,6 +115,7 @@ interface Post {
   tags: string[];
   published: boolean;
   publishedAt: string;
+  views?: number;
 }
 
 const DEFAULT_OWNER_PROFILE: UserProfile = {
@@ -1388,19 +1391,39 @@ export default function AdminDashboardPage() {
                       {proj.fullDescription}
                     </p>
 
-                    <div style={{ borderTop: "1px solid #f1f5f9", paddingTop: "14px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                      {proj.projectUrl ? (
-                        <a
-                          href={proj.projectUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{ fontSize: "13px", color: "#123968", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "4px" }}
+                    <div style={{ borderTop: "1px solid #f1f5f9", paddingTop: "14px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+                        {proj.projectUrl ? (
+                          <a
+                            href={proj.projectUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ fontSize: "13px", color: "#123968", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "4px" }}
+                          >
+                            Visit Live <ExternalLink size={13} />
+                          </a>
+                        ) : (
+                          <span style={{ fontSize: "12px", color: "#94a3b8" }}>Client Internal Portal</span>
+                        )}
+                        <span
+                          title={`${proj.views || 0} total client clicks & modal views`}
+                          style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "5px",
+                            fontSize: "12px",
+                            fontWeight: 600,
+                            color: "#0f172a",
+                            background: "#f1f5f9",
+                            padding: "3px 8px",
+                            borderRadius: "6px",
+                            border: "1px solid #e2e8f0",
+                          }}
                         >
-                          Visit Live <ExternalLink size={13} />
-                        </a>
-                      ) : (
-                        <span style={{ fontSize: "12px", color: "#94a3b8" }}>Client Internal Portal</span>
-                      )}
+                          <Eye size={13} color="#0284c7" />
+                          <span>{proj.views || 0} views</span>
+                        </span>
+                      </div>
 
                       <div style={{ display: "flex", gap: "8px" }}>
                         <button
@@ -1505,10 +1528,30 @@ export default function AdminDashboardPage() {
                       <p style={{ fontSize: "13px", color: "#475569", lineHeight: 1.55, marginBottom: "16px", flexGrow: 1, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
                         {post.excerpt || post.content.slice(0, 120)}
                       </p>
-                      <div style={{ borderTop: "1px solid #f1f5f9", paddingTop: "12px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <span style={{ fontSize: "12px", color: "#64748b" }}>
-                          {post.readTime} min read
-                        </span>
+                      <div style={{ borderTop: "1px solid #f1f5f9", paddingTop: "12px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                          <span style={{ fontSize: "12px", color: "#64748b" }}>
+                            {post.readTime} min read
+                          </span>
+                          <span
+                            title={`${post.views || 0} article pageviews`}
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "4px",
+                              fontSize: "12px",
+                              fontWeight: 600,
+                              color: "#0f172a",
+                              background: "#f1f5f9",
+                              padding: "2px 7px",
+                              borderRadius: "6px",
+                              border: "1px solid #e2e8f0",
+                            }}
+                          >
+                            <Eye size={12} color="#0284c7" />
+                            <span>{post.views || 0} views</span>
+                          </span>
+                        </div>
                       <div style={{ display: "flex", gap: "8px" }}>
                         <Link href={`/blog/${post.slug}`} target="_blank" className="btn-secondary" style={{ padding: "6px 10px", fontSize: "12px" }}>
                           <ExternalLink size={13} />

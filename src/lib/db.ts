@@ -38,10 +38,13 @@ export async function initDatabaseTables() {
         project_url TEXT,
         featured BOOLEAN DEFAULT false,
         sort_order INT DEFAULT 0,
+        views INT DEFAULT 0,
         created_at TIMESTAMPTZ DEFAULT NOW(),
         updated_at TIMESTAMPTZ DEFAULT NOW()
       );
     `;
+
+    await sql`ALTER TABLE projects ADD COLUMN IF NOT EXISTS views INT DEFAULT 0;`;
 
     await sql`
       CREATE TABLE IF NOT EXISTS inquiries (
@@ -72,9 +75,12 @@ export async function initDatabaseTables() {
         tags JSONB DEFAULT '[]'::jsonb,
         published BOOLEAN DEFAULT true,
         published_at TIMESTAMPTZ DEFAULT NOW(),
+        views INT DEFAULT 0,
         created_at TIMESTAMPTZ DEFAULT NOW()
       );
     `;
+
+    await sql`ALTER TABLE posts ADD COLUMN IF NOT EXISTS views INT DEFAULT 0;`;
 
     console.log("✅ [Neon DB] Tables verified/created successfully.");
     return true;
@@ -125,6 +131,7 @@ async function queryProjectsFromDb(): Promise<Project[]> {
           short_description as "shortDescription", full_description as "fullDescription",
           tags, cover_image_url as "coverImageUrl", alt_text as "altText",
           project_url as "projectUrl", featured, sort_order as "sortOrder",
+          COALESCE(views, 0) as views,
           created_at as "createdAt"
         FROM projects
         ORDER BY featured DESC, sort_order ASC, created_at DESC;
@@ -147,6 +154,10 @@ async function queryProjectsFromDb(): Promise<Project[]> {
   }
 
   return [];
+}
+
+export async function fetchProjectsDirect(): Promise<Project[]> {
+  return queryProjectsFromDb();
 }
 
 /**
@@ -192,6 +203,7 @@ async function queryPostsFromDb(): Promise<Post[]> {
         SELECT 
           id, title, slug, excerpt, content, cover_image_url as "coverImageUrl",
           read_time as "readTime", tags, published, published_at as "publishedAt",
+          COALESCE(views, 0) as views,
           created_at as "createdAt"
         FROM posts
         WHERE published = true
@@ -215,6 +227,10 @@ async function queryPostsFromDb(): Promise<Post[]> {
   }
 
   return [];
+}
+
+export async function fetchPostsDirect(): Promise<Post[]> {
+  return queryPostsFromDb();
 }
 
 /**

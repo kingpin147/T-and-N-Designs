@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
@@ -47,6 +47,27 @@ export default function PortfolioShowcase({ initialProjects }: PortfolioShowcase
     if (activeCategory === "all") return true;
     return p.category === activeCategory;
   });
+
+  const recordProjectView = (project: Project) => {
+    try {
+      const sessionKey = `tn_viewed_project_${project.slug}`;
+      if (!sessionStorage.getItem(sessionKey)) {
+        sessionStorage.setItem(sessionKey, "1");
+        fetch("/api/views", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ type: "project", slug: project.slug, id: project.id }),
+        }).catch(() => {});
+      }
+    } catch {
+      // Ignore in restricted environments
+    }
+  };
+
+  const handleOpenProject = (project: Project) => {
+    setSelectedProject(project);
+    recordProjectView(project);
+  };
 
   return (
     <div id="portfolio">
@@ -112,7 +133,7 @@ export default function PortfolioShowcase({ initialProjects }: PortfolioShowcase
                   backfaceVisibility: "hidden",
                   transform: "translateZ(0)",
                 }}
-                onClick={() => setSelectedProject(project)}
+                onClick={() => handleOpenProject(project)}
               >
               {/* Image Preview Container */}
               <div style={{ position: "relative", width: "100%", height: "230px", background: "#f1f5f9", overflow: "hidden" }}>
@@ -142,7 +163,10 @@ export default function PortfolioShowcase({ initialProjects }: PortfolioShowcase
                       href={project.projectUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        recordProjectView(project);
+                      }}
                       style={{
                         width: "34px",
                         height: "34px",
@@ -310,6 +334,7 @@ export default function PortfolioShowcase({ initialProjects }: PortfolioShowcase
                     href={selectedProject.projectUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => recordProjectView(selectedProject)}
                     className="btn-primary"
                     style={{
                       fontSize: "14px",
