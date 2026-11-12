@@ -51,6 +51,7 @@ import {
 } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import PostHogAnalyticsDashboard from "@/components/admin/PostHogAnalyticsDashboard";
+import GA4OverviewDashboard from "@/components/admin/GA4OverviewDashboard";
 import RichTextEditor from "@/components/admin/RichTextEditor";
 
 interface UserProfile {
@@ -1195,200 +1196,13 @@ export default function AdminDashboardPage() {
               </div>
             </div>
 
-            {/* SECTION 2: GOOGLE ANALYTICS 4 & REAL-TIME WEB TELEMETRY */}
-            <div>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#059669", display: "inline-block" }} />
-                  <span style={{ fontSize: "11px", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.05em", color: "#0f172a" }}>
-                    Google Analytics 4 &amp; Live Telemetry (30-Day Window)
-                  </span>
-                </div>
-                <span
-                  style={{ fontSize: "12px", color: "#2563eb", fontWeight: 600, cursor: "pointer" }}
-                  onClick={() => setActiveTab("analytics")}
-                >
-                  View All Sub-Pages &amp; Reports →
-                </span>
-              </div>
-
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px" }}>
-                {/* Live Active Now */}
-                <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderTop: "3px solid #059669", borderRadius: "14px", padding: "20px 22px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "6px", marginBottom: "6px" }}>
-                    <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#059669", display: "inline-block" }} />
-                    <span style={{ fontSize: "11px", fontWeight: 800, color: "#059669", textTransform: "uppercase" }}>Real-time Live</span>
-                  </div>
-                  <div style={{ fontSize: "36px", fontWeight: 800, color: "#0f172a", lineHeight: 1 }} className="tabular-nums">
-                    {overviewAnalytics?.realtime?.activeUsers ?? 0}
-                  </div>
-                  <div style={{ fontSize: "12px", color: "#64748b", marginTop: "8px" }}>
-                    Active visitors engaging right now
-                  </div>
-                </div>
-
-                {/* Unique Visitors */}
-                <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", padding: "20px 22px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
-                  <div style={{ fontSize: "12px", color: "#64748b", textTransform: "uppercase", fontWeight: 700, marginBottom: "6px" }}>
-                    Unique Visitors
-                  </div>
-                  <div style={{ fontSize: "36px", fontWeight: 800, color: "#0f172a", lineHeight: 1 }} className="tabular-nums">
-                    {overviewAnalytics?.highlights?.uniqueVisitors ?? 106}
-                  </div>
-                  <div style={{ fontSize: "12px", color: "#059669", marginTop: "8px", fontWeight: 600 }}>
-                    {overviewAnalytics?.highlights?.uniqueVisitorsChange || "+12.4%"} vs prior period
-                  </div>
-                </div>
-
-                {/* Total Sessions */}
-                <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", padding: "20px 22px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
-                  <div style={{ fontSize: "12px", color: "#64748b", textTransform: "uppercase", fontWeight: 700, marginBottom: "6px" }}>
-                    Total Site Sessions
-                  </div>
-                  <div style={{ fontSize: "36px", fontWeight: 800, color: "#0f172a", lineHeight: 1 }} className="tabular-nums">
-                    {overviewAnalytics?.highlights?.siteSessions ?? 212}
-                  </div>
-                  <div style={{ fontSize: "12px", color: "#059669", marginTop: "8px", fontWeight: 600 }}>
-                    {overviewAnalytics?.highlights?.siteSessionsChange || "+8.6%"} session volume
-                  </div>
-                </div>
-
-                {/* Total Pageviews */}
-                <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", padding: "20px 22px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
-                  <div style={{ fontSize: "12px", color: "#64748b", textTransform: "uppercase", fontWeight: 700, marginBottom: "6px" }}>
-                    Total Pageviews
-                  </div>
-                  <div style={{ fontSize: "36px", fontWeight: 800, color: "#0f172a", lineHeight: 1 }} className="tabular-nums">
-                    {overviewAnalytics?.highlights?.pageviews ?? 488}
-                  </div>
-                  <div style={{ fontSize: "12px", color: "#059669", marginTop: "8px", fontWeight: 600 }}>
-                    {overviewAnalytics?.highlights?.pageviewsChange || "+15.3%"} content views
-                  </div>
-                </div>
-
-                {/* Avg Session Duration */}
-                <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", padding: "20px 22px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
-                  <div style={{ fontSize: "12px", color: "#64748b", textTransform: "uppercase", fontWeight: 700, marginBottom: "6px" }}>
-                    Avg. Session Duration
-                  </div>
-                  <div style={{ fontSize: "36px", fontWeight: 800, color: "#0f172a", lineHeight: 1 }} className="tabular-nums">
-                    {!overviewAnalytics?.highlights?.avgSessionDuration || overviewAnalytics.highlights.avgSessionDuration === "0s"
-                      ? "2m 45s"
-                      : overviewAnalytics.highlights.avgSessionDuration}
-                  </div>
-                  <div style={{ fontSize: "12px", color: "#059669", marginTop: "8px", fontWeight: 600 }}>
-                    +18s high engagement dwell
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* SECTION 3: TWO BENTO INTELLIGENCE PANELS (Acquisition + Top Content) */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: "20px" }}>
-              {/* Left Panel: Traffic Sources & AI Citations */}
-              <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", padding: "24px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "18px" }}>
-                  <div>
-                    <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#0f172a", margin: "0 0 2px 0" }}>
-                      Traffic Acquisition &amp; Search Channels
-                    </h3>
-                    <p style={{ fontSize: "12px", color: "#64748b", margin: 0 }}>
-                      Attribution across Organic Search, Direct Brand, and AI Discovery
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => setActiveTab("analytics")}
-                    style={{ fontSize: "12px", color: "#2563eb", background: "none", border: "none", fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: "4px" }}
-                  >
-                    View Details <ArrowUpRight size={14} />
-                  </button>
-                </div>
-
-                <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-                  {[
-                    { name: "Direct / Brand", share: 50.0, sessions: 106, color: "#2563eb" },
-                    { name: "Google Organic Search", share: 30.2, sessions: 64, color: "#10b981" },
-                    { name: "Generative AI Citations (ChatGPT / Perplexity)", share: 17.0, sessions: 36, color: "#0284c7" },
-                    { name: "Social & Meta Referral", share: 2.8, sessions: 6, color: "#8b5cf6" },
-                  ].map((src, i) => (
-                    <div key={i}>
-                      <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px", marginBottom: "6px" }}>
-                        <span style={{ fontWeight: 600, color: "#0f172a" }}>{src.name}</span>
-                        <span style={{ color: "#64748b" }} className="tabular-nums">
-                          <strong style={{ color: "#0f172a" }}>{src.sessions}</strong> sessions ({src.share}%)
-                        </span>
-                      </div>
-                      <div style={{ width: "100%", height: "7px", background: "#f1f5f9", borderRadius: "999px", overflow: "hidden" }}>
-                        <div style={{ width: `${src.share}%`, height: "100%", background: src.color, borderRadius: "999px" }} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Right Panel: Top Visited Public Pages */}
-              <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", padding: "24px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "18px" }}>
-                  <div>
-                    <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#0f172a", margin: "0 0 2px 0" }}>
-                      Top Visited Public Pages
-                    </h3>
-                    <p style={{ fontSize: "12px", color: "#64748b", margin: 0 }}>
-                      Highest volume client entry points &amp; case study views
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => setActiveTab("analytics")}
-                    style={{ fontSize: "12px", color: "#2563eb", background: "none", border: "none", fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: "4px" }}
-                  >
-                    View Funnel <ArrowUpRight size={14} />
-                  </button>
-                </div>
-
-                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                  {((overviewAnalytics?.behaviorPages || [])
-                    .filter((p: any) => !p.path.startsWith("/admin") && !p.path.startsWith("/api"))
-                    .slice(0, 5)
-                    .length > 0
-                    ? (overviewAnalytics?.behaviorPages || [])
-                        .filter((p: any) => !p.path.startsWith("/admin") && !p.path.startsWith("/api"))
-                        .slice(0, 5)
-                    : [
-                        { path: "/", title: "Homepage — T & N Designs", views: 242, avgTime: "3m 12s" },
-                        { path: "/services", title: "Web Design & Growth Architectures", views: 118, avgTime: "2m 45s" },
-                        { path: "/work", title: "Client Portfolio & Case Studies", views: 88, avgTime: "4m 10s" },
-                        { path: "/blog", title: "Engineering & Design Insights", views: 64, avgTime: "2m 20s" },
-                        { path: "/contact", title: "Start a Project — Consultation", views: 32, avgTime: "1m 55s" },
-                      ]
-                  ).map((page: any, i: number) => (
-                    <div
-                      key={i}
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        padding: "8px 12px",
-                        background: "#f8fafc",
-                        borderRadius: "8px",
-                        border: "1px solid #f1f5f9",
-                        fontSize: "13px",
-                      }}
-                    >
-                      <div style={{ minWidth: 0, paddingRight: "10px" }}>
-                        <code style={{ color: "#0f172a", fontWeight: 700, fontFamily: "monospace" }}>{page.path}</code>
-                        <div style={{ fontSize: "11px", color: "#64748b", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                          {page.title}
-                        </div>
-                      </div>
-                      <div style={{ textAlign: "right", flexShrink: 0 }}>
-                        <div style={{ fontWeight: 700, color: "#2563eb" }} className="tabular-nums">{page.views} views</div>
-                        <div style={{ fontSize: "11px", color: "#64748b" }} className="tabular-nums">{page.avgTime}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            {/* GOOGLE ANALYTICS 4 VERIFIED DASHBOARD (Exact Bento Layout from Screenshots) */}
+            <GA4OverviewDashboard
+              data={overviewAnalytics?.ga4 || null}
+              loading={loading}
+              onRefresh={loadDashboardData}
+              onOpenSetupModal={() => setShowGaSetupModal(true)}
+            />
 
             {/* SECTION 4: SEO, ANALYTICS & MCP TELEMETRY INFRASTRUCTURE */}
             <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", padding: "24px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>

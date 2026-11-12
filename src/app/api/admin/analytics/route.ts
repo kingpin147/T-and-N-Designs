@@ -116,6 +116,7 @@ interface AnalyticsData {
     apiKeyPrefix: string;
     proxyActive: boolean;
   };
+  ga4?: any;
   ga4Config?: {
     connected: boolean;
     propertyId: string;
@@ -170,7 +171,7 @@ function formatRelativeTime(date: Date): string {
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const range = (searchParams.get("range") || "30d") as "30d" | "7d" | "today" | "90d";
+    const range = (searchParams.get("range") || "30d") as "30d" | "14d" | "7d" | "today" | "90d";
 
     const connectionString = process.env.DATABASE_URL;
     if (!connectionString) {
@@ -192,6 +193,10 @@ export async function GET(request: Request) {
       daysCount = 7;
       rangeLabel = "Last 7 days";
       comparisonLabel = "compared to previous 7 days";
+    } else if (range === "14d") {
+      daysCount = 14;
+      rangeLabel = "Last 14 days";
+      comparisonLabel = "compared to previous 14 days";
     } else if (range === "today") {
       daysCount = 1;
       rangeLabel = "Today";
@@ -934,9 +939,9 @@ export async function GET(request: Request) {
         }));
       }
       if (ga4Data.devices) {
-        finalDesktopCount = ga4Data.devices.desktop;
-        finalMobileCount = ga4Data.devices.mobile;
-        finalTabletCount = ga4Data.devices.tablet;
+        finalDesktopCount = ga4Data.devices.desktop.count;
+        finalMobileCount = ga4Data.devices.mobile.count;
+        finalTabletCount = ga4Data.devices.tablet.count;
       }
     }
 
@@ -999,6 +1004,7 @@ export async function GET(request: Request) {
       },
       aiPlatforms,
       aiQueries,
+      ga4: ga4Data,
     };
 
     return NextResponse.json({
