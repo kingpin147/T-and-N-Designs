@@ -906,74 +906,25 @@ export default function AdminDashboardPage() {
           </nav>
         </div>
 
-        {/* Sidebar Footer User Card */}
-        <div style={{ borderTop: "1px solid #f1f5f9", paddingTop: "16px" }}>
-          <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: "10px", padding: "12px", marginBottom: "12px" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "3px" }}>
-              <span style={{ fontSize: "11px", color: "#64748b", fontWeight: 700, textTransform: "uppercase" }}>
-                Active Session
-              </span>
-              <span style={{ fontSize: "10px", fontWeight: 700, color: sessionSecondsLeft < 300 ? "#ef4444" : "#0284c7", display: "inline-flex", alignItems: "center", gap: "3px" }}>
-                <Clock size={10} /> {formatSessionTime(sessionSecondsLeft)}
-              </span>
-            </div>
-            <div style={{ fontSize: "13px", fontWeight: 700, color: "#123968", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-              {currentUser.email}
-            </div>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "6px" }}>
-              <span style={{ display: "inline-block", fontSize: "10px", fontWeight: 800, background: "#e0f2fe", color: "#0369a1", padding: "2px 8px", borderRadius: "999px", textTransform: "uppercase" }}>
-                {currentUser.role}
-              </span>
-              <span style={{ fontSize: "10px", color: "#94a3b8" }}>
-                1h Auto-Logout
-              </span>
-            </div>
-          </div>
-
-          <div style={{ display: "flex", gap: "8px", marginBottom: "10px" }}>
-            <button
-              onClick={loadDashboardData}
-              className="btn-secondary"
-              style={{ flex: 1, padding: "8px 10px", fontSize: "12px", justifyContent: "center" }}
-              title="Refresh Data"
-            >
-              <RefreshCw size={14} className={loading ? "animate-spin" : ""} /> Refresh
-            </button>
-            <button
-              onClick={handleLogout}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "5px",
-                padding: "8px 12px",
-                fontSize: "12px",
-                fontWeight: 700,
-                color: "#dc2626",
-                background: "#fef2f2",
-                border: "1px solid #fecaca",
-                borderRadius: "8px",
-                cursor: "pointer",
-              }}
-              title="Sign out of Admin Dashboard"
-            >
-              <LogOut size={14} /> Log Out
-            </button>
-          </div>
-
+        {/* Sidebar Footer */}
+        <div style={{ borderTop: "1px solid #f1f5f9", paddingTop: "14px", marginTop: "auto" }}>
           <a
             href="/"
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "6px",
+              gap: "8px",
               fontSize: "13px",
-              color: "#123968",
+              color: "#64748b",
               fontWeight: 600,
               textDecoration: "none",
-              padding: "6px 0",
+              padding: "10px 12px",
+              borderRadius: "8px",
+              transition: "all 0.15s ease",
             }}
+            className="hover:bg-slate-100 hover:text-slate-900"
           >
-            <ArrowLeft size={14} /> Back to Public Website
+            <ArrowLeft size={15} /> Back to Public Website
           </a>
         </div>
       </aside>

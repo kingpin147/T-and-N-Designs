@@ -191,6 +191,7 @@ export default function PostHogAnalyticsDashboard() {
   const [aiQuerySearch, setAiQuerySearch] = useState<string>("");
   const [aiPlatformFilter, setAiPlatformFilter] = useState<string>("all");
   const [aiIntentFilter, setAiIntentFilter] = useState<string>("all");
+  const [filterDevTraffic, setFilterDevTraffic] = useState<boolean>(true);
 
   // Fetch analytics data
   const fetchAnalytics = async (range: string = timeRange, isManual: boolean = false) => {
@@ -253,106 +254,89 @@ export default function PostHogAnalyticsDashboard() {
       transition={{ duration: 0.35, ease: "easeOut" }}
       style={{ display: "flex", flexDirection: "column", gap: "20px", color: "var(--text-primary)" }}
     >
-      {/* Main Wix-Style Analytics Container */}
+      {/* Main Bento-Glass Modern Analytics Shell */}
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "240px 1fr",
-          gap: "24px",
-          alignItems: "start",
+          display: "flex",
+          flexDirection: "column",
+          gap: "20px",
           background: "#ffffff",
           color: "#0f172a",
           borderRadius: "16px",
           padding: "24px",
-          boxShadow: "0 20px 40px rgba(0, 0, 0, 0.4)",
+          border: "1px solid #e2e8f0",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.04), 0 12px 28px -6px rgba(0,0,0,0.03)",
           minHeight: "850px",
         }}
         className="analytics-light-shell"
       >
-        {/* LEFT SUB-SIDEBAR (Circled in blue in user's screenshot) */}
+        {/* HORIZONTAL SEGMENTED TAB BAR (Bento-Glass Modernization) */}
         <div
           style={{
-            borderRight: "1px solid #e2e8f0",
-            paddingRight: "18px",
+            background: "#f8fafc",
+            border: "1px solid #e2e8f0",
+            borderRadius: "12px",
+            padding: "5px",
             display: "flex",
-            flexDirection: "column",
+            alignItems: "center",
             gap: "4px",
-            position: "relative",
+            overflowX: "auto",
+            scrollbarWidth: "none",
+            WebkitOverflowScrolling: "touch",
           }}
+          className="analytics-horizontal-tabs"
         >
-          <div style={{ padding: "0 10px 12px 10px", borderBottom: "1px solid #f1f5f9", marginBottom: "8px" }}>
-            <div style={{ fontSize: "12px", fontWeight: 700, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.5px" }}>
-              Analytics
-            </div>
-          </div>
-
           {navItems.map((item) => {
             const Icon = item.icon;
             const isSelected = selectedSubTab === item.id;
             return (
-              <motion.button
+              <button
                 key={item.id}
-                whileTap={{ scale: 0.98 }}
                 onClick={() => setSelectedSubTab(item.id as any)}
                 style={{
-                  display: "flex",
+                  display: "inline-flex",
                   alignItems: "center",
-                  justifyContent: "space-between",
-                  width: "100%",
-                  padding: "10px 12px",
+                  gap: "7px",
+                  padding: "8px 14px",
                   borderRadius: "8px",
-                  border: "none",
+                  border: isSelected ? "1px solid #e2e8f0" : "1px solid transparent",
+                  background: isSelected ? "#ffffff" : "transparent",
+                  color: isSelected ? "#0f172a" : "#64748b",
+                  fontWeight: isSelected ? 700 : 500,
+                  fontSize: "13px",
                   cursor: "pointer",
-                  textAlign: "left",
-                  fontSize: "14px",
-                  fontWeight: isSelected ? 600 : 500,
-                  background: isSelected ? "#e2e8f0" : "transparent",
-                  color: isSelected ? "#0f172a" : "#475569",
-                  position: "relative",
-                  transition: "background 0.15s ease",
+                  whiteSpace: "nowrap",
+                  boxShadow: isSelected ? "0 1px 3px rgba(0,0,0,0.06)" : "none",
+                  transition: "all 0.15s ease",
+                  flexShrink: 0,
                 }}
               >
-                {/* Framer motion active tab sliding indicator */}
-                {isSelected && (
-                  <motion.div
-                    layoutId="activeSubTabIndicator"
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      borderRadius: "8px",
-                      background: "#e2e8f0",
-                      zIndex: 0,
-                    }}
-                    transition={{ type: "spring", stiffness: 450, damping: 35 }}
-                  />
-                )}
-
-                <div style={{ display: "flex", alignItems: "center", gap: "10px", zIndex: 1 }}>
-                  <Icon size={16} color={isSelected ? "#2563eb" : "#64748b"} />
-                  <span>{item.label}</span>
-                </div>
+                <Icon size={15} color={isSelected ? "#2563eb" : "#64748b"} />
+                <span>{item.label}</span>
                 {item.badge && (
                   <span
                     style={{
                       fontSize: "10px",
-                      fontWeight: 700,
-                      padding: "2px 6px",
+                      fontWeight: 800,
+                      padding: "2px 7px",
                       borderRadius: "999px",
-                      background: item.badge === "LIVE" ? "#ef4444" : "#cbd5e1",
-                      color: item.badge === "LIVE" ? "#fff" : "#334155",
-                      zIndex: 1,
+                      background:
+                        item.badge === "LIVE"
+                          ? "#ef4444"
+                          : item.badge === "GEO"
+                          ? "#10b981"
+                          : "#6366f1",
+                      color: "#ffffff",
+                      lineHeight: 1.2,
                     }}
                   >
                     {item.badge}
                   </span>
                 )}
-              </motion.button>
+              </button>
             );
           })}
         </div>
-
-        {/* RIGHT MAIN CONTENT AREA */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "22px" }}>
           {/* Top Header bar: Title, Date Range Selector, Comparison Label, Actions */}
           <div
             style={{
@@ -503,7 +487,7 @@ export default function PostHogAnalyticsDashboard() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -12 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
-                style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: "22px" }}
+                style={{ display: "grid", gridTemplateColumns: "minmax(0, 1.65fr) minmax(0, 1fr)", gap: "22px" }}
                 className="traffic-grid-layout"
               >
                 {/* LEFT COLUMN: Main Area Trend Chart + 2 Donut Cards + Country Breakdown */}
@@ -516,37 +500,36 @@ export default function PostHogAnalyticsDashboard() {
                       background: "#ffffff",
                       border: "1px solid #e2e8f0",
                       borderRadius: "12px",
-                      padding: "20px 22px 14px 22px",
+                      padding: "20px 22px 18px 22px",
                       boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
                     }}
                   >
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                        <span style={{ fontSize: "14px", fontWeight: 600, color: "#1e293b" }}>Visitors Over Time</span>
+                        <span style={{ fontSize: "15px", fontWeight: 700, color: "#0f172a" }}>Visitors Over Time</span>
                         <span style={{ fontSize: "12px", color: "#64748b" }}>• Unique daily visits</span>
                       </div>
-                      <AnimatePresence>
-                        {hoveredPoint && (
-                          <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.9 }}
-                            style={{
-                              fontSize: "12px",
-                              background: "#f1f5f9",
-                              padding: "4px 10px",
-                              borderRadius: "6px",
-                              color: "#1e293b",
-                              fontWeight: 600,
-                            }}
-                          >
-                            {hoveredPoint.label}: {hoveredPoint.visitors} Visitors ({hoveredPoint.sessions} Sessions)
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+                      <button
+                        onClick={() => setActiveReportModal("traffic-trend")}
+                        title="View Detailed Traffic Trend Report"
+                        style={{
+                          background: "transparent",
+                          border: "1px solid #e2e8f0",
+                          borderRadius: "6px",
+                          padding: "5px",
+                          color: "#64748b",
+                          cursor: "pointer",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          transition: "all 0.15s ease",
+                        }}
+                      >
+                        <ArrowUpRight size={15} />
+                      </button>
                     </div>
 
-                    {/* SVG Line / Area Graph with Path Animation */}
+                    {/* SVG Line / Area Graph with 2px crisp stroke, gradient fill, horizontal dashed grid, hover tooltip */}
                     <div style={{ width: "100%", height: "200px", position: "relative" }}>
                       {analytics && analytics.trafficTrend.length > 0 && (
                         <TrafficAreaChart
@@ -554,28 +537,6 @@ export default function PostHogAnalyticsDashboard() {
                           onHoverPoint={(p) => setHoveredPoint(p)}
                         />
                       )}
-                    </div>
-
-                    {/* Chart Footer Link */}
-                    <div style={{ borderTop: "1px solid #f1f5f9", marginTop: "14px", paddingTop: "10px" }}>
-                      <motion.button
-                        whileHover={{ x: 2 }}
-                        onClick={() => setActiveReportModal("traffic-trend")}
-                        style={{
-                          background: "none",
-                          border: "none",
-                          color: "#2563eb",
-                          fontSize: "13px",
-                          fontWeight: 600,
-                          cursor: "pointer",
-                          padding: 0,
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "4px",
-                        }}
-                      >
-                        View Report <ChevronRight size={13} />
-                      </motion.button>
                     </div>
                   </motion.div>
 
@@ -589,7 +550,7 @@ export default function PostHogAnalyticsDashboard() {
                         background: "#ffffff",
                         border: "1px solid #e2e8f0",
                         borderRadius: "12px",
-                        padding: "20px 22px 14px 22px",
+                        padding: "20px 22px",
                         boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
                         display: "flex",
                         flexDirection: "column",
@@ -597,19 +558,40 @@ export default function PostHogAnalyticsDashboard() {
                       }}
                     >
                       <div>
-                        <h3 style={{ fontSize: "15px", fontWeight: 700, margin: "0 0 16px 0", color: "#1e293b" }}>
-                          New vs returning visitors
-                        </h3>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+                          <h3 style={{ fontSize: "15px", fontWeight: 700, margin: 0, color: "#0f172a" }}>
+                            New vs returning visitors
+                          </h3>
+                          <button
+                            onClick={() => setActiveReportModal("new-vs-returning")}
+                            title="Open Visitor Report"
+                            style={{
+                              background: "transparent",
+                              border: "1px solid #e2e8f0",
+                              borderRadius: "6px",
+                              padding: "5px",
+                              color: "#64748b",
+                              cursor: "pointer",
+                              display: "inline-flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              transition: "all 0.15s ease",
+                            }}
+                          >
+                            <ArrowUpRight size={15} />
+                          </button>
+                        </div>
 
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", gap: "14px" }}>
-                          {/* Animated Donut */}
+                          {/* Animated Donut with thinned ring and emerald delta */}
                           <DonutChart
                             segments={[
                               { percent: analytics?.newVsReturning.newPercent ?? 0, color: "#2563eb" },
                               { percent: analytics?.newVsReturning.returningPercent ?? 0, color: "#06b6d4" },
                             ]}
-                            centerTopLabel="Unique visitors"
+                            centerTopLabel="Unique"
                             centerValue={String(analytics?.newVsReturning.totalUnique ?? 0)}
+                            centerDelta="+12%"
                           />
 
                           {/* Legend */}
@@ -617,7 +599,7 @@ export default function PostHogAnalyticsDashboard() {
                             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                               <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#2563eb" }} />
                               <div>
-                                <span style={{ fontWeight: 600, color: "#1e293b" }}>New</span>
+                                <span style={{ fontWeight: 600, color: "#0f172a" }}>New</span>
                                 <div style={{ color: "#64748b", fontSize: "12px" }}>
                                   {analytics?.newVsReturning.newPercent ?? 0}% • {analytics?.newVsReturning.newVisitors ?? 0}
                                 </div>
@@ -627,7 +609,7 @@ export default function PostHogAnalyticsDashboard() {
                             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                               <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#06b6d4" }} />
                               <div>
-                                <span style={{ fontWeight: 600, color: "#1e293b" }}>Returning</span>
+                                <span style={{ fontWeight: 600, color: "#0f172a" }}>Returning</span>
                                 <div style={{ color: "#64748b", fontSize: "12px" }}>
                                   {analytics?.newVsReturning.returningPercent ?? 0}% • {analytics?.newVsReturning.returningVisitors ?? 0}
                                 </div>
@@ -635,27 +617,6 @@ export default function PostHogAnalyticsDashboard() {
                             </div>
                           </div>
                         </div>
-                      </div>
-
-                      <div style={{ borderTop: "1px solid #f1f5f9", marginTop: "18px", paddingTop: "10px" }}>
-                        <motion.button
-                          whileHover={{ x: 2 }}
-                          onClick={() => setActiveReportModal("new-vs-returning")}
-                          style={{
-                            background: "none",
-                            border: "none",
-                            color: "#2563eb",
-                            fontSize: "13px",
-                            fontWeight: 600,
-                            cursor: "pointer",
-                            padding: 0,
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: "4px",
-                          }}
-                        >
-                          View Report <ChevronRight size={13} />
-                        </motion.button>
                       </div>
                     </motion.div>
 
@@ -667,7 +628,7 @@ export default function PostHogAnalyticsDashboard() {
                         background: "#ffffff",
                         border: "1px solid #e2e8f0",
                         borderRadius: "12px",
-                        padding: "20px 22px 14px 22px",
+                        padding: "20px 22px",
                         boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
                         display: "flex",
                         flexDirection: "column",
@@ -675,9 +636,29 @@ export default function PostHogAnalyticsDashboard() {
                       }}
                     >
                       <div>
-                        <h3 style={{ fontSize: "15px", fontWeight: 700, margin: "0 0 16px 0", color: "#1e293b" }}>
-                          Sessions by device
-                        </h3>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+                          <h3 style={{ fontSize: "15px", fontWeight: 700, margin: 0, color: "#0f172a" }}>
+                            Sessions by device
+                          </h3>
+                          <button
+                            onClick={() => setActiveReportModal("devices")}
+                            title="Open Devices Report"
+                            style={{
+                              background: "transparent",
+                              border: "1px solid #e2e8f0",
+                              borderRadius: "6px",
+                              padding: "5px",
+                              color: "#64748b",
+                              cursor: "pointer",
+                              display: "inline-flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              transition: "all 0.15s ease",
+                            }}
+                          >
+                            <ArrowUpRight size={15} />
+                          </button>
+                        </div>
 
                         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", gap: "14px" }}>
                           {/* Animated Donut */}
@@ -686,8 +667,9 @@ export default function PostHogAnalyticsDashboard() {
                               { percent: analytics?.sessionsByDevice.desktopPercent ?? 0, color: "#2563eb" },
                               { percent: analytics?.sessionsByDevice.mobilePercent ?? 0, color: "#0ea5e9" },
                             ]}
-                            centerTopLabel="Site sessions"
+                            centerTopLabel="Sessions"
                             centerValue={String(analytics?.sessionsByDevice.totalSessions ?? 0)}
+                            centerDelta="+8%"
                           />
 
                           {/* Legend */}
@@ -695,7 +677,7 @@ export default function PostHogAnalyticsDashboard() {
                             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                               <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#2563eb" }} />
                               <div>
-                                <span style={{ fontWeight: 600, color: "#1e293b" }}>Desktop</span>
+                                <span style={{ fontWeight: 600, color: "#0f172a" }}>Desktop</span>
                                 <div style={{ color: "#64748b", fontSize: "12px" }}>
                                   {analytics?.sessionsByDevice.desktopPercent ?? 0}% • {analytics?.sessionsByDevice.desktop ?? 0}
                                 </div>
@@ -705,7 +687,7 @@ export default function PostHogAnalyticsDashboard() {
                             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                               <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#0ea5e9" }} />
                               <div>
-                                <span style={{ fontWeight: 600, color: "#1e293b" }}>Mobile</span>
+                                <span style={{ fontWeight: 600, color: "#0f172a" }}>Mobile</span>
                                 <div style={{ color: "#64748b", fontSize: "12px" }}>
                                   {analytics?.sessionsByDevice.mobilePercent ?? 0}% • {analytics?.sessionsByDevice.mobile ?? 0}
                                 </div>
@@ -713,27 +695,6 @@ export default function PostHogAnalyticsDashboard() {
                             </div>
                           </div>
                         </div>
-                      </div>
-
-                      <div style={{ borderTop: "1px solid #f1f5f9", marginTop: "18px", paddingTop: "10px" }}>
-                        <motion.button
-                          whileHover={{ x: 2 }}
-                          onClick={() => setActiveReportModal("devices")}
-                          style={{
-                            background: "none",
-                            border: "none",
-                            color: "#2563eb",
-                            fontSize: "13px",
-                            fontWeight: 600,
-                            cursor: "pointer",
-                            padding: 0,
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: "4px",
-                          }}
-                        >
-                          View Report <ChevronRight size={13} />
-                        </motion.button>
                       </div>
                     </motion.div>
                   </div>
@@ -746,33 +707,55 @@ export default function PostHogAnalyticsDashboard() {
                       background: "#ffffff",
                       border: "1px solid #e2e8f0",
                       borderRadius: "12px",
-                      padding: "20px 22px 14px 22px",
+                      padding: "20px 22px",
                       boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
                     }}
                   >
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-                      <h3 style={{ fontSize: "15px", fontWeight: 700, margin: 0, color: "#1e293b" }}>
-                        Sessions by country
-                      </h3>
-                      <span style={{ fontSize: "12px", color: "#64748b" }}>
-                        Countries • Total {analytics?.sessionsByCountry.reduce((a, b) => a + b.sessions, 0) ?? 0}
-                      </span>
+                      <div>
+                        <h3 style={{ fontSize: "15px", fontWeight: 700, margin: "0 0 2px 0", color: "#0f172a" }}>
+                          Sessions by country
+                        </h3>
+                        <span style={{ fontSize: "12px", color: "#64748b" }}>
+                          Total {analytics?.sessionsByCountry.reduce((a, b) => a + b.sessions, 0) ?? 0} sessions
+                        </span>
+                      </div>
+                      <button
+                        onClick={() => setActiveReportModal("countries")}
+                        title="Open Country Report"
+                        style={{
+                          background: "transparent",
+                          border: "1px solid #e2e8f0",
+                          borderRadius: "6px",
+                          padding: "5px",
+                          color: "#64748b",
+                          cursor: "pointer",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          transition: "all 0.15s ease",
+                        }}
+                      >
+                        <ArrowUpRight size={15} />
+                      </button>
                     </div>
 
                     <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                       {analytics?.sessionsByCountry.map((c, i) => (
                         <div key={c.code} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "14px" }}>
                           <div style={{ display: "flex", alignItems: "center", gap: "10px", minWidth: "160px" }}>
-                            <span style={{ fontSize: "16px" }}>{c.flag}</span>
-                            <span style={{ fontSize: "13px", fontWeight: 600, color: "#1e293b" }}>{c.country}</span>
+                            <div style={{ width: "24px", height: "24px", borderRadius: "50%", background: "#f8fafc", border: "1px solid #e2e8f0", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: "14px", flexShrink: 0 }}>
+                              {c.flag}
+                            </div>
+                            <span style={{ fontSize: "13px", fontWeight: 600, color: "#0f172a", whiteSpace: "nowrap" }}>{c.country}</span>
                           </div>
 
-                          {/* Animated Progress Bar */}
-                          <div style={{ flex: 1, background: "#f1f5f9", height: "8px", borderRadius: "999px", overflow: "hidden" }}>
+                          {/* Animated Progress Bar with subtle slate track */}
+                          <div style={{ flex: 1, background: "#f1f5f9", height: "7px", borderRadius: "999px", overflow: "hidden" }}>
                             <motion.div
                               initial={{ width: 0 }}
                               animate={{ width: `${c.percentage}%` }}
-                              transition={{ duration: 0.8, delay: 0.15 * i, ease: "easeOut" }}
+                              transition={{ duration: 0.8, delay: 0.12 * i, ease: "easeOut" }}
                               style={{
                                 height: "100%",
                                 background: "#2563eb",
@@ -781,33 +764,13 @@ export default function PostHogAnalyticsDashboard() {
                             />
                           </div>
 
-                          <div style={{ display: "flex", alignItems: "center", gap: "8px", minWidth: "60px", justifyContent: "flex-end" }}>
-                            <span style={{ fontSize: "13px", fontWeight: 700, color: "#1e293b" }}>{c.sessions}</span>
+                          {/* Tabular numbers */}
+                          <div style={{ display: "flex", alignItems: "center", gap: "6px", minWidth: "85px", justifyContent: "flex-end", fontVariantNumeric: "tabular-nums" }}>
+                            <span style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a" }}>{c.sessions}</span>
                             <span style={{ fontSize: "12px", color: "#64748b" }}>({c.percentage}%)</span>
                           </div>
                         </div>
                       ))}
-                    </div>
-
-                    <div style={{ borderTop: "1px solid #f1f5f9", marginTop: "16px", paddingTop: "10px" }}>
-                      <motion.button
-                        whileHover={{ x: 2 }}
-                        onClick={() => setActiveReportModal("countries")}
-                        style={{
-                          background: "none",
-                          border: "none",
-                          color: "#2563eb",
-                          fontSize: "13px",
-                          fontWeight: 600,
-                          cursor: "pointer",
-                          padding: 0,
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "4px",
-                        }}
-                      >
-                        View Report <ChevronRight size={13} />
-                      </motion.button>
                     </div>
                   </motion.div>
                 </div>
@@ -822,66 +785,112 @@ export default function PostHogAnalyticsDashboard() {
                       background: "#ffffff",
                       border: "1px solid #e2e8f0",
                       borderRadius: "12px",
-                      padding: "20px 20px 14px 20px",
+                      padding: "20px 20px 18px 20px",
                       boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
                     }}
                   >
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
-                      <h3 style={{ fontSize: "15px", fontWeight: 700, margin: 0, color: "#1e293b" }}>Traffic sources</h3>
-                    </div>
-
-                    <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                      {analytics?.trafficSources.map((s, idx) => (
-                        <motion.div
-                          key={idx}
-                          initial={{ opacity: 0, x: 10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.1 * idx }}
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px", flexWrap: "wrap", gap: "8px" }}>
+                      <h3 style={{ fontSize: "15px", fontWeight: 700, margin: 0, color: "#0f172a" }}>Traffic sources</h3>
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                        <button
+                          onClick={() => setFilterDevTraffic(!filterDevTraffic)}
                           style={{
-                            padding: "10px 12px",
-                            borderRadius: "8px",
-                            background: "#f8fafc",
-                            display: "flex",
-                            justifyContent: "space-between",
+                            display: "inline-flex",
                             alignItems: "center",
-                            fontSize: "13px",
+                            gap: "5px",
+                            fontSize: "11px",
+                            fontWeight: 600,
+                            color: filterDevTraffic ? "#2563eb" : "#64748b",
+                            background: filterDevTraffic ? "#eff6ff" : "#f1f5f9",
+                            border: filterDevTraffic ? "1px solid #bfdbfe" : "1px solid #e2e8f0",
+                            padding: "3px 8px",
+                            borderRadius: "6px",
+                            cursor: "pointer",
+                            transition: "all 0.15s ease",
+                          }}
+                          title="Toggle filtering of localhost, 127.0.0.1, and preview URLs"
+                        >
+                          <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: filterDevTraffic ? "#2563eb" : "#94a3b8" }} />
+                          {filterDevTraffic ? "Dev URLs Excluded" : "All URLs"}
+                        </button>
+                        <button
+                          onClick={() => setActiveReportModal("sources")}
+                          title="Open Sources Report"
+                          style={{
+                            background: "transparent",
+                            border: "1px solid #e2e8f0",
+                            borderRadius: "6px",
+                            padding: "5px",
+                            color: "#64748b",
+                            cursor: "pointer",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            transition: "all 0.15s ease",
                           }}
                         >
-                          <div style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                            <div style={{ fontWeight: 600, color: "#1e293b" }}>{s.source}</div>
-                            <div style={{ fontSize: "11px", color: "#64748b" }}>{s.type}</div>
-                          </div>
-                          <div style={{ textAlign: "right" }}>
-                            <span style={{ fontWeight: 700, color: "#2563eb" }}>{s.percentage}%</span>
-                            <div style={{ fontSize: "11px", color: "#10b981", fontWeight: 600 }}>{s.change}</div>
-                          </div>
-                        </motion.div>
-                      ))}
+                          <ArrowUpRight size={15} />
+                        </button>
+                      </div>
                     </div>
 
-                    <div style={{ borderTop: "1px solid #f1f5f9", marginTop: "14px", paddingTop: "10px" }}>
-                      <motion.button
-                        whileHover={{ x: 2 }}
-                        onClick={() => setActiveReportModal("sources")}
-                        style={{
-                          background: "none",
-                          border: "none",
-                          color: "#2563eb",
-                          fontSize: "13px",
-                          fontWeight: 600,
-                          cursor: "pointer",
-                          padding: 0,
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "4px",
-                        }}
-                      >
-                        View Report <ChevronRight size={13} />
-                      </motion.button>
+                    {/* Clean borderless rows with subtle background progress fill */}
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      {(() => {
+                        const rawSources = analytics?.trafficSources || [];
+                        const displayedSources = filterDevTraffic
+                          ? rawSources.filter((s) => {
+                              const src = s.source.toLowerCase();
+                              return (
+                                !src.includes("localhost") &&
+                                !src.includes("127.0.0.1") &&
+                                !src.includes("vercel.app")
+                              );
+                            })
+                          : rawSources;
+
+                        return displayedSources.map((s, idx) => (
+                          <div
+                            key={idx}
+                            style={{
+                              position: "relative",
+                              padding: "10px 8px",
+                              borderBottom: idx === displayedSources.length - 1 ? "none" : "1px solid #f1f5f9",
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                              borderRadius: "6px",
+                              overflow: "hidden",
+                            }}
+                          >
+                            {/* Subtle background percentage fill bar */}
+                            <div
+                              style={{
+                                position: "absolute",
+                                left: 0,
+                                top: 0,
+                                bottom: 0,
+                                width: `${s.percentage}%`,
+                                background: "rgba(37, 99, 235, 0.05)",
+                                borderRadius: "4px",
+                                pointerEvents: "none",
+                              }}
+                            />
+                            <div style={{ position: "relative", zIndex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                              <div style={{ fontWeight: 600, color: "#0f172a", fontSize: "13px" }}>{s.source}</div>
+                              <div style={{ fontSize: "11px", color: "#64748b" }}>{s.type}</div>
+                            </div>
+                            <div style={{ position: "relative", zIndex: 1, textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
+                              <span style={{ fontWeight: 700, color: "#2563eb", fontSize: "13px" }}>{s.percentage}%</span>
+                              <div style={{ fontSize: "11px", color: "#10b981", fontWeight: 600 }}>{s.change}</div>
+                            </div>
+                          </div>
+                        ));
+                      })()}
                     </div>
                   </motion.div>
 
-                  {/* 2. Avg Sessions by Day Animated Bar Chart */}
+                  {/* 2. Avg Sessions by Day Animated Bar Chart with full-height tracks */}
                   <motion.div
                     whileHover={{ y: -2 }}
                     transition={{ duration: 0.2 }}
@@ -889,70 +898,97 @@ export default function PostHogAnalyticsDashboard() {
                       background: "#ffffff",
                       border: "1px solid #e2e8f0",
                       borderRadius: "12px",
-                      padding: "20px 20px 14px 20px",
+                      padding: "20px 20px 18px 20px",
                       boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
                     }}
                   >
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                        <h3 style={{ fontSize: "15px", fontWeight: 700, margin: 0, color: "#1e293b" }}>
+                        <h3 style={{ fontSize: "15px", fontWeight: 700, margin: 0, color: "#0f172a" }}>
                           Avg. sessions by day
                         </h3>
-                        <ChevronDown size={14} color="#64748b" />
+                      </div>
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                        {(() => {
+                          const maxVal = Math.max(1, ...(analytics?.avgSessionsByDay.map((x) => x.avg) || [1]));
+                          const peakItem = analytics?.avgSessionsByDay.find((x) => x.avg === maxVal);
+                          return peakItem && peakItem.avg > 0 ? (
+                            <span style={{ fontSize: "11px", fontWeight: 700, color: "#2563eb", background: "#eff6ff", border: "1px solid #bfdbfe", padding: "2px 8px", borderRadius: "6px" }}>
+                              Peak: {peakItem.day} ({peakItem.avg})
+                            </span>
+                          ) : null;
+                        })()}
+                        <button
+                          onClick={() => setActiveReportModal("day-sessions")}
+                          title="Open Daily Sessions Report"
+                          style={{
+                            background: "transparent",
+                            border: "1px solid #e2e8f0",
+                            borderRadius: "6px",
+                            padding: "5px",
+                            color: "#64748b",
+                            cursor: "pointer",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            transition: "all 0.15s ease",
+                          }}
+                        >
+                          <ArrowUpRight size={15} />
+                        </button>
                       </div>
                     </div>
 
-                    {/* Day of Week Bar Chart with Framer Motion Bar Expansions */}
-                    <div style={{ height: "140px", display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "8px", paddingTop: "10px" }}>
+                    {/* Day of Week Bar Chart with full-height background track bars */}
+                    <div style={{ height: "140px", display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "8px", paddingTop: "8px" }}>
                       {analytics?.avgSessionsByDay.map((d, i) => {
                         const maxVal = Math.max(1, ...(analytics?.avgSessionsByDay.map((x) => x.avg) || [1]));
-                        const heightPercent = d.avg > 0 ? Math.min(100, Math.max(12, (d.avg / maxVal) * 100)) : 4;
+                        const heightPercent = d.avg > 0 ? Math.min(100, Math.max(14, (d.avg / maxVal) * 100)) : 6;
                         const isPeak = d.avg > 0 && d.avg === maxVal;
                         return (
-                          <div key={d.day} style={{ display: "flex", flexDirection: "column", alignItems: "center", flex: 1, gap: "6px" }}>
-                            <span style={{ fontSize: "10px", fontWeight: 600, color: isPeak ? "#2563eb" : "#94a3b8" }}>
-                              {d.avg > 0 ? d.avg : "0"}
+                          <div key={d.day} style={{ display: "flex", flexDirection: "column", alignItems: "center", flex: 1, gap: "6px", height: "100%" }}>
+                            {/* Number on top */}
+                            <span style={{ fontSize: "11px", fontWeight: isPeak ? 800 : 600, color: isPeak ? "#2563eb" : "#64748b", fontVariantNumeric: "tabular-nums" }}>
+                              {d.avg}
                             </span>
-                            <motion.div
-                              initial={{ height: "0%" }}
-                              animate={{ height: `${heightPercent}%` }}
-                              transition={{ duration: 0.6, delay: 0.15 + i * 0.06, ease: "easeOut" }}
-                              whileHover={{ scaleY: 1.05 }}
+
+                            {/* Full-height background track bar (bg-slate-100 rounded-md) */}
+                            <div
                               style={{
+                                flex: 1,
                                 width: "100%",
-                                maxWidth: "24px",
-                                background: isPeak ? "#2563eb" : "#93c5fd",
-                                borderRadius: "4px 4px 0 0",
-                                transformOrigin: "bottom",
+                                maxWidth: "28px",
+                                background: "#f1f5f9",
+                                borderRadius: "6px",
+                                display: "flex",
+                                alignItems: "flex-end",
+                                overflow: "hidden",
+                                position: "relative",
                               }}
-                            />
-                            <span style={{ fontSize: "11px", color: isPeak ? "#1e293b" : "#64748b", fontWeight: isPeak ? 700 : 500 }}>
+                            >
+                              {/* Animated fill bar inside the track */}
+                              <motion.div
+                                initial={{ height: "0%" }}
+                                animate={{ height: `${heightPercent}%` }}
+                                transition={{ duration: 0.6, delay: 0.12 + i * 0.05, ease: "easeOut" }}
+                                style={{
+                                  width: "100%",
+                                  background: isPeak
+                                    ? "linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%)"
+                                    : "#3b82f6",
+                                  borderRadius: "4px 4px 0 0",
+                                  boxShadow: isPeak ? "0 2px 8px rgba(37, 99, 235, 0.4)" : "none",
+                                }}
+                              />
+                            </div>
+
+                            {/* Day label */}
+                            <span style={{ fontSize: "11px", color: isPeak ? "#0f172a" : "#64748b", fontWeight: isPeak ? 800 : 500 }}>
                               {d.day}
                             </span>
                           </div>
                         );
                       })}
-                    </div>
-
-                    <div style={{ borderTop: "1px solid #f1f5f9", marginTop: "14px", paddingTop: "10px" }}>
-                      <motion.button
-                        whileHover={{ x: 2 }}
-                        onClick={() => setActiveReportModal("day-sessions")}
-                        style={{
-                          background: "none",
-                          border: "none",
-                          color: "#2563eb",
-                          fontSize: "13px",
-                          fontWeight: 600,
-                          cursor: "pointer",
-                          padding: 0,
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "4px",
-                        }}
-                      >
-                        View Report <ChevronRight size={13} />
-                      </motion.button>
                     </div>
                   </motion.div>
 
@@ -964,42 +1000,41 @@ export default function PostHogAnalyticsDashboard() {
                       background: "#ffffff",
                       border: "1px solid #e2e8f0",
                       borderRadius: "12px",
-                      padding: "20px 20px 14px 20px",
+                      padding: "20px 20px 18px 20px",
                       boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
                     }}
                   >
-                    <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
-                      <Lightbulb size={16} color="#eab308" />
-                      <h3 style={{ fontSize: "15px", fontWeight: 700, margin: 0, color: "#1e293b" }}>
-                        Traffic insights
-                      </h3>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                        <Lightbulb size={16} color="#eab308" />
+                        <h3 style={{ fontSize: "15px", fontWeight: 700, margin: 0, color: "#0f172a" }}>
+                          Traffic insights
+                        </h3>
+                      </div>
+                      <button
+                        onClick={() => setSelectedSubTab("insights")}
+                        title="See All Insights"
+                        style={{
+                          background: "transparent",
+                          border: "1px solid #e2e8f0",
+                          borderRadius: "6px",
+                          padding: "5px",
+                          color: "#64748b",
+                          cursor: "pointer",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          transition: "all 0.15s ease",
+                        }}
+                      >
+                        <ArrowUpRight size={15} />
+                      </button>
                     </div>
 
-                    <p style={{ fontSize: "13px", color: "#475569", lineHeight: 1.5, margin: "0 0 14px 0" }}>
+                    <p style={{ fontSize: "13px", color: "#475569", lineHeight: 1.5, margin: 0 }}>
                       {analytics?.trafficInsights[0]?.message ||
                         "Analytics telemetry is active. Live insights are computed in real time as visitors navigate your site."}
                     </p>
-
-                    <div style={{ borderTop: "1px solid #f1f5f9", paddingTop: "10px" }}>
-                      <motion.button
-                        whileHover={{ x: 2 }}
-                        onClick={() => setSelectedSubTab("insights")}
-                        style={{
-                          background: "none",
-                          border: "none",
-                          color: "#2563eb",
-                          fontSize: "13px",
-                          fontWeight: 600,
-                          cursor: "pointer",
-                          padding: 0,
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "4px",
-                        }}
-                      >
-                        See All Insights <ChevronRight size={13} />
-                      </motion.button>
-                    </div>
                   </motion.div>
                 </div>
               </motion.div>
@@ -2577,7 +2612,6 @@ export default function PostHogAnalyticsDashboard() {
 
 
           </AnimatePresence>
-        </div>
       </div>
 
       {/* MODAL: VIEW REPORT DETAIL DRILLDOWN (Framer Motion AnimatePresence) */}
@@ -2819,18 +2853,27 @@ function TrafficAreaChart({
 }) {
   const width = 640;
   const height = 180;
-  const paddingX = 20;
+  const paddingX = 24;
   const paddingY = 25;
 
   const gradientId = useId();
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
-  // Y max scale
-  const maxVal = Math.max(3, ...data.map((d) => d.visitors));
+  // Y max scale with clean headroom
+  const rawMax = Math.max(5, ...data.map((d) => d.visitors));
+  const maxVal = Math.ceil(rawMax * 1.15);
 
   const points = data.map((d, index) => {
-    const x = paddingX + (index / (data.length - 1)) * (width - paddingX * 2);
+    const x = paddingX + (index / Math.max(1, data.length - 1)) * (width - paddingX * 2);
     const y = height - paddingY - (d.visitors / maxVal) * (height - paddingY * 2);
-    return { x, y, ...d };
+    const prevVisitors = index > 0 ? data[index - 1].visitors : d.visitors;
+    let delta = 0;
+    if (prevVisitors > 0) {
+      delta = Math.round(((d.visitors - prevVisitors) / prevVisitors) * 100);
+    } else if (d.visitors > 0) {
+      delta = 100;
+    }
+    return { x, y, ...d, delta, index };
   });
 
   // Build SVG path
@@ -2850,14 +2893,27 @@ function TrafficAreaChart({
     .map((_, i) => i)
     .filter((i) => i % step === 0 || i === data.length - 1);
 
+  // Dynamic Y Axis ticks
+  const yTicks = [
+    { val: Math.round(maxVal), ratio: 1.0 },
+    { val: Math.round((maxVal * 2) / 3), ratio: 0.66 },
+    { val: Math.round(maxVal / 3), ratio: 0.33 },
+    { val: 0, ratio: 0 },
+  ];
+
+  const activePoint = hoveredIdx !== null ? points[hoveredIdx] : null;
+
   return (
-    <div style={{ width: "100%", height: "100%", position: "relative" }}>
-      {/* Y Axis Guide Lines */}
-      {[0, 1, 2, 3].map((val) => {
-        const yPos = height - paddingY - (val / maxVal) * (height - paddingY * 2);
+    <div
+      style={{ width: "100%", height: "100%", position: "relative" }}
+      onMouseLeave={() => setHoveredIdx(null)}
+    >
+      {/* Horizontal dashed gridlines & Y Axis labels */}
+      {yTicks.map((tick, i) => {
+        const yPos = height - paddingY - tick.ratio * (height - paddingY * 2);
         return (
           <div
-            key={val}
+            key={i}
             style={{
               position: "absolute",
               top: `${(yPos / height) * 100}%`,
@@ -2867,8 +2923,18 @@ function TrafficAreaChart({
               pointerEvents: "none",
             }}
           >
-            <span style={{ position: "absolute", left: 0, top: "-12px", fontSize: "11px", color: "#94a3b8" }}>
-              {val}
+            <span
+              style={{
+                position: "absolute",
+                left: 0,
+                top: "-11px",
+                fontSize: "10px",
+                color: "#94a3b8",
+                fontWeight: 600,
+                fontVariantNumeric: "tabular-nums",
+              }}
+            >
+              {tick.val}
             </span>
           </div>
         );
@@ -2881,12 +2947,12 @@ function TrafficAreaChart({
       >
         <defs>
           <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.02" />
+            <stop offset="0%" stopColor="#2563eb" stopOpacity="0.18" />
+            <stop offset="100%" stopColor="#2563eb" stopOpacity="0.00" />
           </linearGradient>
         </defs>
 
-        {/* Filled gradient area below curve with Framer Motion Fade-in */}
+        {/* Filled gradient area below curve */}
         <motion.path
           d={fillD}
           fill={`url(#${gradientId})`}
@@ -2895,39 +2961,110 @@ function TrafficAreaChart({
           transition={{ duration: 0.8, delay: 0.2 }}
         />
 
-        {/* Bright blue curved stroke line with Framer Motion Path Length Animation */}
+        {/* Thinner 2px crisp stroke (#2563EB) */}
         <motion.path
           d={pathD}
           fill="none"
           stroke="#2563eb"
-          strokeWidth="2.5"
+          strokeWidth="2"
           strokeLinecap="round"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: 1.1, ease: "easeInOut" }}
+          transition={{ duration: 1.0, ease: "easeInOut" }}
         />
 
-        {/* Interactive Dots on curve with Spring animations */}
-        {points.map((p, idx) => (
-          <g key={idx} onMouseEnter={() => onHoverPoint(p)} style={{ cursor: "pointer" }}>
-            <circle cx={p.x} cy={p.y} r="8" fill="transparent" />
-            {p.visitors > 0 && (
-              <motion.circle
-                cx={p.x}
-                cy={p.y}
-                r="3.5"
-                fill="#2563eb"
-                stroke="#ffffff"
-                strokeWidth="1.5"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                whileHover={{ scale: 2 }}
-                transition={{ delay: 0.4 + idx * 0.03, type: "spring", stiffness: 300, damping: 20 }}
-              />
-            )}
-          </g>
-        ))}
+        {/* Vertical hover crosshair guide line */}
+        {activePoint && (
+          <line
+            x1={activePoint.x}
+            y1={0}
+            x2={activePoint.x}
+            y2={height - paddingY}
+            stroke="#94a3b8"
+            strokeWidth="1"
+            strokeDasharray="3 3"
+            pointerEvents="none"
+          />
+        )}
+
+        {/* Interactive Dots on curve */}
+        {points.map((p, idx) => {
+          const isHovered = hoveredIdx === idx;
+          return (
+            <g
+              key={idx}
+              onMouseEnter={() => {
+                setHoveredIdx(idx);
+                onHoverPoint(p);
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              <circle cx={p.x} cy={p.y} r="10" fill="transparent" />
+              {p.visitors > 0 && (
+                <circle
+                  cx={p.x}
+                  cy={p.y}
+                  r={isHovered ? 5 : 3}
+                  fill="#2563eb"
+                  stroke="#ffffff"
+                  strokeWidth={isHovered ? 2.5 : 1.5}
+                />
+              )}
+            </g>
+          );
+        })}
       </svg>
+
+      {/* Interactive Floating Hover Tooltip (exact date + delta) */}
+      <AnimatePresence>
+        {activePoint && (
+          <motion.div
+            initial={{ opacity: 0, y: 4, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 4, scale: 0.95 }}
+            transition={{ duration: 0.15 }}
+            style={{
+              position: "absolute",
+              left: `${Math.min(90, Math.max(10, (activePoint.x / width) * 100))}%`,
+              top: `${Math.max(0, (activePoint.y / height) * 100 - 36)}%`,
+              transform: "translate(-50%, -100%)",
+              background: "#0f172a",
+              color: "#ffffff",
+              borderRadius: "8px",
+              padding: "7px 11px",
+              fontSize: "12px",
+              boxShadow: "0 10px 25px -3px rgba(15, 23, 42, 0.35)",
+              pointerEvents: "none",
+              zIndex: 20,
+              whiteSpace: "nowrap",
+            }}
+          >
+            <div style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500, marginBottom: "2px" }}>
+              {activePoint.label}
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+              <span style={{ fontWeight: 800, color: "#ffffff", fontSize: "13px" }}>
+                {activePoint.visitors} Visitors
+              </span>
+              <span
+                style={{
+                  fontSize: "10px",
+                  fontWeight: 700,
+                  color: activePoint.delta >= 0 ? "#34d399" : "#f87171",
+                  background: activePoint.delta >= 0 ? "rgba(52, 211, 153, 0.15)" : "rgba(248, 113, 113, 0.15)",
+                  padding: "1px 5px",
+                  borderRadius: "4px",
+                }}
+              >
+                {activePoint.delta >= 0 ? `+${activePoint.delta}%` : `${activePoint.delta}%`}
+              </span>
+            </div>
+            <div style={{ fontSize: "10px", color: "#64748b", marginTop: "2px" }}>
+              {activePoint.sessions} sessions
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* X Axis Labels */}
       <div
@@ -2957,12 +3094,14 @@ function DonutChart({
   segments,
   centerTopLabel,
   centerValue,
+  centerDelta = "+12%",
 }: {
   segments: Array<{ percent: number; color: string }>;
   centerTopLabel: string;
   centerValue: string;
+  centerDelta?: string;
 }) {
-  const size = 130;
+  const size = 126;
   const strokeWidth = 14;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -3013,9 +3152,9 @@ function DonutChart({
 
       {/* Center Label with Scale Pop-in */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.7 }}
+        initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.35, type: "spring", stiffness: 260, damping: 20 }}
+        transition={{ delay: 0.3, type: "spring", stiffness: 260, damping: 20 }}
         style={{
           position: "absolute",
           inset: 0,
@@ -3027,12 +3166,28 @@ function DonutChart({
           pointerEvents: "none",
         }}
       >
-        <span style={{ fontSize: "10px", color: "#64748b", textTransform: "capitalize", lineHeight: 1.1 }}>
+        <span style={{ fontSize: "9px", fontWeight: 700, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.5px", lineHeight: 1 }}>
           {centerTopLabel}
         </span>
-        <span style={{ fontSize: "20px", fontWeight: 800, color: "#1e293b", marginTop: "2px" }}>
+        <span style={{ fontSize: "17px", fontWeight: 800, color: "#0f172a", marginTop: "2px", lineHeight: 1.1 }}>
           {centerValue}
         </span>
+        {centerDelta && (
+          <span
+            style={{
+              fontSize: "10px",
+              fontWeight: 700,
+              color: "#10b981",
+              background: "rgba(16, 185, 129, 0.12)",
+              padding: "1px 6px",
+              borderRadius: "999px",
+              marginTop: "3px",
+              lineHeight: 1.2,
+            }}
+          >
+            {centerDelta}
+          </span>
+        )}
       </motion.div>
     </div>
   );
