@@ -214,6 +214,19 @@ export default function AdminDashboardPage() {
   const [savingUser, setSavingUser] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
   const [sessionSecondsLeft, setSessionSecondsLeft] = useState(3600); // 1-hour automatic session limit
+  const [overviewRange, setOverviewRange] = useState<"7d" | "14d" | "30d">("30d");
+
+  const handleRangeChange = async (range: "7d" | "14d" | "30d") => {
+    setOverviewRange(range);
+    try {
+      const res = await fetch(`/api/admin/analytics?range=${range}`).then((r) => r.json());
+      if (res && res.success && res.data) {
+        setOverviewAnalytics(res.data);
+      }
+    } catch (err) {
+      console.error("Range change fetch error:", err);
+    }
+  };
 
   // Load Current User Session
   const checkAuth = async () => {
@@ -1067,60 +1080,50 @@ export default function AdminDashboardPage() {
 
         {/* TAB 1: OVERVIEW */}
         {activeTab === "overview" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "28px" }}>
-            {/* Header + Action Buttons */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "16px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            {/* Header + Unified Date Filter */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "14px" }}>
               <div>
-                <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#0f172a", marginBottom: "6px" }}>
+                <h1 style={{ fontSize: "24px", fontWeight: 800, color: "#0f172a", marginBottom: "2px" }}>
                   Executive Overview
                 </h1>
-                <p style={{ color: "#475569", fontSize: "15px", margin: 0 }}>
-                  Real-time agency performance from Neon PostgreSQL, Google Analytics 4, and GTM telemetry.
+                <p style={{ color: "#64748b", fontSize: "13px", margin: 0 }}>
+                  Real-time agency performance from Neon PostgreSQL and Google Analytics 4.
                 </p>
               </div>
 
               <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
-                <button
-                  onClick={() => setShowGaSetupModal(true)}
+                {/* Unified [ 7D | 14D | 30D ] Segmented Date Filter */}
+                <div
                   style={{
                     display: "inline-flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    background: "#eff6ff",
-                    color: "#2563eb",
-                    border: "1px solid #bfdbfe",
-                    padding: "9px 16px",
+                    background: "#f1f5f9",
+                    padding: "3px",
                     borderRadius: "8px",
-                    fontSize: "13px",
-                    fontWeight: 600,
-                    cursor: "pointer",
-                    transition: "all 0.15s ease",
+                    border: "1px solid #e2e8f0",
                   }}
                 >
-                  <Settings size={15} /> Connect GA4 Data API
-                </button>
-
-                <a
-                  href="https://analytics.google.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "6px",
-                    background: "#ffffff",
-                    color: "#0f172a",
-                    border: "1px solid #cbd5e1",
-                    padding: "9px 16px",
-                    borderRadius: "8px",
-                    fontSize: "13px",
-                    fontWeight: 600,
-                    textDecoration: "none",
-                    transition: "all 0.15s ease",
-                  }}
-                >
-                  <ExternalLink size={15} /> Open GA4 Console
-                </a>
+                  {(["7d", "14d", "30d"] as const).map((r) => (
+                    <button
+                      key={r}
+                      onClick={() => handleRangeChange(r)}
+                      style={{
+                        padding: "5px 12px",
+                        fontSize: "12px",
+                        fontWeight: 700,
+                        borderRadius: "6px",
+                        border: "none",
+                        cursor: "pointer",
+                        transition: "all 0.15s ease",
+                        background: overviewRange === r ? "#ffffff" : "transparent",
+                        color: overviewRange === r ? "#0f172a" : "#64748b",
+                        boxShadow: overviewRange === r ? "0 1px 3px rgba(0, 0, 0, 0.08)" : "none",
+                      }}
+                    >
+                      {r.toUpperCase()}
+                    </button>
+                  ))}
+                </div>
 
                 <button
                   onClick={() => setActiveTab("analytics")}
@@ -1131,7 +1134,7 @@ export default function AdminDashboardPage() {
                     background: "#123968",
                     color: "#ffffff",
                     border: "none",
-                    padding: "9px 16px",
+                    padding: "7px 14px",
                     borderRadius: "8px",
                     fontSize: "13px",
                     fontWeight: 600,
@@ -1144,136 +1147,22 @@ export default function AdminDashboardPage() {
               </div>
             </div>
 
-            {/* SECTION 1: CRM & LEADS PIPELINE */}
-            <div>
-              <div style={{ fontSize: "11px", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.05em", color: "#64748b", marginBottom: "12px" }}>
-                CRM &amp; Client Pipeline (Neon PostgreSQL)
-              </div>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px" }}>
-                <div
-                  onClick={() => setActiveTab("leads")}
-                  style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", padding: "20px 24px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)", cursor: "pointer", transition: "transform 0.15s ease, border-color 0.15s ease" }}
-                >
-                  <div style={{ fontSize: "12px", color: "#64748b", textTransform: "uppercase", fontWeight: 700, marginBottom: "8px" }}>
-                    Total Inquiries (Neon DB)
-                  </div>
-                  <div style={{ fontSize: "36px", fontWeight: 800, color: "#123968", lineHeight: 1 }} className="tabular-nums">{stats.totalLeads}</div>
-                  <div style={{ fontSize: "12px", color: "#059669", marginTop: "8px", fontWeight: 600 }}>Stored permanently in Postgres</div>
-                </div>
-
-                <div
-                  onClick={() => { setLeadStatusFilter("contacted"); setActiveTab("leads"); }}
-                  style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", padding: "20px 24px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)", cursor: "pointer", transition: "transform 0.15s ease, border-color 0.15s ease" }}
-                >
-                  <div style={{ fontSize: "12px", color: "#64748b", textTransform: "uppercase", fontWeight: 700, marginBottom: "8px" }}>
-                    Contacted Leads
-                  </div>
-                  <div style={{ fontSize: "36px", fontWeight: 800, color: "#059669", lineHeight: 1 }} className="tabular-nums">{stats.contactedLeads}</div>
-                  <div style={{ fontSize: "12px", color: "#059669", marginTop: "8px", fontWeight: 600 }}>Active team follow-up</div>
-                </div>
-
-                <div
-                  onClick={() => { setLeadStatusFilter("new"); setActiveTab("leads"); }}
-                  style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", padding: "20px 24px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)", cursor: "pointer", transition: "transform 0.15s ease, border-color 0.15s ease" }}
-                >
-                  <div style={{ fontSize: "12px", color: "#64748b", textTransform: "uppercase", fontWeight: 700, marginBottom: "8px" }}>
-                    Pending Leads
-                  </div>
-                  <div style={{ fontSize: "36px", fontWeight: 800, color: "#d97706", lineHeight: 1 }} className="tabular-nums">{stats.pendingLeads}</div>
-                  <div style={{ fontSize: "12px", color: "#d97706", marginTop: "8px", fontWeight: 600 }}>Awaiting client outreach</div>
-                </div>
-
-                <div
-                  onClick={() => setActiveTab("projects")}
-                  style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", padding: "20px 24px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)", cursor: "pointer", transition: "transform 0.15s ease, border-color 0.15s ease" }}
-                >
-                  <div style={{ fontSize: "12px", color: "#64748b", textTransform: "uppercase", fontWeight: 700, marginBottom: "8px" }}>
-                    Portfolio Projects
-                  </div>
-                  <div style={{ fontSize: "36px", fontWeight: 800, color: "#123968", lineHeight: 1 }} className="tabular-nums">{projects.length || stats.totalProjects}</div>
-                  <div style={{ fontSize: "12px", color: "#64748b", marginTop: "8px" }}>Neon Object Storage synced</div>
-                </div>
-              </div>
-            </div>
-
-            {/* GOOGLE ANALYTICS 4 VERIFIED DASHBOARD (Exact Bento Layout from Screenshots) */}
+            {/* UNIFIED COMPACT BENTO HUD (8 KPIs, 220px Timeline, 2-Col Telemetry) */}
             <GA4OverviewDashboard
               data={overviewAnalytics?.ga4 || null}
               loading={loading}
-              onRefresh={loadDashboardData}
-              onOpenSetupModal={() => setShowGaSetupModal(true)}
+              timeRange={overviewRange}
+              crmStats={{
+                totalLeads: stats.totalLeads,
+                contactedLeads: stats.contactedLeads,
+                pendingLeads: stats.pendingLeads,
+                totalProjects: projects.length || stats.totalProjects,
+              }}
+              onNavigateTab={(tab, filter) => {
+                if (filter) setLeadStatusFilter(filter);
+                setActiveTab(tab as any);
+              }}
             />
-
-            {/* SECTION 4: SEO, ANALYTICS & MCP TELEMETRY INFRASTRUCTURE */}
-            <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", padding: "24px", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "18px", flexWrap: "wrap", gap: "12px" }}>
-                <div>
-                  <h3 style={{ fontSize: "16px", fontWeight: 700, color: "#0f172a", margin: "0 0 2px 0" }}>
-                    SEO, Analytics &amp; MCP Protocol Telemetry
-                  </h3>
-                  <p style={{ fontSize: "13px", color: "#64748b", margin: 0 }}>
-                    Telemetry status for Google Analytics 4, GTM, Google Ads, and AI Agent MCP protocol.
-                  </p>
-                </div>
-
-                <button
-                  onClick={() => setShowGaSetupModal(true)}
-                  style={{
-                    background: "#eff6ff",
-                    color: "#2563eb",
-                    border: "1px solid #bfdbfe",
-                    padding: "6px 12px",
-                    borderRadius: "6px",
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    cursor: "pointer",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "6px",
-                  }}
-                >
-                  <Settings size={13} /> Step-by-Step GA4 Setup Guide
-                </button>
-              </div>
-
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "14px" }}>
-                <div style={{ background: "#f8fafc", padding: "16px", borderRadius: "10px", border: "1px solid #e2e8f0" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
-                    <span style={{ fontSize: "11px", fontWeight: 800, color: "#d97706", textTransform: "uppercase" }}>GA4 Stream</span>
-                    <span style={{ fontSize: "10px", background: "#fef3c7", color: "#92400e", padding: "2px 6px", borderRadius: "4px", fontWeight: 700 }}>LIVE</span>
-                  </div>
-                  <div style={{ fontSize: "14px", fontWeight: 700, color: "#0f172a", fontFamily: "monospace" }}>G-N4VF65ME9Q</div>
-                  <div style={{ fontSize: "12px", color: "#059669", marginTop: "4px", fontWeight: 600 }}>✓ Tracking Pageviews &amp; Events</div>
-                </div>
-
-                <div style={{ background: "#f8fafc", padding: "16px", borderRadius: "10px", border: "1px solid #e2e8f0" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
-                    <span style={{ fontSize: "11px", fontWeight: 800, color: "#4338ca", textTransform: "uppercase" }}>GTM Containers</span>
-                    <span style={{ fontSize: "10px", background: "#e0e7ff", color: "#3730a3", padding: "2px 6px", borderRadius: "4px", fontWeight: 700 }}>DUAL</span>
-                  </div>
-                  <div style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a", fontFamily: "monospace" }}>GT-T5MDR2V6 · GT-MBND7LX9</div>
-                  <div style={{ fontSize: "12px", color: "#059669", marginTop: "4px", fontWeight: 600 }}>✓ Containers Loaded in DOM</div>
-                </div>
-
-                <div style={{ background: "#f8fafc", padding: "16px", borderRadius: "10px", border: "1px solid #e2e8f0" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
-                    <span style={{ fontSize: "11px", fontWeight: 800, color: "#2563eb", textTransform: "uppercase" }}>Google Ads</span>
-                    <span style={{ fontSize: "10px", background: "#dbeafe", color: "#1e40af", padding: "2px 6px", borderRadius: "4px", fontWeight: 700 }}>ACTIVE</span>
-                  </div>
-                  <div style={{ fontSize: "14px", fontWeight: 700, color: "#0f172a", fontFamily: "monospace" }}>AW-10987292991</div>
-                  <div style={{ fontSize: "12px", color: "#059669", marginTop: "4px", fontWeight: 600 }}>✓ Remarketing &amp; Inquiries Config</div>
-                </div>
-
-                <div style={{ background: "#f8fafc", padding: "16px", borderRadius: "10px", border: "1px solid #e2e8f0" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
-                    <span style={{ fontSize: "11px", fontWeight: 800, color: "#059669", textTransform: "uppercase" }}>AI Agent Protocol</span>
-                    <span style={{ fontSize: "10px", background: "#dcfce7", color: "#166534", padding: "2px 6px", borderRadius: "4px", fontWeight: 700 }}>GEO READY</span>
-                  </div>
-                  <div style={{ fontSize: "14px", fontWeight: 700, color: "#0f172a", fontFamily: "monospace" }}>/llms.txt · /api/mcp</div>
-                  <div style={{ fontSize: "12px", color: "#059669", marginTop: "4px", fontWeight: 600 }}>✓ 9/9 AI Crawlers Allowed</div>
-                </div>
-              </div>
-            </div>
           </div>
         )}
 
