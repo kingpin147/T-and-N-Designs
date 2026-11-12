@@ -48,6 +48,9 @@ import {
   X,
   Globe,
   ArrowUpRight,
+  LayoutGrid,
+  List,
+  Star,
 } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import PostHogAnalyticsDashboard from "@/components/admin/PostHogAnalyticsDashboard";
@@ -136,6 +139,142 @@ const DEFAULT_OWNER_PROFILE: UserProfile = {
   },
 };
 
+function sanitizeExcerpt(text: string): string {
+  if (!text) return "";
+  return text
+    .replace(/^(overview|summary|description):\s*/i, "")
+    .replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1FA00}-\u{1FAFF}]/gu, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function formatCategory(cat?: string): string {
+  if (!cat) return "Web Design";
+  const lower = cat.toLowerCase();
+  if (lower.includes("wix") || lower.includes("velo")) return "Wix Migration";
+  if (lower.includes("custom") || lower.includes("enterprise")) return "Custom Build";
+  if (lower.includes("web") || lower.includes("saas")) return "Web Design";
+  return cat.charAt(0).toUpperCase() + cat.slice(1);
+}
+
+function ProjectThumbnail({ src, alt, title }: { src?: string; alt: string; title: string }) {
+  const [hasError, setHasError] = useState(false);
+  const isValid = Boolean(src && !src.includes("placeholder") && !hasError);
+
+  return (
+    <div style={{ position: "relative", width: "100%", aspectRatio: "16 / 10", background: "#f8fafc", overflow: "hidden" }}>
+      {isValid ? (
+        <Image
+          src={src as string}
+          alt={alt}
+          fill
+          unoptimized
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          style={{ objectFit: "cover" }}
+          onError={() => setHasError(true)}
+        />
+      ) : (
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%)",
+            borderBottom: "1px solid #e2e8f0",
+            padding: "16px",
+            textAlign: "center",
+          }}
+        >
+          <div
+            style={{
+              width: "38px",
+              height: "38px",
+              borderRadius: "10px",
+              background: "#ffffff",
+              border: "1px solid #e2e8f0",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: "6px",
+            }}
+          >
+            <Layers size={18} color="#2563eb" />
+          </div>
+          <span style={{ fontSize: "12px", fontWeight: 700, color: "#475569", maxWidth: "85%", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+            {title}
+          </span>
+          <span style={{ fontSize: "10px", color: "#94a3b8", marginTop: "2px" }}>
+            T &amp; N Architecture
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function BlogThumbnail({ src, alt, title }: { src?: string; alt: string; title: string }) {
+  const [hasError, setHasError] = useState(false);
+  const isValid = Boolean(src && !hasError);
+
+  return (
+    <div style={{ position: "relative", width: "100%", aspectRatio: "16 / 10", background: "#f8fafc", overflow: "hidden" }}>
+      {isValid ? (
+        <Image
+          src={src as string}
+          alt={alt}
+          fill
+          unoptimized
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          style={{ objectFit: "cover" }}
+          onError={() => setHasError(true)}
+        />
+      ) : (
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%)",
+            borderBottom: "1px solid #e2e8f0",
+            padding: "16px",
+            textAlign: "center",
+          }}
+        >
+          <div
+            style={{
+              width: "38px",
+              height: "38px",
+              borderRadius: "10px",
+              background: "#ffffff",
+              border: "1px solid #e2e8f0",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginBottom: "6px",
+            }}
+          >
+            <FileText size={18} color="#059669" />
+          </div>
+          <span style={{ fontSize: "12px", fontWeight: 700, color: "#475569", maxWidth: "85%", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+            {title}
+          </span>
+          <span style={{ fontSize: "10px", color: "#94a3b8", marginTop: "2px" }}>
+            Article Insight
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function AdminDashboardPage() {
   const router = useRouter();
   // Initialize with verified owner profile so tabs and data are never blank
@@ -171,7 +310,12 @@ export default function AdminDashboardPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [projectSearch, setProjectSearch] = useState("");
   const [projectCategoryFilter, setProjectCategoryFilter] = useState("all");
+  const [projectStatusFilter, setProjectStatusFilter] = useState<"all" | "featured" | "live" | "internal">("all");
+  const [projectViewMode, setProjectViewMode] = useState<"grid" | "list">("grid");
+
   const [blogSearch, setBlogSearch] = useState("");
+  const [blogStatusFilter, setBlogStatusFilter] = useState<"all" | "published" | "scheduled" | "draft">("all");
+  const [blogViewMode, setBlogViewMode] = useState<"grid" | "list">("grid");
 
   // Toast Notification
   const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
@@ -625,19 +769,40 @@ export default function AdminDashboardPage() {
       (projectCategoryFilter === "custom" && proj.category?.toLowerCase().includes("custom")) ||
       (projectCategoryFilter === "wix-migration" && (proj.category?.toLowerCase().includes("wix") || proj.category?.toLowerCase().includes("velo"))) ||
       (projectCategoryFilter === "web-development" && (proj.category?.toLowerCase().includes("web") || proj.category?.toLowerCase().includes("saas")));
+
+    const matchesStatus =
+      projectStatusFilter === "all" ||
+      (projectStatusFilter === "featured" && proj.featured) ||
+      (projectStatusFilter === "live" && Boolean(proj.projectUrl)) ||
+      (projectStatusFilter === "internal" && !proj.projectUrl);
+
+    if (!matchesCategory || !matchesStatus) return false;
+
     const term = projectSearch.toLowerCase().trim();
-    if (!term) return matchesCategory;
-    const matchesSearch =
+    if (!term) return true;
+    return (
       proj.title.toLowerCase().includes(term) ||
       (proj.slug && proj.slug.toLowerCase().includes(term)) ||
       (proj.shortDescription && proj.shortDescription.toLowerCase().includes(term)) ||
       (proj.fullDescription && proj.fullDescription.toLowerCase().includes(term)) ||
-      (proj.tags && proj.tags.some((t) => t.toLowerCase().includes(term)));
-    return matchesCategory && matchesSearch;
+      (proj.tags && proj.tags.some((t) => t.toLowerCase().includes(term)))
+    );
   });
 
   // Filtered Blog Posts
   const filteredPosts = posts.filter((post) => {
+    const isScheduled = Boolean(post.published && post.publishedAt && new Date(post.publishedAt).getTime() > Date.now());
+    const isDraft = !post.published;
+    const isPublished = Boolean(post.published && (!post.publishedAt || new Date(post.publishedAt).getTime() <= Date.now()));
+
+    const matchesStatus =
+      blogStatusFilter === "all" ||
+      (blogStatusFilter === "published" && isPublished) ||
+      (blogStatusFilter === "scheduled" && isScheduled) ||
+      (blogStatusFilter === "draft" && isDraft);
+
+    if (!matchesStatus) return false;
+
     const term = blogSearch.toLowerCase().trim();
     if (!term) return true;
     return (
@@ -1346,18 +1511,24 @@ export default function AdminDashboardPage() {
         {/* TAB 3: PROJECTS MANAGER */}
         {activeTab === "projects" && (
           <div>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px", flexWrap: "wrap", gap: "16px" }}>
+            {/* Header & Controls Strip */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", flexWrap: "wrap", gap: "16px" }}>
               <div>
-                <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#0f172a", marginBottom: "6px" }}>
-                  Portfolio Projects &amp; Media ({filteredProjects.length}{filteredProjects.length !== projects.length ? ` of ${projects.length}` : ""})
+                <h1 style={{ fontSize: "24px", fontWeight: 800, color: "#0f172a", marginBottom: "4px", display: "flex", alignItems: "center", gap: "8px" }}>
+                  <span>Portfolio Projects &amp; Media</span>
+                  <span style={{ fontSize: "13px", fontWeight: 700, background: "#f1f5f9", color: "#475569", padding: "2px 8px", borderRadius: "12px", border: "1px solid #e2e8f0" }}>
+                    {filteredProjects.length}{filteredProjects.length !== projects.length ? ` of ${projects.length}` : ""}
+                  </span>
                 </h1>
-                <p style={{ color: "#475569", fontSize: "15px" }}>
-                  Showing verified client builds stored in Neon PostgreSQL and S3 cloud storage.
+                <p style={{ color: "#64748b", fontSize: "14px" }}>
+                  Verified client builds stored in Neon PostgreSQL and S3 cloud storage.
                 </p>
               </div>
-              <div style={{ display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
-                <div style={{ display: "flex", alignItems: "center", background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "10px", padding: "8px 12px", width: "220px" }}>
-                  <Search size={16} color="#94a3b8" style={{ marginRight: "8px" }} />
+
+              <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
+                {/* Search */}
+                <div style={{ display: "flex", alignItems: "center", background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "8px", padding: "7px 10px", width: "200px" }}>
+                  <Search size={14} color="#94a3b8" style={{ marginRight: "8px", flexShrink: 0 }} />
                   <input
                     type="text"
                     placeholder="Search projects..."
@@ -1367,14 +1538,15 @@ export default function AdminDashboardPage() {
                   />
                 </div>
 
+                {/* Category filter */}
                 <select
                   value={projectCategoryFilter}
                   onChange={(e) => setProjectCategoryFilter(e.target.value)}
                   style={{
-                    padding: "8px 12px",
+                    padding: "7px 10px",
                     background: "#ffffff",
                     border: "1px solid #e2e8f0",
-                    borderRadius: "10px",
+                    borderRadius: "8px",
                     fontSize: "13px",
                     fontWeight: 600,
                     color: "#0f172a",
@@ -1388,140 +1560,409 @@ export default function AdminDashboardPage() {
                   <option value="wix-migration">Wix Migration &amp; Velo</option>
                 </select>
 
+                {/* View Mode Toggle: Grid | List */}
+                <div style={{ display: "flex", background: "#f1f5f9", padding: "3px", borderRadius: "8px", border: "1px solid #e2e8f0" }}>
+                  <button
+                    type="button"
+                    onClick={() => setProjectViewMode("grid")}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "4px",
+                      padding: "5px 10px",
+                      borderRadius: "6px",
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      border: "none",
+                      cursor: "pointer",
+                      background: projectViewMode === "grid" ? "#ffffff" : "transparent",
+                      color: projectViewMode === "grid" ? "#0f172a" : "#64748b",
+                      boxShadow: projectViewMode === "grid" ? "0 1px 3px rgba(0,0,0,0.06)" : "none",
+                    }}
+                  >
+                    <LayoutGrid size={13} />
+                    <span>Grid</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setProjectViewMode("list")}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "4px",
+                      padding: "5px 10px",
+                      borderRadius: "6px",
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      border: "none",
+                      cursor: "pointer",
+                      background: projectViewMode === "list" ? "#ffffff" : "transparent",
+                      color: projectViewMode === "list" ? "#0f172a" : "#64748b",
+                      boxShadow: projectViewMode === "list" ? "0 1px 3px rgba(0,0,0,0.06)" : "none",
+                    }}
+                  >
+                    <List size={13} />
+                    <span>List</span>
+                  </button>
+                </div>
+
+                {/* Add New Project */}
                 <button
                   onClick={() => {
                     setCurrentProject({ title: "", category: "web-development", fullDescription: "", tags: [], coverImageUrl: "/portfolio/energt-gurus-online.png", featured: false });
                     setProjectModalOpen(true);
                   }}
                   className="btn-primary"
-                  style={{ padding: "10px 18px", fontSize: "14px" }}
+                  style={{ padding: "8px 14px", fontSize: "13px" }}
                 >
-                  <Plus size={16} /> Add New Project
+                  <Plus size={14} /> Add Project
                 </button>
               </div>
             </div>
 
+            {/* Segmented Status Filter Tabs */}
+            <div style={{ display: "flex", gap: "6px", marginBottom: "16px", flexWrap: "wrap" }}>
+              {[
+                { id: "all", label: "All", count: projects.length },
+                { id: "featured", label: "Featured", count: projects.filter(p => p.featured).length },
+                { id: "live", label: "Live Public", count: projects.filter(p => Boolean(p.projectUrl)).length },
+                { id: "internal", label: "Internal Portals", count: projects.filter(p => !p.projectUrl).length },
+              ].map((tab) => {
+                const isActive = projectStatusFilter === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setProjectStatusFilter(tab.id as any)}
+                    style={{
+                      padding: "6px 14px",
+                      borderRadius: "8px",
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      border: isActive ? "1px solid #2563eb" : "1px solid #e2e8f0",
+                      background: isActive ? "#eff6ff" : "#ffffff",
+                      color: isActive ? "#1d4ed8" : "#475569",
+                      cursor: "pointer",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      transition: "all 0.15s ease",
+                    }}
+                  >
+                    <span>{tab.label}</span>
+                    <span style={{ fontSize: "11px", opacity: 0.8, padding: "1px 6px", borderRadius: "10px", background: isActive ? "#dbeafe" : "#f1f5f9" }}>
+                      {tab.count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Empty state */}
             {filteredProjects.length === 0 ? (
-              <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", padding: "48px", textAlign: "center", color: "#64748b" }}>
-                No projects found matching the current search or category filter.
+              <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "48px", textAlign: "center", color: "#64748b" }}>
+                No projects found matching the current search or filters.
               </div>
-            ) : (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))", gap: "24px" }}>
+            ) : projectViewMode === "grid" ? (
+              /* 4-Column Bento Grid */
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {filteredProjects.map((proj) => (
-                  <div key={proj.id} style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", overflow: "hidden", display: "flex", flexDirection: "column", boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
-                    {/* Media Image Container */}
-                    <div style={{ position: "relative", width: "100%", height: "200px", background: "#f1f5f9", overflow: "hidden" }}>
-                      <Image
-                        src={proj.coverImageUrl || "/portfolio/energt-gurus-online.png"}
-                        alt={proj.title}
-                        fill
-                        unoptimized
-                        sizes="340px"
-                        style={{ objectFit: "cover" }}
-                      />
-                      <div style={{ position: "absolute", top: "12px", right: "12px", display: "flex", gap: "6px" }}>
+                  <div
+                    key={proj.id}
+                    style={{
+                      background: "#ffffff",
+                      border: "1px solid #e2e8f0",
+                      borderRadius: "12px",
+                      overflow: "hidden",
+                      display: "flex",
+                      flexDirection: "column",
+                      boxShadow: "0 1px 3px rgba(0,0,0,0.02)",
+                    }}
+                  >
+                    {/* 16:10 Thumbnail with Frosted Badges */}
+                    <div style={{ position: "relative", width: "100%" }}>
+                      <ProjectThumbnail src={proj.coverImageUrl} alt={proj.title} title={proj.title} />
+
+                      {/* Frosted Top Badges */}
+                      <div style={{ position: "absolute", top: "10px", right: "10px", display: "flex", gap: "6px", zIndex: 10 }}>
                         {proj.featured && (
-                          <span style={{ fontSize: "11px", fontWeight: 700, background: "#d97706", color: "#ffffff", padding: "3px 8px", borderRadius: "6px", backdropFilter: "blur(4px)" }}>
-                            ★ Featured
+                          <span
+                            style={{
+                              fontSize: "11px",
+                              fontWeight: 700,
+                              background: "rgba(255, 255, 255, 0.92)",
+                              backdropFilter: "blur(8px)",
+                              color: "#b45309",
+                              padding: "3px 8px",
+                              borderRadius: "6px",
+                              border: "1px solid rgba(226, 232, 240, 0.8)",
+                              boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "4px",
+                            }}
+                          >
+                            <Star size={11} color="#d97706" fill="#d97706" />
+                            <span>Featured</span>
                           </span>
                         )}
-                        <span style={{ fontSize: "11px", fontWeight: 700, background: "rgba(18, 57, 104, 0.85)", color: "#ffffff", padding: "3px 8px", borderRadius: "6px", backdropFilter: "blur(4px)" }}>
-                          {proj.category}
+                        <span
+                          style={{
+                            fontSize: "11px",
+                            fontWeight: 600,
+                            background: "rgba(255, 255, 255, 0.92)",
+                            backdropFilter: "blur(8px)",
+                            color: "#334155",
+                            padding: "3px 8px",
+                            borderRadius: "6px",
+                            border: "1px solid rgba(226, 232, 240, 0.8)",
+                            boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
+                          }}
+                        >
+                          {formatCategory(proj.category)}
                         </span>
                       </div>
                     </div>
 
-                  {/* Body */}
-                  <div style={{ padding: "20px", display: "flex", flexDirection: "column", flexGrow: 1 }}>
-                    <h3 style={{ fontSize: "17px", fontWeight: 700, color: "#0f172a", marginBottom: "8px", lineHeight: 1.3 }}>
-                      {proj.title}
-                    </h3>
-                    <p style={{ fontSize: "13px", color: "#475569", lineHeight: 1.55, marginBottom: "16px", flexGrow: 1, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
-                      {proj.fullDescription}
-                    </p>
+                    {/* Card Content */}
+                    <div style={{ padding: "14px 16px", display: "flex", flexDirection: "column", flexGrow: 1 }}>
+                      <h3
+                        title={proj.title}
+                        style={{
+                          fontSize: "15px",
+                          fontWeight: 700,
+                          color: "#0f172a",
+                          marginBottom: "6px",
+                          lineHeight: 1.35,
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        {proj.title}
+                      </h3>
 
-                    <div style={{ borderTop: "1px solid #f1f5f9", paddingTop: "14px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
-                        {proj.projectUrl ? (
-                          <a
-                            href={proj.projectUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{ fontSize: "13px", color: "#123968", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "4px" }}
-                          >
-                            Visit Live <ExternalLink size={13} />
-                          </a>
-                        ) : (
-                          <span style={{ fontSize: "12px", color: "#94a3b8" }}>Client Internal Portal</span>
-                        )}
-                        <span
-                          title={`${proj.views || 0} total client clicks & modal views`}
-                          style={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: "5px",
-                            fontSize: "12px",
-                            fontWeight: 600,
-                            color: "#0f172a",
-                            background: "#f1f5f9",
-                            padding: "3px 8px",
-                            borderRadius: "6px",
-                            border: "1px solid #e2e8f0",
-                          }}
-                        >
-                          <Eye size={13} color="#0284c7" />
-                          <span>{proj.views || 0} views</span>
-                        </span>
+                      <p
+                        style={{
+                          fontSize: "12px",
+                          color: "#64748b",
+                          lineHeight: 1.5,
+                          marginBottom: "12px",
+                          flexGrow: 1,
+                          display: "-webkit-box",
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                        }}
+                      >
+                        {sanitizeExcerpt(proj.fullDescription || proj.shortDescription || "")}
+                      </p>
+
+                      {/* Clean Inline Metadata (No bulky bordered 0 views pill) */}
+                      <div style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500, marginBottom: "12px" }}>
+                        <span>{proj.projectUrl ? "Live Public" : "Internal Portal"}</span>
+                        <span style={{ margin: "0 6px" }}>•</span>
+                        <span>{proj.views || 0} views</span>
                       </div>
 
-                      <div style={{ display: "flex", gap: "8px" }}>
-                        <button
-                          onClick={() => {
-                            setCurrentProject(proj);
-                            setProjectModalOpen(true);
-                          }}
-                          className="btn-secondary"
-                          style={{ padding: "6px 12px", fontSize: "12px" }}
-                        >
-                          <Edit3 size={13} /> Edit
-                        </button>
-                        <button
-                          onClick={async () => {
-                            if (confirm(`Delete project "${proj.title}"?`)) {
-                              await fetch(`/api/admin/projects?id=${proj.id}`, { method: "DELETE" });
-                              loadDashboardData();
-                            }
-                          }}
-                          className="btn-secondary"
-                          style={{ padding: "6px 10px", fontSize: "12px", color: "#b91c1c" }}
-                        >
-                          <Trash2 size={13} />
-                        </button>
+                      {/* Minimal Action Footer */}
+                      <div
+                        style={{
+                          borderTop: "1px solid #f1f5f9",
+                          paddingTop: "10px",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          gap: "8px",
+                        }}
+                      >
+                        <div>
+                          {proj.projectUrl ? (
+                            <a
+                              href={proj.projectUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{
+                                fontSize: "12px",
+                                color: "#2563eb",
+                                fontWeight: 700,
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: "3px",
+                                textDecoration: "none",
+                              }}
+                            >
+                              <span>Visit Live</span>
+                              <ExternalLink size={12} />
+                            </a>
+                          ) : (
+                            <span style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500 }}>
+                              Internal Portal
+                            </span>
+                          )}
+                        </div>
+
+                        <div style={{ display: "flex", gap: "6px" }}>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setCurrentProject(proj);
+                              setProjectModalOpen(true);
+                            }}
+                            className="btn-secondary"
+                            style={{ padding: "5px 10px", fontSize: "11px", fontWeight: 600 }}
+                          >
+                            <Edit3 size={12} /> Edit
+                          </button>
+                          <button
+                            type="button"
+                            onClick={async () => {
+                              if (confirm(`Delete project "${proj.title}"?`)) {
+                                await fetch(`/api/admin/projects?id=${proj.id}`, { method: "DELETE" });
+                                loadDashboardData();
+                              }
+                            }}
+                            className="btn-secondary"
+                            style={{ padding: "5px 8px", fontSize: "11px", color: "#b91c1c" }}
+                            title="Delete project"
+                          >
+                            <Trash2 size={12} />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
+                ))}
+              </div>
+            ) : (
+              /* High-Density Table List View */
+              <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", overflow: "hidden" }}>
+                <div style={{ overflowX: "auto" }}>
+                  <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "13px" }}>
+                    <thead>
+                      <tr style={{ background: "#f8fafc", borderBottom: "1px solid #e2e8f0", color: "#64748b", fontSize: "12px", fontWeight: 700 }}>
+                        <th style={{ padding: "12px 16px" }}>Project</th>
+                        <th style={{ padding: "12px 16px" }}>Category</th>
+                        <th style={{ padding: "12px 16px" }}>Status / Link</th>
+                        <th style={{ padding: "12px 16px", textAlign: "right" }}>Views</th>
+                        <th style={{ padding: "12px 16px", textAlign: "right" }}>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredProjects.map((proj) => (
+                        <tr key={proj.id} style={{ borderBottom: "1px solid #f1f5f9" }}>
+                          <td style={{ padding: "12px 16px" }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                              <div style={{ width: "48px", height: "32px", borderRadius: "6px", overflow: "hidden", background: "#f1f5f9", flexShrink: 0, position: "relative" }}>
+                                <Image
+                                  src={proj.coverImageUrl || "/portfolio/energt-gurus-online.png"}
+                                  alt={proj.title}
+                                  fill
+                                  unoptimized
+                                  sizes="48px"
+                                  style={{ objectFit: "cover" }}
+                                />
+                              </div>
+                              <div style={{ minWidth: 0, maxWidth: "340px" }}>
+                                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                                  <span style={{ fontWeight: 700, color: "#0f172a", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                                    {proj.title}
+                                  </span>
+                                  {proj.featured && (
+                                    <span style={{ display: "inline-flex", alignItems: "center", gap: "2px", fontSize: "10px", fontWeight: 700, color: "#b45309", background: "#fef3c7", padding: "1px 5px", borderRadius: "4px" }}>
+                                      <Star size={10} color="#d97706" fill="#d97706" /> Featured
+                                    </span>
+                                  )}
+                                </div>
+                                <div style={{ fontSize: "11px", color: "#64748b", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                                  {sanitizeExcerpt(proj.fullDescription || proj.shortDescription || "")}
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td style={{ padding: "12px 16px" }}>
+                            <span style={{ fontSize: "11px", fontWeight: 600, color: "#334155", background: "#f1f5f9", padding: "3px 8px", borderRadius: "6px" }}>
+                              {formatCategory(proj.category)}
+                            </span>
+                          </td>
+                          <td style={{ padding: "12px 16px" }}>
+                            {proj.projectUrl ? (
+                              <a
+                                href={proj.projectUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ fontSize: "12px", color: "#2563eb", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "3px", textDecoration: "none" }}
+                              >
+                                <span>Live Site</span>
+                                <ExternalLink size={11} />
+                              </a>
+                            ) : (
+                              <span style={{ fontSize: "12px", color: "#94a3b8" }}>Internal Portal</span>
+                            )}
+                          </td>
+                          <td style={{ padding: "12px 16px", textAlign: "right", fontVariantNumeric: "tabular-nums", color: "#475569", fontWeight: 600 }}>
+                            {proj.views || 0}
+                          </td>
+                          <td style={{ padding: "12px 16px", textAlign: "right" }}>
+                            <div style={{ display: "inline-flex", gap: "6px" }}>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setCurrentProject(proj);
+                                  setProjectModalOpen(true);
+                                }}
+                                className="btn-secondary"
+                                style={{ padding: "5px 10px", fontSize: "11px", fontWeight: 600 }}
+                              >
+                                <Edit3 size={11} /> Edit
+                              </button>
+                              <button
+                                type="button"
+                                onClick={async () => {
+                                  if (confirm(`Delete project "${proj.title}"?`)) {
+                                    await fetch(`/api/admin/projects?id=${proj.id}`, { method: "DELETE" });
+                                    loadDashboardData();
+                                  }
+                                }}
+                                className="btn-secondary"
+                                style={{ padding: "5px 8px", fontSize: "11px", color: "#b91c1c" }}
+                                title="Delete project"
+                              >
+                                <Trash2 size={11} />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
+              </div>
+            )}
+          </div>
+        )}
 
         {/* TAB 4: BLOG ARTICLES */}
         {activeTab === "blog" && (
           <div>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "24px", flexWrap: "wrap", gap: "16px" }}>
+            {/* Header & Controls Strip */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", flexWrap: "wrap", gap: "16px" }}>
               <div>
-                <h1 style={{ fontSize: "28px", fontWeight: 800, color: "#0f172a", marginBottom: "6px" }}>
-                  Blog Articles &amp; Insights ({filteredPosts.length}{filteredPosts.length !== posts.length ? ` of ${posts.length}` : ""})
+                <h1 style={{ fontSize: "24px", fontWeight: 800, color: "#0f172a", marginBottom: "4px", display: "flex", alignItems: "center", gap: "8px" }}>
+                  <span>Blog Articles &amp; Insights</span>
+                  <span style={{ fontSize: "13px", fontWeight: 700, background: "#f1f5f9", color: "#475569", padding: "2px 8px", borderRadius: "12px", border: "1px solid #e2e8f0" }}>
+                    {filteredPosts.length}{filteredPosts.length !== posts.length ? ` of ${posts.length}` : ""}
+                  </span>
                 </h1>
-                <p style={{ color: "#475569", fontSize: "15px" }}>
+                <p style={{ color: "#64748b", fontSize: "14px" }}>
                   Articles published on the public site and indexed by Google &amp; AI engines.
                 </p>
               </div>
-              <div style={{ display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
-                <div style={{ display: "flex", alignItems: "center", background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "10px", padding: "8px 12px", width: "240px" }}>
-                  <Search size={16} color="#94a3b8" style={{ marginRight: "8px" }} />
+
+              <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
+                {/* Search */}
+                <div style={{ display: "flex", alignItems: "center", background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "8px", padding: "7px 10px", width: "220px" }}>
+                  <Search size={14} color="#94a3b8" style={{ marginRight: "8px", flexShrink: 0 }} />
                   <input
                     type="text"
                     placeholder="Search articles..."
@@ -1531,6 +1972,53 @@ export default function AdminDashboardPage() {
                   />
                 </div>
 
+                {/* View Mode Toggle: Grid | List */}
+                <div style={{ display: "flex", background: "#f1f5f9", padding: "3px", borderRadius: "8px", border: "1px solid #e2e8f0" }}>
+                  <button
+                    type="button"
+                    onClick={() => setBlogViewMode("grid")}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "4px",
+                      padding: "5px 10px",
+                      borderRadius: "6px",
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      border: "none",
+                      cursor: "pointer",
+                      background: blogViewMode === "grid" ? "#ffffff" : "transparent",
+                      color: blogViewMode === "grid" ? "#0f172a" : "#64748b",
+                      boxShadow: blogViewMode === "grid" ? "0 1px 3px rgba(0,0,0,0.06)" : "none",
+                    }}
+                  >
+                    <LayoutGrid size={13} />
+                    <span>Grid</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setBlogViewMode("list")}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "4px",
+                      padding: "5px 10px",
+                      borderRadius: "6px",
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      border: "none",
+                      cursor: "pointer",
+                      background: blogViewMode === "list" ? "#ffffff" : "transparent",
+                      color: blogViewMode === "list" ? "#0f172a" : "#64748b",
+                      boxShadow: blogViewMode === "list" ? "0 1px 3px rgba(0,0,0,0.06)" : "none",
+                    }}
+                  >
+                    <List size={13} />
+                    <span>List</span>
+                  </button>
+                </div>
+
+                {/* Write New Article */}
                 <button
                   onClick={() => {
                     setCurrentPost({ title: "", content: "", excerpt: "", readTime: 5, tags: ["AI", "Web Design"], published: true });
@@ -1539,194 +2027,451 @@ export default function AdminDashboardPage() {
                     setPostModalOpen(true);
                   }}
                   className="btn-primary"
-                  style={{ padding: "10px 18px", fontSize: "14px" }}
+                  style={{ padding: "8px 14px", fontSize: "13px" }}
                 >
-                  <Plus size={16} /> Write New Article
+                  <Plus size={14} /> Write Article
                 </button>
               </div>
             </div>
 
+            {/* Segmented Status Filter Tabs */}
+            <div style={{ display: "flex", gap: "6px", marginBottom: "16px", flexWrap: "wrap" }}>
+              {[
+                { id: "all", label: "All", count: posts.length },
+                {
+                  id: "published",
+                  label: "Published",
+                  count: posts.filter((p) => p.published && (!p.publishedAt || new Date(p.publishedAt).getTime() <= Date.now())).length,
+                },
+                {
+                  id: "scheduled",
+                  label: "Scheduled",
+                  count: posts.filter((p) => p.published && p.publishedAt && new Date(p.publishedAt).getTime() > Date.now()).length,
+                },
+                { id: "draft", label: "Drafts", count: posts.filter((p) => !p.published).length },
+              ].map((tab) => {
+                const isActive = blogStatusFilter === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setBlogStatusFilter(tab.id as any)}
+                    style={{
+                      padding: "6px 14px",
+                      borderRadius: "8px",
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      border: isActive ? "1px solid #2563eb" : "1px solid #e2e8f0",
+                      background: isActive ? "#eff6ff" : "#ffffff",
+                      color: isActive ? "#1d4ed8" : "#475569",
+                      cursor: "pointer",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      transition: "all 0.15s ease",
+                    }}
+                  >
+                    <span>{tab.label}</span>
+                    <span style={{ fontSize: "11px", opacity: 0.8, padding: "1px 6px", borderRadius: "10px", background: isActive ? "#dbeafe" : "#f1f5f9" }}>
+                      {tab.count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Empty state */}
             {filteredPosts.length === 0 ? (
-              <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", padding: "48px", textAlign: "center", color: "#64748b" }}>
-                No blog articles found matching the current search.
+              <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "48px", textAlign: "center", color: "#64748b" }}>
+                No blog articles found matching the current search or filters.
               </div>
-            ) : (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))", gap: "24px" }}>
+            ) : blogViewMode === "grid" ? (
+              /* 4-Column Bento Grid */
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 {filteredPosts.map((post) => {
                   const isScheduled = Boolean(post.published && post.publishedAt && new Date(post.publishedAt).getTime() > Date.now());
                   const isDraft = !post.published;
 
                   return (
-                  <div key={post.id} style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "14px", overflow: "hidden", display: "flex", flexDirection: "column", boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
-                    {post.coverImageUrl && (
-                      <div style={{ position: "relative", width: "100%", height: "180px", background: "#f1f5f9" }}>
-                        <Image src={post.coverImageUrl} alt={post.title} fill unoptimized sizes="340px" style={{ objectFit: "cover" }} />
-                        <div style={{ position: "absolute", top: "12px", right: "12px" }}>
+                    <div
+                      key={post.id}
+                      style={{
+                        background: "#ffffff",
+                        border: "1px solid #e2e8f0",
+                        borderRadius: "12px",
+                        overflow: "hidden",
+                        display: "flex",
+                        flexDirection: "column",
+                        boxShadow: "0 1px 3px rgba(0,0,0,0.02)",
+                      }}
+                    >
+                      {/* 16:10 Thumbnail with Frosted Status Pill */}
+                      <div style={{ position: "relative", width: "100%" }}>
+                        <BlogThumbnail src={post.coverImageUrl} alt={post.title} title={post.title} />
+
+                        {/* Frosted Status Pill */}
+                        <div style={{ position: "absolute", top: "10px", right: "10px", zIndex: 10 }}>
                           {isDraft ? (
                             <span
                               style={{
                                 fontSize: "11px",
-                                fontWeight: 700,
-                                background: "rgba(100, 116, 139, 0.92)",
-                                color: "#ffffff",
-                                padding: "4px 8px",
+                                fontWeight: 600,
+                                background: "rgba(255, 255, 255, 0.92)",
+                                backdropFilter: "blur(8px)",
+                                color: "#475569",
+                                padding: "3px 8px",
                                 borderRadius: "6px",
-                                backdropFilter: "blur(4px)",
+                                border: "1px solid rgba(226, 232, 240, 0.8)",
+                                boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
                                 display: "inline-flex",
                                 alignItems: "center",
                                 gap: "4px",
                               }}
                             >
-                              <FileText size={11} /> Draft
+                              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#94a3b8" }} />
+                              <span>Draft</span>
                             </span>
                           ) : isScheduled ? (
                             <span
                               style={{
                                 fontSize: "11px",
-                                fontWeight: 700,
-                                background: "rgba(79, 70, 229, 0.95)",
-                                color: "#ffffff",
-                                padding: "4px 8px",
+                                fontWeight: 600,
+                                background: "rgba(255, 255, 255, 0.92)",
+                                backdropFilter: "blur(8px)",
+                                color: "#1d4ed8",
+                                padding: "3px 8px",
                                 borderRadius: "6px",
-                                backdropFilter: "blur(4px)",
+                                border: "1px solid rgba(191, 219, 254, 0.8)",
+                                boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
                                 display: "inline-flex",
                                 alignItems: "center",
                                 gap: "4px",
-                                boxShadow: "0 2px 6px rgba(79, 70, 229, 0.3)",
                               }}
                               title={`Scheduled for ${new Date(post.publishedAt).toLocaleString()}`}
                             >
-                              <Clock size={11} /> Scheduled: {new Date(post.publishedAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+                              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#2563eb" }} />
+                              <span>{new Date(post.publishedAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</span>
                             </span>
                           ) : (
                             <span
                               style={{
                                 fontSize: "11px",
-                                fontWeight: 700,
-                                background: "rgba(5, 150, 105, 0.9)",
-                                color: "#ffffff",
-                                padding: "4px 8px",
+                                fontWeight: 600,
+                                background: "rgba(255, 255, 255, 0.92)",
+                                backdropFilter: "blur(8px)",
+                                color: "#065f46",
+                                padding: "3px 8px",
                                 borderRadius: "6px",
-                                backdropFilter: "blur(4px)",
+                                border: "1px solid rgba(167, 243, 208, 0.8)",
+                                boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
                                 display: "inline-flex",
                                 alignItems: "center",
                                 gap: "4px",
                               }}
                             >
-                              <CheckCircle2 size={11} /> Published
+                              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#059669" }} />
+                              <span>Published</span>
                             </span>
                           )}
                         </div>
                       </div>
-                    )}
-                    <div style={{ padding: "20px", display: "flex", flexDirection: "column", flexGrow: 1 }}>
-                      <h3 style={{ fontSize: "17px", fontWeight: 700, color: "#0f172a", marginBottom: "8px" }}>{post.title}</h3>
-                      <p style={{ fontSize: "13px", color: "#475569", lineHeight: 1.55, marginBottom: "16px", flexGrow: 1, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
-                        {post.excerpt || post.content.slice(0, 120)}
-                      </p>
 
-                      {isScheduled && (
-                        <div style={{ fontSize: "11px", color: "#4f46e5", background: "#eef2ff", border: "1px solid #e0e7ff", padding: "4px 8px", borderRadius: "6px", marginBottom: "12px", display: "inline-flex", alignItems: "center", gap: "5px" }}>
-                          <Clock size={12} /> Auto-release: {new Date(post.publishedAt).toLocaleString()}
-                        </div>
-                      )}
+                      {/* Card Content */}
+                      <div style={{ padding: "14px 16px", display: "flex", flexDirection: "column", flexGrow: 1 }}>
+                        <h3
+                          title={post.title}
+                          style={{
+                            fontSize: "15px",
+                            fontWeight: 700,
+                            color: "#0f172a",
+                            marginBottom: "6px",
+                            lineHeight: 1.35,
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {post.title}
+                        </h3>
 
-                      <div style={{ borderTop: "1px solid #f1f5f9", paddingTop: "12px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                          <span style={{ fontSize: "12px", color: "#64748b" }}>
-                            {post.readTime} min read
-                          </span>
-                          <span
-                            title={`${post.views || 0} article pageviews`}
-                            style={{
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: "4px",
-                              fontSize: "12px",
-                              fontWeight: 600,
-                              color: "#0f172a",
-                              background: "#f1f5f9",
-                              padding: "2px 7px",
-                              borderRadius: "6px",
-                              border: "1px solid #e2e8f0",
-                            }}
-                          >
-                            <Eye size={12} color="#0284c7" />
-                            <span>{post.views || 0} views</span>
-                          </span>
+                        <p
+                          style={{
+                            fontSize: "12px",
+                            color: "#64748b",
+                            lineHeight: 1.5,
+                            marginBottom: "12px",
+                            flexGrow: 1,
+                            display: "-webkit-box",
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: "vertical",
+                            overflow: "hidden",
+                          }}
+                        >
+                          {sanitizeExcerpt(post.excerpt || post.content || "")}
+                        </p>
+
+                        {/* Clean Inline Metadata (No bulky bordered 0 views pill) */}
+                        <div style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500, marginBottom: "12px" }}>
+                          <span>{post.readTime} min read</span>
+                          <span style={{ margin: "0 6px" }}>•</span>
+                          <span>{post.views || 0} views</span>
                         </div>
-                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                        {(isDraft || isScheduled) && (
-                          <button
-                            type="button"
-                            onClick={() => handleQuickPublish(post)}
-                            title="Publish immediately to live public site"
-                            style={{
-                              padding: "5px 9px",
-                              fontSize: "11px",
-                              fontWeight: 700,
-                              background: "#059669",
-                              color: "#ffffff",
-                              border: "none",
-                              borderRadius: "6px",
-                              cursor: "pointer",
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: "4px",
-                              boxShadow: "0 1px 3px rgba(5, 150, 105, 0.25)",
-                            }}
-                          >
-                            <Zap size={11} /> Publish Now
-                          </button>
-                        )}
-                        <Link href={`/blog/${post.slug}`} target="_blank" className="btn-secondary" style={{ padding: "6px 10px", fontSize: "12px" }}>
-                          <ExternalLink size={13} />
-                        </Link>
-                        <button
-                          onClick={() => {
-                            setCurrentPost(post);
-                            if (!post.published) {
-                              setPostPublishMode("draft");
-                              setScheduledDateTime("");
-                            } else if (post.publishedAt && new Date(post.publishedAt).getTime() > Date.now()) {
-                              setPostPublishMode("schedule");
-                              const dt = new Date(post.publishedAt);
-                              const offset = dt.getTimezoneOffset() * 60000;
-                              const localISOTime = new Date(dt.getTime() - offset).toISOString().slice(0, 16);
-                              setScheduledDateTime(localISOTime);
-                            } else {
-                              setPostPublishMode("immediate");
-                              setScheduledDateTime("");
-                            }
-                            setPostModalOpen(true);
+
+                        {/* Minimal Action Footer */}
+                        <div
+                          style={{
+                            borderTop: "1px solid #f1f5f9",
+                            paddingTop: "10px",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            gap: "8px",
                           }}
-                          className="btn-secondary"
-                          style={{ padding: "6px 10px", fontSize: "12px" }}
                         >
-                          <Edit3 size={13} />
-                        </button>
-                        <button
-                          onClick={async () => {
-                            if (confirm(`Delete post "${post.title}"?`)) {
-                              await fetch(`/api/admin/posts?id=${post.id}`, { method: "DELETE" });
-                              loadDashboardData();
-                            }
-                          }}
-                          className="btn-secondary"
-                          style={{ padding: "6px 10px", fontSize: "12px", color: "#b91c1c" }}
-                        >
-                          <Trash2 size={13} />
-                        </button>
+                          <div>
+                            {(isDraft || isScheduled) ? (
+                              <button
+                                type="button"
+                                onClick={() => handleQuickPublish(post)}
+                                style={{
+                                  fontSize: "11px",
+                                  fontWeight: 700,
+                                  color: "#059669",
+                                  background: "#ecfdf5",
+                                  border: "1px solid #a7f3d0",
+                                  borderRadius: "5px",
+                                  padding: "3px 8px",
+                                  cursor: "pointer",
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  gap: "3px",
+                                }}
+                              >
+                                <Zap size={11} /> Publish
+                              </button>
+                            ) : (
+                              <Link
+                                href={`/blog/${post.slug}`}
+                                target="_blank"
+                                style={{
+                                  fontSize: "12px",
+                                  color: "#2563eb",
+                                  fontWeight: 700,
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  gap: "3px",
+                                  textDecoration: "none",
+                                }}
+                              >
+                                <span>Preview</span>
+                                <ExternalLink size={12} />
+                              </Link>
+                            )}
+                          </div>
+
+                          <div style={{ display: "flex", gap: "6px" }}>
+                            {(isDraft || isScheduled) && (
+                              <Link
+                                href={`/blog/${post.slug}`}
+                                target="_blank"
+                                className="btn-secondary"
+                                style={{ padding: "5px 8px", fontSize: "11px" }}
+                                title="Preview article"
+                              >
+                                <ExternalLink size={12} />
+                              </Link>
+                            )}
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCurrentPost(post);
+                                if (!post.published) {
+                                  setPostPublishMode("draft");
+                                  setScheduledDateTime("");
+                                } else if (post.publishedAt && new Date(post.publishedAt).getTime() > Date.now()) {
+                                  setPostPublishMode("schedule");
+                                  const dt = new Date(post.publishedAt);
+                                  const offset = dt.getTimezoneOffset() * 60000;
+                                  const localISOTime = new Date(dt.getTime() - offset).toISOString().slice(0, 16);
+                                  setScheduledDateTime(localISOTime);
+                                } else {
+                                  setPostPublishMode("immediate");
+                                  setScheduledDateTime("");
+                                }
+                                setPostModalOpen(true);
+                              }}
+                              className="btn-secondary"
+                              style={{ padding: "5px 10px", fontSize: "11px", fontWeight: 600 }}
+                            >
+                              <Edit3 size={12} /> Edit
+                            </button>
+                            <button
+                              type="button"
+                              onClick={async () => {
+                                if (confirm(`Delete post "${post.title}"?`)) {
+                                  await fetch(`/api/admin/posts?id=${post.id}`, { method: "DELETE" });
+                                  loadDashboardData();
+                                }
+                              }}
+                              className="btn-secondary"
+                              style={{ padding: "5px 8px", fontSize: "11px", color: "#b91c1c" }}
+                              title="Delete article"
+                            >
+                              <Trash2 size={12} />
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  );
+                })}
+              </div>
+            ) : (
+              /* High-Density Table List View */
+              <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", overflow: "hidden" }}>
+                <div style={{ overflowX: "auto" }}>
+                  <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "13px" }}>
+                    <thead>
+                      <tr style={{ background: "#f8fafc", borderBottom: "1px solid #e2e8f0", color: "#64748b", fontSize: "12px", fontWeight: 700 }}>
+                        <th style={{ padding: "12px 16px" }}>Article</th>
+                        <th style={{ padding: "12px 16px" }}>Status</th>
+                        <th style={{ padding: "12px 16px" }}>Read Time</th>
+                        <th style={{ padding: "12px 16px", textAlign: "right" }}>Views</th>
+                        <th style={{ padding: "12px 16px", textAlign: "right" }}>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredPosts.map((post) => {
+                        const isScheduled = Boolean(post.published && post.publishedAt && new Date(post.publishedAt).getTime() > Date.now());
+                        const isDraft = !post.published;
+
+                        return (
+                          <tr key={post.id} style={{ borderBottom: "1px solid #f1f5f9" }}>
+                            <td style={{ padding: "12px 16px" }}>
+                              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                                <div style={{ width: "48px", height: "32px", borderRadius: "6px", overflow: "hidden", background: "#f1f5f9", flexShrink: 0, position: "relative" }}>
+                                  {post.coverImageUrl ? (
+                                    <Image
+                                      src={post.coverImageUrl}
+                                      alt={post.title}
+                                      fill
+                                      unoptimized
+                                      sizes="48px"
+                                      style={{ objectFit: "cover" }}
+                                    />
+                                  ) : (
+                                    <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: "#e2e8f0" }}>
+                                      <FileText size={14} color="#64748b" />
+                                    </div>
+                                  )}
+                                </div>
+                                <div style={{ minWidth: 0, maxWidth: "340px" }}>
+                                  <div style={{ fontWeight: 700, color: "#0f172a", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                                    {post.title}
+                                  </div>
+                                  <div style={{ fontSize: "11px", color: "#64748b", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                                    {sanitizeExcerpt(post.excerpt || post.content || "")}
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                            <td style={{ padding: "12px 16px" }}>
+                              {isDraft ? (
+                                <span style={{ fontSize: "11px", fontWeight: 600, color: "#475569", background: "#f1f5f9", padding: "3px 8px", borderRadius: "6px", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                                  <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#94a3b8" }} />
+                                  <span>Draft</span>
+                                </span>
+                              ) : isScheduled ? (
+                                <span style={{ fontSize: "11px", fontWeight: 600, color: "#1d4ed8", background: "#eff6ff", padding: "3px 8px", borderRadius: "6px", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                                  <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#2563eb" }} />
+                                  <span>{new Date(post.publishedAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })}</span>
+                                </span>
+                              ) : (
+                                <span style={{ fontSize: "11px", fontWeight: 600, color: "#065f46", background: "#ecfdf5", padding: "3px 8px", borderRadius: "6px", display: "inline-flex", alignItems: "center", gap: "4px" }}>
+                                  <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#059669" }} />
+                                  <span>Published</span>
+                                </span>
+                              )}
+                            </td>
+                            <td style={{ padding: "12px 16px", color: "#64748b", fontSize: "12px" }}>
+                              {post.readTime} min read
+                            </td>
+                            <td style={{ padding: "12px 16px", textAlign: "right", fontVariantNumeric: "tabular-nums", color: "#475569", fontWeight: 600 }}>
+                              {post.views || 0}
+                            </td>
+                            <td style={{ padding: "12px 16px", textAlign: "right" }}>
+                              <div style={{ display: "inline-flex", gap: "6px" }}>
+                                {(isDraft || isScheduled) && (
+                                  <button
+                                    type="button"
+                                    onClick={() => handleQuickPublish(post)}
+                                    style={{
+                                      fontSize: "11px",
+                                      fontWeight: 700,
+                                      color: "#059669",
+                                      background: "#ecfdf5",
+                                      border: "1px solid #a7f3d0",
+                                      borderRadius: "5px",
+                                      padding: "4px 8px",
+                                      cursor: "pointer",
+                                    }}
+                                  >
+                                    Publish
+                                  </button>
+                                )}
+                                <Link href={`/blog/${post.slug}`} target="_blank" className="btn-secondary" style={{ padding: "4px 8px", fontSize: "11px" }}>
+                                  <ExternalLink size={12} />
+                                </Link>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setCurrentPost(post);
+                                    if (!post.published) {
+                                      setPostPublishMode("draft");
+                                      setScheduledDateTime("");
+                                    } else if (post.publishedAt && new Date(post.publishedAt).getTime() > Date.now()) {
+                                      setPostPublishMode("schedule");
+                                      const dt = new Date(post.publishedAt);
+                                      const offset = dt.getTimezoneOffset() * 60000;
+                                      const localISOTime = new Date(dt.getTime() - offset).toISOString().slice(0, 16);
+                                      setScheduledDateTime(localISOTime);
+                                    } else {
+                                      setPostPublishMode("immediate");
+                                      setScheduledDateTime("");
+                                    }
+                                    setPostModalOpen(true);
+                                  }}
+                                  className="btn-secondary"
+                                  style={{ padding: "4px 8px", fontSize: "11px", fontWeight: 600 }}
+                                >
+                                  <Edit3 size={11} />
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={async () => {
+                                    if (confirm(`Delete post "${post.title}"?`)) {
+                                      await fetch(`/api/admin/posts?id=${post.id}`, { method: "DELETE" });
+                                      loadDashboardData();
+                                    }
+                                  }}
+                                  className="btn-secondary"
+                                  style={{ padding: "4px 8px", fontSize: "11px", color: "#b91c1c" }}
+                                  title="Delete article"
+                                >
+                                  <Trash2 size={11} />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
                 </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      )}
+              </div>
+            )}
+          </div>
+        )}
 
         {/* TAB 5: TEAM & PERMISSIONS */}
         {activeTab === "users" && (
