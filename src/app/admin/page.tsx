@@ -157,124 +157,6 @@ function formatCategory(cat?: string): string {
   return cat.charAt(0).toUpperCase() + cat.slice(1);
 }
 
-function ProjectThumbnail({ src, alt, title }: { src?: string; alt: string; title: string }) {
-  const [hasError, setHasError] = useState(false);
-  const isValid = Boolean(src && !src.includes("placeholder") && !hasError);
-
-  return (
-    <div style={{ position: "relative", width: "100%", height: "100%", background: "#f8fafc", overflow: "hidden" }}>
-      {isValid ? (
-        <Image
-          src={src as string}
-          alt={alt}
-          fill
-          unoptimized
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 20vw"
-          style={{ objectFit: "cover", objectPosition: "top" }}
-          onError={() => setHasError(true)}
-        />
-      ) : (
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%)",
-            borderBottom: "1px solid #e2e8f0",
-            padding: "12px",
-            textAlign: "center",
-          }}
-        >
-          <div
-            style={{
-              width: "32px",
-              height: "32px",
-              borderRadius: "8px",
-              background: "#ffffff",
-              border: "1px solid #e2e8f0",
-              boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginBottom: "4px",
-            }}
-          >
-            <Layers size={16} color="#2563eb" />
-          </div>
-          <span style={{ fontSize: "11px", fontWeight: 700, color: "#475569", maxWidth: "90%", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-            {title}
-          </span>
-          <span style={{ fontSize: "9px", color: "#94a3b8", marginTop: "1px" }}>
-            T &amp; N Architecture
-          </span>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function BlogThumbnail({ src, alt, title }: { src?: string; alt: string; title: string }) {
-  const [hasError, setHasError] = useState(false);
-  const isValid = Boolean(src && !hasError);
-
-  return (
-    <div style={{ position: "relative", width: "100%", height: "100%", background: "#f8fafc", overflow: "hidden" }}>
-      {isValid ? (
-        <Image
-          src={src as string}
-          alt={alt}
-          fill
-          unoptimized
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 20vw"
-          style={{ objectFit: "cover", objectPosition: "top" }}
-          onError={() => setHasError(true)}
-        />
-      ) : (
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%)",
-            borderBottom: "1px solid #e2e8f0",
-            padding: "12px",
-            textAlign: "center",
-          }}
-        >
-          <div
-            style={{
-              width: "32px",
-              height: "32px",
-              borderRadius: "8px",
-              background: "#ffffff",
-              border: "1px solid #e2e8f0",
-              boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginBottom: "4px",
-            }}
-          >
-            <FileText size={16} color="#059669" />
-          </div>
-          <span style={{ fontSize: "11px", fontWeight: 700, color: "#475569", maxWidth: "90%", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-            {title}
-          </span>
-          <span style={{ fontSize: "9px", color: "#94a3b8", marginTop: "1px" }}>
-            Article Insight
-          </span>
-        </div>
-      )}
-    </div>
-  );
-}
-
 export default function AdminDashboardPage() {
   const router = useRouter();
   // Initialize with verified owner profile so tabs and data are never blank
@@ -1616,104 +1498,179 @@ export default function AdminDashboardPage() {
                 No projects found matching the current search or filters.
               </div>
             ) : (
-              /* Compact Multi-Card Grid: 1 col mobile, 2 sm, 3 md, 4 lg, 5 xl */
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                {filteredProjects.map((proj) => (
-                  <div
-                    key={proj.id}
-                    className="bg-white rounded-xl border border-slate-200/80 overflow-hidden flex flex-col hover:border-slate-300 hover:shadow-sm transition-all"
-                  >
-                    {/* Top image preview: h-36 (144px) object-cover object-top with subtle frosted pills */}
-                    <div className="relative w-full h-36 bg-slate-50 overflow-hidden">
-                      <ProjectThumbnail src={proj.coverImageUrl} alt={proj.title} title={proj.title} />
+              /* Guaranteed 4-Column Responsive Grid */
+              <div
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))",
+                  gap: "16px",
+                }}
+              >
+                {filteredProjects.map((proj) => {
+                  const projectImg = proj.coverImageUrl || "/portfolio/energt-gurus-online.png";
 
-                      {/* Frosted Top Badges */}
-                      <div className="absolute top-2 right-2 flex items-center gap-1.5 z-10">
-                        {proj.featured && (
-                          <span className="bg-white/90 backdrop-blur-sm text-amber-700 text-[11px] font-medium px-2 py-0.5 rounded-md shadow-sm border border-slate-200/60 inline-flex items-center gap-1">
-                            <Star size={10} className="text-amber-500 fill-amber-500" />
-                            <span>Featured</span>
-                          </span>
-                        )}
-                        <span className="bg-white/90 backdrop-blur-sm text-slate-800 text-[11px] font-medium px-2 py-0.5 rounded-md shadow-sm border border-slate-200/60">
-                          {formatCategory(proj.category)}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Card Body: p-3.5 */}
-                    <div className="p-3.5 flex flex-col flex-grow">
-                      {/* Project Title: text-sm font-semibold text-slate-900 truncate */}
-                      <h3
-                        title={proj.title}
-                        className="text-sm font-semibold text-slate-900 truncate"
+                  return (
+                    <div
+                      key={proj.id}
+                      className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col"
+                      style={{
+                        background: "#ffffff",
+                        border: "1px solid #e2e8f0",
+                        borderRadius: "12px",
+                        overflow: "hidden",
+                        boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      {/* Fixed-height h-40 Cover <img> Thumbnail */}
+                      <div
+                        className="h-40 w-full bg-slate-100 relative overflow-hidden"
+                        style={{ height: "160px", width: "100%", background: "#f1f5f9", position: "relative", overflow: "hidden" }}
                       >
-                        {proj.title}
-                      </h3>
+                        {projectImg ? (
+                          <img
+                            src={projectImg}
+                            alt={proj.title}
+                            className="w-full h-full object-cover object-top"
+                            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
+                            onError={(e) => {
+                              const target = e.currentTarget;
+                              target.style.display = "none";
+                              const placeholder = target.parentElement?.querySelector(".img-placeholder") as HTMLElement;
+                              if (placeholder) placeholder.style.display = "flex";
+                            }}
+                          />
+                        ) : null}
+                        <div
+                          className="img-placeholder"
+                          style={{
+                            display: projectImg ? "none" : "flex",
+                            width: "100%",
+                            height: "100%",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            background: "#f1f5f9",
+                            padding: "16px",
+                            textAlign: "center",
+                          }}
+                        >
+                          <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "#ffffff", border: "1px solid #e2e8f0", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "6px" }}>
+                            <Layers size={18} color="#2563eb" />
+                          </div>
+                          <span style={{ fontSize: "11px", fontWeight: 700, color: "#64748b" }}>T &amp; N Project</span>
+                        </div>
 
-                      {/* Description: strip Overview: and emojis, 2-line clamped */}
-                      <p className="text-xs text-slate-500 line-clamp-2 mt-1 leading-relaxed flex-grow">
-                        {sanitizeExcerpt(proj.fullDescription || proj.shortDescription || "")}
-                      </p>
-
-                      {/* Inline metadata / view count */}
-                      <div className="text-[11px] text-slate-400 font-medium mt-2 flex items-center gap-1">
-                        <span>{proj.projectUrl ? "Live Public" : "Internal Portal"}</span>
-                        <span>•</span>
-                        <span>{proj.views || 0} views</span>
-                      </div>
-
-                      {/* Compact Bottom Row */}
-                      <div className="border-t border-slate-100 pt-2.5 mt-2.5 flex items-center justify-between gap-2">
-                        <div className="min-w-0">
-                          {proj.projectUrl ? (
-                            <a
-                              href={proj.projectUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-xs text-blue-600 hover:text-blue-700 font-semibold inline-flex items-center gap-1 truncate"
+                        {/* Overlay Badges */}
+                        <div
+                          className="absolute top-2.5 right-2.5 flex items-center gap-1.5 z-10"
+                          style={{ position: "absolute", top: "10px", right: "10px", display: "flex", alignItems: "center", gap: "6px", zIndex: 10 }}
+                        >
+                          {proj.featured && (
+                            <span
+                              className="bg-white/90 text-slate-800 text-xs font-medium px-2 py-0.5 rounded-md shadow-sm border border-slate-200/60 inline-flex items-center gap-1"
+                              style={{ background: "rgba(255, 255, 255, 0.92)", color: "#b45309", fontSize: "11px", fontWeight: 600, padding: "2px 8px", borderRadius: "6px", border: "1px solid rgba(226, 232, 240, 0.8)", display: "inline-flex", alignItems: "center", gap: "4px" }}
                             >
-                              <span>Visit Live</span>
-                              <ExternalLink size={11} />
-                            </a>
-                          ) : (
-                            <span className="text-[11px] text-slate-400 font-medium truncate">
-                              Internal Portal
+                              <Star size={11} color="#d97706" fill="#d97706" />
+                              <span>Featured</span>
                             </span>
                           )}
+                          <span
+                            className="bg-white/90 text-slate-800 text-xs font-medium px-2 py-0.5 rounded-md shadow-sm border border-slate-200/60"
+                            style={{ background: "rgba(255, 255, 255, 0.92)", color: "#334155", fontSize: "11px", fontWeight: 600, padding: "2px 8px", borderRadius: "6px", border: "1px solid rgba(226, 232, 240, 0.8)" }}
+                          >
+                            {formatCategory(proj.category)}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Card Body */}
+                      <div
+                        className="p-4 flex-1 flex flex-col justify-between"
+                        style={{ padding: "16px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}
+                      >
+                        <div>
+                          <h3
+                            title={proj.title}
+                            className="text-sm font-semibold text-slate-900 line-clamp-2"
+                            style={{ fontSize: "14px", fontWeight: 700, color: "#0f172a", marginBottom: "6px", lineHeight: 1.35, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}
+                          >
+                            {proj.title}
+                          </h3>
+
+                          <p
+                            className="line-clamp-2 text-xs text-slate-500 mt-1"
+                            style={{ fontSize: "12px", color: "#64748b", lineHeight: 1.5, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}
+                          >
+                            {sanitizeExcerpt(proj.fullDescription || proj.shortDescription || "")}
+                          </p>
+
+                          <div
+                            style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500, marginTop: "8px" }}
+                          >
+                            <span>{proj.projectUrl ? "Live Public" : "Internal Portal"}</span>
+                            <span style={{ margin: "0 6px" }}>•</span>
+                            <span>{proj.views || 0} views</span>
+                          </div>
                         </div>
 
-                        <div className="flex items-center gap-1.5 flex-shrink-0">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setCurrentProject(proj);
-                              setProjectModalOpen(true);
-                            }}
-                            className="btn-secondary"
-                            style={{ padding: "4px 8px", fontSize: "11px", fontWeight: 600 }}
-                          >
-                            <Edit3 size={11} /> Edit
-                          </button>
-                          <button
-                            type="button"
-                            onClick={async () => {
-                              if (confirm(`Delete project "${proj.title}"?`)) {
-                                await fetch(`/api/admin/projects?id=${proj.id}`, { method: "DELETE" });
-                                loadDashboardData();
-                              }
-                            }}
-                            className="btn-secondary"
-                            style={{ padding: "4px 7px", fontSize: "11px", color: "#b91c1c" }}
-                            title="Delete project"
-                          >
-                            <Trash2 size={11} />
-                          </button>
+                        {/* Aligned Bottom Action Row */}
+                        <div
+                          className="border-t border-slate-100 pt-3 mt-3 flex items-center justify-between"
+                          style={{ borderTop: "1px solid #f1f5f9", paddingTop: "12px", marginTop: "12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}
+                        >
+                          <div style={{ minWidth: 0 }}>
+                            {proj.projectUrl ? (
+                              <a
+                                href={proj.projectUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{ fontSize: "12px", color: "#2563eb", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "3px", textDecoration: "none" }}
+                              >
+                                <span>Visit Live</span>
+                                <ExternalLink size={11} />
+                              </a>
+                            ) : (
+                              <span style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500 }}>
+                                Internal Portal
+                              </span>
+                            )}
+                          </div>
+
+                          <div style={{ display: "flex", gap: "6px" }}>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCurrentProject(proj);
+                                setProjectModalOpen(true);
+                              }}
+                              className="btn-secondary"
+                              style={{ padding: "4px 8px", fontSize: "11px", fontWeight: 600 }}
+                            >
+                              <Edit3 size={11} /> Edit
+                            </button>
+                            <button
+                              type="button"
+                              onClick={async () => {
+                                if (confirm(`Delete project "${proj.title}"?`)) {
+                                  await fetch(`/api/admin/projects?id=${proj.id}`, { method: "DELETE" });
+                                  loadDashboardData();
+                                }
+                              }}
+                              className="btn-secondary"
+                              style={{ padding: "4px 7px", fontSize: "11px", color: "#b91c1c" }}
+                              title="Delete project"
+                            >
+                              <Trash2 size={11} />
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>
@@ -1817,87 +1774,172 @@ export default function AdminDashboardPage() {
                 No blog articles found matching the current search or filters.
               </div>
             ) : (
-              /* Compact Multi-Card Grid: 1 col mobile, 2 sm, 3 md, 4 lg, 5 xl */
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+              /* Guaranteed 4-Column Responsive Grid */
+              <div
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))",
+                  gap: "16px",
+                }}
+              >
                 {filteredPosts.map((post) => {
                   const isScheduled = Boolean(post.published && post.publishedAt && new Date(post.publishedAt).getTime() > Date.now());
                   const isDraft = !post.published;
+                  const blogImg = post.coverImageUrl;
 
                   return (
                     <div
                       key={post.id}
-                      className="bg-white rounded-xl border border-slate-200/80 overflow-hidden flex flex-col hover:border-slate-300 hover:shadow-sm transition-all"
+                      className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm flex flex-col"
+                      style={{
+                        background: "#ffffff",
+                        border: "1px solid #e2e8f0",
+                        borderRadius: "12px",
+                        overflow: "hidden",
+                        boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
                     >
-                      {/* Fixed compact height h-36 (144px) cover image wrapper */}
-                      <div className="relative w-full h-36 bg-slate-50 overflow-hidden">
-                        <BlogThumbnail src={post.coverImageUrl} alt={post.title} title={post.title} />
+                      {/* Fixed-height h-40 Cover <img> Thumbnail */}
+                      <div
+                        className="h-40 w-full bg-slate-100 relative overflow-hidden"
+                        style={{ height: "160px", width: "100%", background: "#f1f5f9", position: "relative", overflow: "hidden" }}
+                      >
+                        {blogImg ? (
+                          <img
+                            src={blogImg}
+                            alt={post.title}
+                            className="w-full h-full object-cover object-top"
+                            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
+                            onError={(e) => {
+                              const target = e.currentTarget;
+                              target.style.display = "none";
+                              const placeholder = target.parentElement?.querySelector(".img-placeholder") as HTMLElement;
+                              if (placeholder) placeholder.style.display = "flex";
+                            }}
+                          />
+                        ) : null}
+                        <div
+                          className="img-placeholder"
+                          style={{
+                            display: blogImg ? "none" : "flex",
+                            width: "100%",
+                            height: "100%",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            background: "#f1f5f9",
+                            padding: "16px",
+                            textAlign: "center",
+                          }}
+                        >
+                          <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "#ffffff", border: "1px solid #e2e8f0", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "6px" }}>
+                            <FileText size={18} color="#059669" />
+                          </div>
+                          <span style={{ fontSize: "11px", fontWeight: 700, color: "#64748b" }}>Article Insight</span>
+                        </div>
 
                         {/* Clean Frosted Status Pill */}
-                        <div className="absolute top-2 right-2 flex items-center z-10">
+                        <div
+                          className="absolute top-2.5 right-2.5 flex items-center z-10"
+                          style={{ position: "absolute", top: "10px", right: "10px", display: "flex", alignItems: "center", zIndex: 10 }}
+                        >
                           {isDraft ? (
-                            <span className="bg-white/90 backdrop-blur-sm text-slate-800 text-[11px] font-medium px-2 py-0.5 rounded-md shadow-sm border border-slate-200/60 inline-flex items-center gap-1.5">
-                              <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+                            <span
+                              className="bg-white/90 text-slate-800 text-xs font-medium px-2 py-0.5 rounded-md shadow-sm border border-slate-200/60 inline-flex items-center gap-1.5"
+                              style={{ background: "rgba(255, 255, 255, 0.92)", color: "#475569", fontSize: "11px", fontWeight: 600, padding: "2px 8px", borderRadius: "6px", border: "1px solid rgba(226, 232, 240, 0.8)", display: "inline-flex", alignItems: "center", gap: "5px" }}
+                            >
+                              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#94a3b8" }} />
                               <span>Draft</span>
                             </span>
                           ) : isScheduled ? (
                             <span
-                              className="bg-white/90 backdrop-blur-sm text-slate-800 text-[11px] font-medium px-2 py-0.5 rounded-md shadow-sm border border-slate-200/60 inline-flex items-center gap-1.5"
+                              className="bg-white/90 text-slate-800 text-xs font-medium px-2 py-0.5 rounded-md shadow-sm border border-slate-200/60 inline-flex items-center gap-1.5"
+                              style={{ background: "rgba(255, 255, 255, 0.92)", color: "#1d4ed8", fontSize: "11px", fontWeight: 600, padding: "2px 8px", borderRadius: "6px", border: "1px solid rgba(191, 219, 254, 0.8)", display: "inline-flex", alignItems: "center", gap: "5px" }}
                               title={`Scheduled for ${new Date(post.publishedAt).toLocaleString()}`}
                             >
-                              <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#2563eb" }} />
                               <span>{new Date(post.publishedAt).toLocaleDateString(undefined, { day: "numeric", month: "short" })}</span>
                             </span>
                           ) : (
-                            <span className="bg-white/90 backdrop-blur-sm text-slate-800 text-[11px] font-medium px-2 py-0.5 rounded-md shadow-sm border border-slate-200/60 inline-flex items-center gap-1.5">
-                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                            <span
+                              className="bg-white/90 text-slate-800 text-xs font-medium px-2 py-0.5 rounded-md shadow-sm border border-slate-200/60 inline-flex items-center gap-1.5"
+                              style={{ background: "rgba(255, 255, 255, 0.92)", color: "#065f46", fontSize: "11px", fontWeight: 600, padding: "2px 8px", borderRadius: "6px", border: "1px solid rgba(167, 243, 208, 0.8)", display: "inline-flex", alignItems: "center", gap: "5px" }}
+                            >
+                              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#059669" }} />
                               <span>Published</span>
                             </span>
                           )}
                         </div>
                       </div>
 
-                      {/* Card Body: p-3.5 */}
-                      <div className="p-3.5 flex flex-col flex-grow">
-                        {/* Article Title: text-sm font-semibold text-slate-900 line-clamp-2 */}
-                        <h3
-                          title={post.title}
-                          className="text-sm font-semibold text-slate-900 line-clamp-2 leading-snug"
-                        >
-                          {post.title}
-                        </h3>
+                      {/* Card Body */}
+                      <div
+                        className="p-4 flex-1 flex flex-col justify-between"
+                        style={{ padding: "16px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}
+                      >
+                        <div>
+                          <h3
+                            title={post.title}
+                            className="text-sm font-semibold text-slate-900 line-clamp-2"
+                            style={{ fontSize: "14px", fontWeight: 700, color: "#0f172a", marginBottom: "6px", lineHeight: 1.35, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}
+                          >
+                            {post.title}
+                          </h3>
 
-                        {/* 2-line excerpt: text-xs text-slate-500 line-clamp-2 mt-1 */}
-                        <p className="text-xs text-slate-500 line-clamp-2 mt-1 leading-relaxed flex-grow">
-                          {sanitizeExcerpt(post.excerpt || post.content || "")}
-                        </p>
+                          <p
+                            className="line-clamp-2 text-xs text-slate-500 mt-1"
+                            style={{ fontSize: "12px", color: "#64748b", lineHeight: 1.5, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}
+                          >
+                            {sanitizeExcerpt(post.excerpt || post.content || "")}
+                          </p>
 
-                        {/* Muted Metadata: 6 min read • 0 views without pill borders */}
-                        <div className="text-[11px] text-slate-400 font-medium mt-2 flex items-center gap-1">
-                          <span>{post.readTime} min read</span>
-                          <span>•</span>
-                          <span>{post.views || 0} views</span>
+                          <div
+                            style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500, marginTop: "8px" }}
+                          >
+                            <span>{post.readTime} min read</span>
+                            <span style={{ margin: "0 6px" }}>•</span>
+                            <span>{post.views || 0} views</span>
+                          </div>
                         </div>
 
-                        {/* Compact Card Action Footer */}
-                        <div className="border-t border-slate-100 pt-2.5 mt-2.5 flex items-center justify-between gap-2">
-                          <div className="min-w-0">
+                        {/* Compact Aligned Footer */}
+                        <div
+                          className="border-t border-slate-100 pt-3 mt-3 flex items-center justify-between"
+                          style={{ borderTop: "1px solid #f1f5f9", paddingTop: "12px", marginTop: "12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}
+                        >
+                          <div style={{ minWidth: 0 }}>
                             {(isDraft || isScheduled) ? (
                               <button
                                 type="button"
                                 onClick={() => handleQuickPublish(post)}
-                                className="text-[11px] font-bold text-emerald-600 hover:text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200/60 rounded px-2 py-0.5 inline-flex items-center gap-1 transition-colors"
+                                style={{
+                                  fontSize: "11px",
+                                  fontWeight: 700,
+                                  color: "#059669",
+                                  background: "#ecfdf5",
+                                  border: "1px solid #a7f3d0",
+                                  borderRadius: "5px",
+                                  padding: "3px 8px",
+                                  cursor: "pointer",
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  gap: "3px",
+                                }}
                                 title="Publish immediately to public site"
                               >
                                 <Zap size={11} /> Publish
                               </button>
                             ) : (
-                              <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50/80 px-2 py-0.5 rounded border border-emerald-100/80">
+                              <span style={{ fontSize: "11px", fontWeight: 600, color: "#059669", background: "#ecfdf5", padding: "2px 6px", borderRadius: "4px" }}>
                                 Live
                               </span>
                             )}
                           </div>
 
-                          <div className="flex items-center gap-1 flex-shrink-0">
+                          <div style={{ display: "flex", gap: "6px" }}>
                             <Link
                               href={`/blog/${post.slug}`}
                               target="_blank"
