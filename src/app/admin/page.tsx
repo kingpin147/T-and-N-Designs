@@ -162,15 +162,15 @@ function ProjectThumbnail({ src, alt, title }: { src?: string; alt: string; titl
   const isValid = Boolean(src && !src.includes("placeholder") && !hasError);
 
   return (
-    <div style={{ position: "relative", width: "100%", aspectRatio: "16 / 10", background: "#f8fafc", overflow: "hidden" }}>
+    <div style={{ position: "relative", width: "100%", height: "100%", background: "#f8fafc", overflow: "hidden" }}>
       {isValid ? (
         <Image
           src={src as string}
           alt={alt}
           fill
           unoptimized
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-          style={{ objectFit: "cover" }}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 20vw"
+          style={{ objectFit: "cover", objectPosition: "top" }}
           onError={() => setHasError(true)}
         />
       ) : (
@@ -184,30 +184,30 @@ function ProjectThumbnail({ src, alt, title }: { src?: string; alt: string; titl
             justifyContent: "center",
             background: "linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%)",
             borderBottom: "1px solid #e2e8f0",
-            padding: "16px",
+            padding: "12px",
             textAlign: "center",
           }}
         >
           <div
             style={{
-              width: "38px",
-              height: "38px",
-              borderRadius: "10px",
+              width: "32px",
+              height: "32px",
+              borderRadius: "8px",
               background: "#ffffff",
               border: "1px solid #e2e8f0",
               boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              marginBottom: "6px",
+              marginBottom: "4px",
             }}
           >
-            <Layers size={18} color="#2563eb" />
+            <Layers size={16} color="#2563eb" />
           </div>
-          <span style={{ fontSize: "12px", fontWeight: 700, color: "#475569", maxWidth: "85%", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+          <span style={{ fontSize: "11px", fontWeight: 700, color: "#475569", maxWidth: "90%", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
             {title}
           </span>
-          <span style={{ fontSize: "10px", color: "#94a3b8", marginTop: "2px" }}>
+          <span style={{ fontSize: "9px", color: "#94a3b8", marginTop: "1px" }}>
             T &amp; N Architecture
           </span>
         </div>
@@ -311,7 +311,6 @@ export default function AdminDashboardPage() {
   const [projectSearch, setProjectSearch] = useState("");
   const [projectCategoryFilter, setProjectCategoryFilter] = useState("all");
   const [projectStatusFilter, setProjectStatusFilter] = useState<"all" | "featured" | "live" | "internal">("all");
-  const [projectViewMode, setProjectViewMode] = useState<"grid" | "list">("grid");
 
   const [blogSearch, setBlogSearch] = useState("");
   const [blogStatusFilter, setBlogStatusFilter] = useState<"all" | "published" | "scheduled" | "draft">("all");
@@ -1512,22 +1511,22 @@ export default function AdminDashboardPage() {
         {activeTab === "projects" && (
           <div>
             {/* Header & Controls Strip */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", flexWrap: "wrap", gap: "16px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", flexWrap: "wrap", gap: "12px" }}>
               <div>
-                <h1 style={{ fontSize: "24px", fontWeight: 800, color: "#0f172a", marginBottom: "4px", display: "flex", alignItems: "center", gap: "8px" }}>
+                <h1 style={{ fontSize: "22px", fontWeight: 800, color: "#0f172a", marginBottom: "4px", display: "flex", alignItems: "center", gap: "8px" }}>
                   <span>Portfolio Projects &amp; Media</span>
-                  <span style={{ fontSize: "13px", fontWeight: 700, background: "#f1f5f9", color: "#475569", padding: "2px 8px", borderRadius: "12px", border: "1px solid #e2e8f0" }}>
+                  <span style={{ fontSize: "12px", fontWeight: 700, background: "#f1f5f9", color: "#475569", padding: "2px 8px", borderRadius: "12px", border: "1px solid #e2e8f0" }}>
                     {filteredProjects.length}{filteredProjects.length !== projects.length ? ` of ${projects.length}` : ""}
                   </span>
                 </h1>
-                <p style={{ color: "#64748b", fontSize: "14px" }}>
+                <p style={{ color: "#64748b", fontSize: "13px" }}>
                   Verified client builds stored in Neon PostgreSQL and S3 cloud storage.
                 </p>
               </div>
 
               <div style={{ display: "flex", gap: "10px", alignItems: "center", flexWrap: "wrap" }}>
                 {/* Search */}
-                <div style={{ display: "flex", alignItems: "center", background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "8px", padding: "7px 10px", width: "200px" }}>
+                <div style={{ display: "flex", alignItems: "center", background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "8px", padding: "6px 10px", width: "200px" }}>
                   <Search size={14} color="#94a3b8" style={{ marginRight: "8px", flexShrink: 0 }} />
                   <input
                     type="text"
@@ -1543,7 +1542,7 @@ export default function AdminDashboardPage() {
                   value={projectCategoryFilter}
                   onChange={(e) => setProjectCategoryFilter(e.target.value)}
                   style={{
-                    padding: "7px 10px",
+                    padding: "6px 10px",
                     background: "#ffffff",
                     border: "1px solid #e2e8f0",
                     borderRadius: "8px",
@@ -1560,52 +1559,6 @@ export default function AdminDashboardPage() {
                   <option value="wix-migration">Wix Migration &amp; Velo</option>
                 </select>
 
-                {/* View Mode Toggle: Grid | List */}
-                <div style={{ display: "flex", background: "#f1f5f9", padding: "3px", borderRadius: "8px", border: "1px solid #e2e8f0" }}>
-                  <button
-                    type="button"
-                    onClick={() => setProjectViewMode("grid")}
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "4px",
-                      padding: "5px 10px",
-                      borderRadius: "6px",
-                      fontSize: "12px",
-                      fontWeight: 700,
-                      border: "none",
-                      cursor: "pointer",
-                      background: projectViewMode === "grid" ? "#ffffff" : "transparent",
-                      color: projectViewMode === "grid" ? "#0f172a" : "#64748b",
-                      boxShadow: projectViewMode === "grid" ? "0 1px 3px rgba(0,0,0,0.06)" : "none",
-                    }}
-                  >
-                    <LayoutGrid size={13} />
-                    <span>Grid</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setProjectViewMode("list")}
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "4px",
-                      padding: "5px 10px",
-                      borderRadius: "6px",
-                      fontSize: "12px",
-                      fontWeight: 700,
-                      border: "none",
-                      cursor: "pointer",
-                      background: projectViewMode === "list" ? "#ffffff" : "transparent",
-                      color: projectViewMode === "list" ? "#0f172a" : "#64748b",
-                      boxShadow: projectViewMode === "list" ? "0 1px 3px rgba(0,0,0,0.06)" : "none",
-                    }}
-                  >
-                    <List size={13} />
-                    <span>List</span>
-                  </button>
-                </div>
-
                 {/* Add New Project */}
                 <button
                   onClick={() => {
@@ -1613,7 +1566,7 @@ export default function AdminDashboardPage() {
                     setProjectModalOpen(true);
                   }}
                   className="btn-primary"
-                  style={{ padding: "8px 14px", fontSize: "13px" }}
+                  style={{ padding: "7px 14px", fontSize: "13px" }}
                 >
                   <Plus size={14} /> Add Project
                 </button>
@@ -1635,7 +1588,7 @@ export default function AdminDashboardPage() {
                     type="button"
                     onClick={() => setProjectStatusFilter(tab.id as any)}
                     style={{
-                      padding: "6px 14px",
+                      padding: "5px 12px",
                       borderRadius: "8px",
                       fontSize: "12px",
                       fontWeight: 700,
@@ -1663,146 +1616,75 @@ export default function AdminDashboardPage() {
               <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", padding: "48px", textAlign: "center", color: "#64748b" }}>
                 No projects found matching the current search or filters.
               </div>
-            ) : projectViewMode === "grid" ? (
-              /* 4-Column Bento Grid */
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            ) : (
+              /* Compact Multi-Card Grid: 1 col mobile, 2 sm, 3 md, 4 lg, 5 xl */
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                 {filteredProjects.map((proj) => (
                   <div
                     key={proj.id}
-                    style={{
-                      background: "#ffffff",
-                      border: "1px solid #e2e8f0",
-                      borderRadius: "12px",
-                      overflow: "hidden",
-                      display: "flex",
-                      flexDirection: "column",
-                      boxShadow: "0 1px 3px rgba(0,0,0,0.02)",
-                    }}
+                    className="bg-white rounded-xl border border-slate-200/80 overflow-hidden flex flex-col hover:border-slate-300 hover:shadow-sm transition-all"
                   >
-                    {/* 16:10 Thumbnail with Frosted Badges */}
-                    <div style={{ position: "relative", width: "100%" }}>
+                    {/* Top image preview: h-36 (144px) object-cover object-top with subtle frosted pills */}
+                    <div className="relative w-full h-36 bg-slate-50 overflow-hidden">
                       <ProjectThumbnail src={proj.coverImageUrl} alt={proj.title} title={proj.title} />
 
                       {/* Frosted Top Badges */}
-                      <div style={{ position: "absolute", top: "10px", right: "10px", display: "flex", gap: "6px", zIndex: 10 }}>
+                      <div className="absolute top-2 right-2 flex items-center gap-1.5 z-10">
                         {proj.featured && (
-                          <span
-                            style={{
-                              fontSize: "11px",
-                              fontWeight: 700,
-                              background: "rgba(255, 255, 255, 0.92)",
-                              backdropFilter: "blur(8px)",
-                              color: "#b45309",
-                              padding: "3px 8px",
-                              borderRadius: "6px",
-                              border: "1px solid rgba(226, 232, 240, 0.8)",
-                              boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: "4px",
-                            }}
-                          >
-                            <Star size={11} color="#d97706" fill="#d97706" />
+                          <span className="bg-white/90 backdrop-blur-sm text-amber-700 text-[11px] font-medium px-2 py-0.5 rounded-md shadow-sm border border-slate-200/60 inline-flex items-center gap-1">
+                            <Star size={10} className="text-amber-500 fill-amber-500" />
                             <span>Featured</span>
                           </span>
                         )}
-                        <span
-                          style={{
-                            fontSize: "11px",
-                            fontWeight: 600,
-                            background: "rgba(255, 255, 255, 0.92)",
-                            backdropFilter: "blur(8px)",
-                            color: "#334155",
-                            padding: "3px 8px",
-                            borderRadius: "6px",
-                            border: "1px solid rgba(226, 232, 240, 0.8)",
-                            boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
-                          }}
-                        >
+                        <span className="bg-white/90 backdrop-blur-sm text-slate-800 text-[11px] font-medium px-2 py-0.5 rounded-md shadow-sm border border-slate-200/60">
                           {formatCategory(proj.category)}
                         </span>
                       </div>
                     </div>
 
-                    {/* Card Content */}
-                    <div style={{ padding: "14px 16px", display: "flex", flexDirection: "column", flexGrow: 1 }}>
+                    {/* Card Body: p-3.5 */}
+                    <div className="p-3.5 flex flex-col flex-grow">
+                      {/* Project Title: text-sm font-semibold text-slate-900 truncate */}
                       <h3
                         title={proj.title}
-                        style={{
-                          fontSize: "15px",
-                          fontWeight: 700,
-                          color: "#0f172a",
-                          marginBottom: "6px",
-                          lineHeight: 1.35,
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                        }}
+                        className="text-sm font-semibold text-slate-900 truncate"
                       >
                         {proj.title}
                       </h3>
 
-                      <p
-                        style={{
-                          fontSize: "12px",
-                          color: "#64748b",
-                          lineHeight: 1.5,
-                          marginBottom: "12px",
-                          flexGrow: 1,
-                          display: "-webkit-box",
-                          WebkitLineClamp: 2,
-                          WebkitBoxOrient: "vertical",
-                          overflow: "hidden",
-                        }}
-                      >
+                      {/* Description: strip Overview: and emojis, 2-line clamped */}
+                      <p className="text-xs text-slate-500 line-clamp-2 mt-1 leading-relaxed flex-grow">
                         {sanitizeExcerpt(proj.fullDescription || proj.shortDescription || "")}
                       </p>
 
-                      {/* Clean Inline Metadata (No bulky bordered 0 views pill) */}
-                      <div style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500, marginBottom: "12px" }}>
+                      {/* Inline metadata / view count */}
+                      <div className="text-[11px] text-slate-400 font-medium mt-2 flex items-center gap-1">
                         <span>{proj.projectUrl ? "Live Public" : "Internal Portal"}</span>
-                        <span style={{ margin: "0 6px" }}>•</span>
+                        <span>•</span>
                         <span>{proj.views || 0} views</span>
                       </div>
 
-                      {/* Minimal Action Footer */}
-                      <div
-                        style={{
-                          borderTop: "1px solid #f1f5f9",
-                          paddingTop: "10px",
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          gap: "8px",
-                        }}
-                      >
-                        <div>
+                      {/* Compact Bottom Row */}
+                      <div className="border-t border-slate-100 pt-2.5 mt-2.5 flex items-center justify-between gap-2">
+                        <div className="min-w-0">
                           {proj.projectUrl ? (
                             <a
                               href={proj.projectUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              style={{
-                                fontSize: "12px",
-                                color: "#2563eb",
-                                fontWeight: 700,
-                                display: "inline-flex",
-                                alignItems: "center",
-                                gap: "3px",
-                                textDecoration: "none",
-                              }}
+                              className="text-xs text-blue-600 hover:text-blue-700 font-semibold inline-flex items-center gap-1 truncate"
                             >
                               <span>Visit Live</span>
-                              <ExternalLink size={12} />
+                              <ExternalLink size={11} />
                             </a>
                           ) : (
-                            <span style={{ fontSize: "11px", color: "#94a3b8", fontWeight: 500 }}>
+                            <span className="text-[11px] text-slate-400 font-medium truncate">
                               Internal Portal
                             </span>
                           )}
                         </div>
 
-                        <div style={{ display: "flex", gap: "6px" }}>
+                        <div className="flex items-center gap-1.5 flex-shrink-0">
                           <button
                             type="button"
                             onClick={() => {
@@ -1810,9 +1692,9 @@ export default function AdminDashboardPage() {
                               setProjectModalOpen(true);
                             }}
                             className="btn-secondary"
-                            style={{ padding: "5px 10px", fontSize: "11px", fontWeight: 600 }}
+                            style={{ padding: "4px 8px", fontSize: "11px", fontWeight: 600 }}
                           >
-                            <Edit3 size={12} /> Edit
+                            <Edit3 size={11} /> Edit
                           </button>
                           <button
                             type="button"
@@ -1823,120 +1705,16 @@ export default function AdminDashboardPage() {
                               }
                             }}
                             className="btn-secondary"
-                            style={{ padding: "5px 8px", fontSize: "11px", color: "#b91c1c" }}
+                            style={{ padding: "4px 7px", fontSize: "11px", color: "#b91c1c" }}
                             title="Delete project"
                           >
-                            <Trash2 size={12} />
+                            <Trash2 size={11} />
                           </button>
                         </div>
                       </div>
                     </div>
                   </div>
                 ))}
-              </div>
-            ) : (
-              /* High-Density Table List View */
-              <div style={{ background: "#ffffff", border: "1px solid #e2e8f0", borderRadius: "12px", overflow: "hidden" }}>
-                <div style={{ overflowX: "auto" }}>
-                  <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "13px" }}>
-                    <thead>
-                      <tr style={{ background: "#f8fafc", borderBottom: "1px solid #e2e8f0", color: "#64748b", fontSize: "12px", fontWeight: 700 }}>
-                        <th style={{ padding: "12px 16px" }}>Project</th>
-                        <th style={{ padding: "12px 16px" }}>Category</th>
-                        <th style={{ padding: "12px 16px" }}>Status / Link</th>
-                        <th style={{ padding: "12px 16px", textAlign: "right" }}>Views</th>
-                        <th style={{ padding: "12px 16px", textAlign: "right" }}>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {filteredProjects.map((proj) => (
-                        <tr key={proj.id} style={{ borderBottom: "1px solid #f1f5f9" }}>
-                          <td style={{ padding: "12px 16px" }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                              <div style={{ width: "48px", height: "32px", borderRadius: "6px", overflow: "hidden", background: "#f1f5f9", flexShrink: 0, position: "relative" }}>
-                                <Image
-                                  src={proj.coverImageUrl || "/portfolio/energt-gurus-online.png"}
-                                  alt={proj.title}
-                                  fill
-                                  unoptimized
-                                  sizes="48px"
-                                  style={{ objectFit: "cover" }}
-                                />
-                              </div>
-                              <div style={{ minWidth: 0, maxWidth: "340px" }}>
-                                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                                  <span style={{ fontWeight: 700, color: "#0f172a", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                                    {proj.title}
-                                  </span>
-                                  {proj.featured && (
-                                    <span style={{ display: "inline-flex", alignItems: "center", gap: "2px", fontSize: "10px", fontWeight: 700, color: "#b45309", background: "#fef3c7", padding: "1px 5px", borderRadius: "4px" }}>
-                                      <Star size={10} color="#d97706" fill="#d97706" /> Featured
-                                    </span>
-                                  )}
-                                </div>
-                                <div style={{ fontSize: "11px", color: "#64748b", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                                  {sanitizeExcerpt(proj.fullDescription || proj.shortDescription || "")}
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td style={{ padding: "12px 16px" }}>
-                            <span style={{ fontSize: "11px", fontWeight: 600, color: "#334155", background: "#f1f5f9", padding: "3px 8px", borderRadius: "6px" }}>
-                              {formatCategory(proj.category)}
-                            </span>
-                          </td>
-                          <td style={{ padding: "12px 16px" }}>
-                            {proj.projectUrl ? (
-                              <a
-                                href={proj.projectUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{ fontSize: "12px", color: "#2563eb", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "3px", textDecoration: "none" }}
-                              >
-                                <span>Live Site</span>
-                                <ExternalLink size={11} />
-                              </a>
-                            ) : (
-                              <span style={{ fontSize: "12px", color: "#94a3b8" }}>Internal Portal</span>
-                            )}
-                          </td>
-                          <td style={{ padding: "12px 16px", textAlign: "right", fontVariantNumeric: "tabular-nums", color: "#475569", fontWeight: 600 }}>
-                            {proj.views || 0}
-                          </td>
-                          <td style={{ padding: "12px 16px", textAlign: "right" }}>
-                            <div style={{ display: "inline-flex", gap: "6px" }}>
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setCurrentProject(proj);
-                                  setProjectModalOpen(true);
-                                }}
-                                className="btn-secondary"
-                                style={{ padding: "5px 10px", fontSize: "11px", fontWeight: 600 }}
-                              >
-                                <Edit3 size={11} /> Edit
-                              </button>
-                              <button
-                                type="button"
-                                onClick={async () => {
-                                  if (confirm(`Delete project "${proj.title}"?`)) {
-                                    await fetch(`/api/admin/projects?id=${proj.id}`, { method: "DELETE" });
-                                    loadDashboardData();
-                                  }
-                                }}
-                                className="btn-secondary"
-                                style={{ padding: "5px 8px", fontSize: "11px", color: "#b91c1c" }}
-                                title="Delete project"
-                              >
-                                <Trash2 size={11} />
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
               </div>
             )}
           </div>
