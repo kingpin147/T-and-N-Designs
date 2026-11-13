@@ -771,3 +771,52 @@ a {
   gap: 12px;
   background: #f8fafc;
 }
+
+/* ==========================================================================
+   Executive Overview Bento-HUD Layout System
+   ========================================================================== */
+
+/* Balanced 8-KPI Grid: 4 columns on desktop (2 rows of 4), 2 columns on tablet, 1 on mobile */
+.overview-kpi-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+}
+
+@media (max-width: 1100px) {
+  .overview-kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 580px) {
+  .overview-kpi-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* 2-Column Telemetry Split: Left 7 cols, Right 5 cols */
+.telemetry-split-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.telemetry-col-left {
+  grid-column: span 7;
+}
+
+.telemetry-col-right {
+  grid-column: span 5;
+}
+
+@media (max-width: 1024px) {
+  .telemetry-split-grid {
+    grid-template-columns: 1fr;
+  }
+  .telemetry-col-left,
+  .telemetry-col-right {
+    grid-column: span 12;
+  }
+}

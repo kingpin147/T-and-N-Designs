@@ -297,50 +297,35 @@ export default function GA4OverviewDashboard({
   const mergedAcquisition = [
     {
       name: "Direct / Bookmarks",
-      icon: <Compass size={13} color="#059669" />,
+      icon: <Compass size={13} color="#0f2942" />,
       activeUsers: ga4.multiChannel.direct.visitors || 132,
       sessions: ga4.multiChannel.direct.sessions || 141,
       engagementRate: "16.3%",
     },
     {
       name: "Google (Search & Ads)",
-      icon: (
-        <svg width="13" height="13" viewBox="0 0 24 24">
-          <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z" />
-          <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.26v3.15C3.26 21.36 7.34 24 12 24z" />
-          <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.26C.46 8.16 0 9.98 0 12c0 2.02.46 3.84 1.26 5.42l4.02-3.15z" />
-          <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.26 6.58l4.02 3.15c.95-2.83 3.6-4.98 6.72-4.98z" />
-        </svg>
-      ),
+      icon: <Search size={13} color="#0f2942" />,
       activeUsers: ga4.multiChannel.google.visitors || 13,
       sessions: ga4.multiChannel.google.sessions || 16,
       engagementRate: "43.8%",
     },
     {
       name: "Partner & Wix Referral",
-      icon: <Share2 size={13} color="#2563EB" />,
+      icon: <Share2 size={13} color="#0f2942" />,
       activeUsers: 5,
       sessions: 36,
       engagementRate: "75.0%",
     },
     {
       name: "Meta (Facebook & IG)",
-      icon: (
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="#1877F2">
-          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-        </svg>
-      ),
+      icon: <Globe size={13} color="#0f2942" />,
       activeUsers: ga4.multiChannel.meta.visitors || 3,
       sessions: ga4.multiChannel.meta.sessions || 3,
       engagementRate: "33.3%",
     },
     {
       name: "LinkedIn Network",
-      icon: (
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="#0A66C2">
-          <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
-        </svg>
-      ),
+      icon: <Users size={13} color="#0f2942" />,
       activeUsers: ga4.multiChannel.linkedin.visitors || 1,
       sessions: ga4.multiChannel.linkedin.sessions || 1,
       engagementRate: "100%",
@@ -349,14 +334,8 @@ export default function GA4OverviewDashboard({
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-      {/* 1. MERGED & COMPACT 8 KPIS (SINGLE 4×2 BENTO GRID) */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: "10px",
-        }}
-      >
+      {/* 1. MERGED & COMPACT 8 KPIS (BALANCED 4×2 BENTO GRID) */}
+      <div className="overview-kpi-grid">
         {/* Card 1: Active Users */}
         <div
           style={{
@@ -372,19 +351,19 @@ export default function GA4OverviewDashboard({
         >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#059669", display: "inline-block" }} />
+              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#0f2942", display: "inline-block" }} />
               <span style={{ fontSize: "11px", fontWeight: 700, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.03em" }}>
                 Active Users
               </span>
             </div>
-            <Users size={14} color="#94a3b8" />
+            <Users size={14} color="#64748b" />
           </div>
           <div style={{ fontSize: "24px", fontWeight: 800, color: "#0f172a", lineHeight: 1.1, fontFamily: "monospace" }}>
             {ga4.kpis.activeUsers}
           </div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "10px", fontSize: "11px" }}>
             <span style={{ color: "#64748b" }}>{ga4.kpis.activeUsersTotal} total · {ga4.bounceRate} bounce</span>
-            <span style={{ background: "#ecfdf5", color: "#059669", fontWeight: 700, fontSize: "10px", padding: "1px 6px", borderRadius: "999px" }}>
+            <span style={{ background: "#f1f5f9", color: "#334155", fontWeight: 700, fontSize: "10px", padding: "1px 6px", borderRadius: "999px" }}>
               ↗ {ga4.kpis.activeUsersChange}
             </span>
           </div>
@@ -405,19 +384,19 @@ export default function GA4OverviewDashboard({
         >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#0f172a", display: "inline-block" }} />
+              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#0f2942", display: "inline-block" }} />
               <span style={{ fontSize: "11px", fontWeight: 700, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.03em" }}>
                 Page Views
               </span>
             </div>
-            <Eye size={14} color="#94a3b8" />
+            <Eye size={14} color="#64748b" />
           </div>
           <div style={{ fontSize: "24px", fontWeight: 800, color: "#0f172a", lineHeight: 1.1, fontFamily: "monospace" }}>
             {ga4.kpis.pageviews.toLocaleString()}
           </div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "10px", fontSize: "11px" }}>
             <span style={{ color: "#64748b" }}>Directory views ({timeRange})</span>
-            <span style={{ background: "#ecfdf5", color: "#059669", fontWeight: 700, fontSize: "10px", padding: "1px 6px", borderRadius: "999px" }}>
+            <span style={{ background: "#f1f5f9", color: "#334155", fontWeight: 700, fontSize: "10px", padding: "1px 6px", borderRadius: "999px" }}>
               ↗ {ga4.kpis.pageviewsChange}
             </span>
           </div>
@@ -438,19 +417,19 @@ export default function GA4OverviewDashboard({
         >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#d97706", display: "inline-block" }} />
+              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#0f2942", display: "inline-block" }} />
               <span style={{ fontSize: "11px", fontWeight: 700, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.03em" }}>
                 Total Sessions
               </span>
             </div>
-            <Send size={14} color="#94a3b8" />
+            <Send size={14} color="#64748b" />
           </div>
           <div style={{ fontSize: "24px", fontWeight: 800, color: "#0f172a", lineHeight: 1.1, fontFamily: "monospace" }}>
             {ga4.kpis.sessions}
           </div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "10px", fontSize: "11px" }}>
             <span style={{ color: "#64748b" }}>Visits · {ga4.engagementRate} engaged</span>
-            <span style={{ background: "#ecfdf5", color: "#059669", fontWeight: 700, fontSize: "10px", padding: "1px 6px", borderRadius: "999px" }}>
+            <span style={{ background: "#f1f5f9", color: "#334155", fontWeight: 700, fontSize: "10px", padding: "1px 6px", borderRadius: "999px" }}>
               ↗ {ga4.kpis.sessionsChange}
             </span>
           </div>
@@ -471,19 +450,19 @@ export default function GA4OverviewDashboard({
         >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#059669", display: "inline-block" }} />
+              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#0f2942", display: "inline-block" }} />
               <span style={{ fontSize: "11px", fontWeight: 700, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.03em" }}>
                 Avg Engagement
               </span>
             </div>
-            <Clock size={14} color="#94a3b8" />
+            <Clock size={14} color="#64748b" />
           </div>
           <div style={{ fontSize: "24px", fontWeight: 800, color: "#0f172a", lineHeight: 1.1, fontFamily: "monospace" }}>
             {ga4.avgSessionDuration}
           </div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "10px", fontSize: "11px" }}>
             <span style={{ color: "#64748b" }}>{ga4.avgSessionDuration} / visit</span>
-            <span style={{ background: "#ecfdf5", color: "#059669", fontWeight: 700, fontSize: "10px", padding: "1px 6px", borderRadius: "999px" }}>
+            <span style={{ background: "#f1f5f9", color: "#334155", fontWeight: 700, fontSize: "10px", padding: "1px 6px", borderRadius: "999px" }}>
               ↗ {ga4.kpis.avgEngagementChange}
             </span>
           </div>
@@ -507,19 +486,19 @@ export default function GA4OverviewDashboard({
         >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#2563eb", display: "inline-block" }} />
+              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#0f2942", display: "inline-block" }} />
               <span style={{ fontSize: "11px", fontWeight: 700, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.03em" }}>
                 Total Inquiries (DB)
               </span>
             </div>
-            <TrendingUp size={14} color="#2563eb" />
+            <TrendingUp size={14} color="#0f2942" />
           </div>
           <div style={{ fontSize: "24px", fontWeight: 800, color: "#0f172a", lineHeight: 1.1, fontFamily: "monospace" }}>
             {crmStats.totalLeads}
           </div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "10px", fontSize: "11px" }}>
-            <span style={{ color: "#059669", fontWeight: 600 }}>Stored in Postgres</span>
-            <span style={{ color: "#2563eb", fontWeight: 700 }}>View →</span>
+            <span style={{ color: "#64748b", fontWeight: 600 }}>Stored in Postgres</span>
+            <span style={{ color: "#0f2942", fontWeight: 700 }}>View →</span>
           </div>
         </div>
 
@@ -541,19 +520,19 @@ export default function GA4OverviewDashboard({
         >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#059669", display: "inline-block" }} />
+              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#0f2942", display: "inline-block" }} />
               <span style={{ fontSize: "11px", fontWeight: 700, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.03em" }}>
                 Contacted Leads
               </span>
             </div>
-            <CheckCircle2 size={14} color="#059669" />
+            <CheckCircle2 size={14} color="#0f2942" />
           </div>
           <div style={{ fontSize: "24px", fontWeight: 800, color: "#0f172a", lineHeight: 1.1, fontFamily: "monospace" }}>
             {crmStats.contactedLeads}
           </div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "10px", fontSize: "11px" }}>
-            <span style={{ color: "#059669", fontWeight: 600 }}>Active team follow-up</span>
-            <span style={{ color: "#059669", fontWeight: 700 }}>Filter →</span>
+            <span style={{ color: "#64748b", fontWeight: 600 }}>Active team follow-up</span>
+            <span style={{ color: "#0f2942", fontWeight: 700 }}>Filter →</span>
           </div>
         </div>
 
@@ -575,19 +554,19 @@ export default function GA4OverviewDashboard({
         >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#d97706", display: "inline-block" }} />
+              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#0f2942", display: "inline-block" }} />
               <span style={{ fontSize: "11px", fontWeight: 700, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.03em" }}>
                 Pending Leads
               </span>
             </div>
-            <Clock size={14} color="#d97706" />
+            <Clock size={14} color="#0f2942" />
           </div>
           <div style={{ fontSize: "24px", fontWeight: 800, color: "#0f172a", lineHeight: 1.1, fontFamily: "monospace" }}>
             {crmStats.pendingLeads}
           </div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "10px", fontSize: "11px" }}>
-            <span style={{ color: "#d97706", fontWeight: 600 }}>Awaiting outreach</span>
-            <span style={{ color: "#d97706", fontWeight: 700 }}>Filter →</span>
+            <span style={{ color: "#64748b", fontWeight: 600 }}>Awaiting outreach</span>
+            <span style={{ color: "#0f2942", fontWeight: 700 }}>Filter →</span>
           </div>
         </div>
 
@@ -609,19 +588,19 @@ export default function GA4OverviewDashboard({
         >
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#123968", display: "inline-block" }} />
+              <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#0f2942", display: "inline-block" }} />
               <span style={{ fontSize: "11px", fontWeight: 700, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.03em" }}>
                 Portfolio Projects
               </span>
             </div>
-            <Layers size={14} color="#123968" />
+            <Layers size={14} color="#0f2942" />
           </div>
           <div style={{ fontSize: "24px", fontWeight: 800, color: "#0f172a", lineHeight: 1.1, fontFamily: "monospace" }}>
             {crmStats.totalProjects}
           </div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "10px", fontSize: "11px" }}>
             <span style={{ color: "#64748b" }}>Neon Storage synced</span>
-            <span style={{ color: "#123968", fontWeight: 700 }}>View →</span>
+            <span style={{ color: "#0f2942", fontWeight: 700 }}>View →</span>
           </div>
         </div>
       </div>
@@ -655,9 +634,9 @@ export default function GA4OverviewDashboard({
                   width: "8px",
                   height: "8px",
                   borderRadius: "50%",
-                  background: "#d97706",
+                  background: "#0f2942",
                   display: "inline-block",
-                  boxShadow: "0 0 0 3px rgba(217, 119, 6, 0.15)",
+                  boxShadow: "0 0 0 3px rgba(15, 41, 66, 0.15)",
                 }}
               />
               <h2 style={{ fontSize: "16px", fontWeight: 700, color: "#0f172a", margin: 0 }}>
@@ -674,12 +653,12 @@ export default function GA4OverviewDashboard({
           {/* Legend */}
           <div style={{ display: "flex", alignItems: "center", gap: "14px", fontSize: "12px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-              <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#d97706", display: "inline-block" }} />
-              <span style={{ color: "#334155", fontWeight: 600 }}>Views</span>
+              <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#0f2942", display: "inline-block" }} />
+              <span style={{ color: "#0f172a", fontWeight: 600 }}>Views</span>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-              <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#059669", display: "inline-block" }} />
-              <span style={{ color: "#334155", fontWeight: 600 }}>Users</span>
+              <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#64748b", display: "inline-block" }} />
+              <span style={{ color: "#475569", fontWeight: 600 }}>Users</span>
             </div>
           </div>
         </div>
@@ -692,12 +671,12 @@ export default function GA4OverviewDashboard({
           >
             <defs>
               <linearGradient id="viewsCompactGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#d97706" stopOpacity="0.22" />
-                <stop offset="100%" stopColor="#d97706" stopOpacity="0.0" />
+                <stop offset="0%" stopColor="#0f2942" stopOpacity="0.20" />
+                <stop offset="100%" stopColor="#0f2942" stopOpacity="0.0" />
               </linearGradient>
               <linearGradient id="usersCompactGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#059669" stopOpacity="0.20" />
-                <stop offset="100%" stopColor="#059669" stopOpacity="0.0" />
+                <stop offset="0%" stopColor="#64748b" stopOpacity="0.12" />
+                <stop offset="100%" stopColor="#64748b" stopOpacity="0.0" />
               </linearGradient>
             </defs>
 
@@ -746,10 +725,10 @@ export default function GA4OverviewDashboard({
 
             {/* Crisp 2px Spline Curves */}
             {viewsLinePath && (
-              <path d={viewsLinePath} fill="none" stroke="#d97706" strokeWidth="2" strokeLinecap="round" />
+              <path d={viewsLinePath} fill="none" stroke="#0f2942" strokeWidth="2" strokeLinecap="round" />
             )}
             {usersLinePath && (
-              <path d={usersLinePath} fill="none" stroke="#059669" strokeWidth="2" strokeLinecap="round" />
+              <path d={usersLinePath} fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 4" />
             )}
 
             {/* Interactive Points */}
@@ -807,7 +786,7 @@ export default function GA4OverviewDashboard({
                   strokeDasharray="3 3"
                   strokeWidth="1.5"
                 />
-                <circle cx={hoveredPoint.x} cy={hoveredPoint.y} r="4.5" fill="#d97706" stroke="#ffffff" strokeWidth="2" />
+                <circle cx={hoveredPoint.x} cy={hoveredPoint.y} r="4.5" fill="#0f2942" stroke="#ffffff" strokeWidth="2" />
               </g>
             )}
           </svg>
@@ -834,11 +813,11 @@ export default function GA4OverviewDashboard({
               <div style={{ fontWeight: 700, color: "#94a3b8", marginBottom: "2px" }}>
                 {hoveredPoint.label}
               </div>
-              <div style={{ display: "flex", gap: "10px" }}>
-                <span style={{ color: "#f59e0b" }}>
+              <div style={{ display: "flex", gap: "12px" }}>
+                <span style={{ color: "#93c5fd" }}>
                   <strong>{hoveredPoint.views}</strong> views
                 </span>
-                <span style={{ color: "#34d399" }}>
+                <span style={{ color: "#cbd5e1" }}>
                   <strong>{hoveredPoint.users}</strong> users
                 </span>
               </div>
@@ -847,26 +826,18 @@ export default function GA4OverviewDashboard({
         </div>
       </div>
 
-      {/* 3. 2-COLUMN CORE TELEMETRY SPLIT (grid-cols-12: Left 7 cols, Right 5 cols) */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(12, 1fr)",
-          gap: "16px",
-          alignItems: "start",
-        }}
-      >
-        {/* LEFT (col-span-7 or full on small screens): TOP VIEWED PAGES & PROFILES */}
+      {/* 3. 2-COLUMN CORE TELEMETRY SPLIT */}
+      <div className="telemetry-split-grid">
+        {/* LEFT: TOP VIEWED PAGES & PROFILES */}
         <div
+          className="telemetry-col-left"
           style={{
-            gridColumn: "span 7",
             background: "#ffffff",
             borderRadius: "14px",
             border: "1px solid #e2e8f0",
             boxShadow: "0 1px 3px rgba(0, 0, 0, 0.03)",
             padding: "18px 20px",
           }}
-          className="col-span-12 lg:col-span-7"
         >
           {/* Header */}
           <div
@@ -880,7 +851,7 @@ export default function GA4OverviewDashboard({
             }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <Layers size={16} color="#d97706" />
+              <Layers size={16} color="#0f2942" />
               <h3 style={{ fontSize: "15px", fontWeight: 700, color: "#0f172a", margin: 0 }}>
                 Top Viewed Pages &amp; Profiles
               </h3>
@@ -899,8 +870,8 @@ export default function GA4OverviewDashboard({
                   padding: "3px 8px",
                   borderRadius: "6px",
                   border: "1px solid #e2e8f0",
-                  background: excludeAdminPages ? "#eff6ff" : "#ffffff",
-                  color: excludeAdminPages ? "#2563eb" : "#64748b",
+                  background: excludeAdminPages ? "#f1f5f9" : "#ffffff",
+                  color: excludeAdminPages ? "#0f2942" : "#64748b",
                   cursor: "pointer",
                 }}
                 title="Toggle internal admin routes"
@@ -974,15 +945,15 @@ export default function GA4OverviewDashboard({
                         display: "inline-flex",
                         alignItems: "center",
                         gap: "4px",
-                        background: "#ecfdf5",
-                        color: "#047857",
+                        background: "#f1f5f9",
+                        color: "#334155",
                         fontSize: "10px",
                         fontWeight: 700,
-                        padding: "2px 6px",
+                        padding: "2px 7px",
                         borderRadius: "5px",
                       }}
                     >
-                      <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "#059669" }} />
+                      <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "#475569" }} />
                       {page.engagementRate} Engaged
                     </span>
 
@@ -1002,7 +973,7 @@ export default function GA4OverviewDashboard({
 
                 {/* Subtle 3px Inline Progress Bar */}
                 <div style={{ width: "100%", height: "3px", background: "#f1f5f9", borderRadius: "999px", overflow: "hidden" }}>
-                  <div style={{ width: `${page.progressPercent}%`, height: "100%", background: "#d97706", borderRadius: "999px" }} />
+                  <div style={{ width: `${page.progressPercent}%`, height: "100%", background: "#0f2942", borderRadius: "999px" }} />
                 </div>
               </div>
             ))}
@@ -1016,7 +987,7 @@ export default function GA4OverviewDashboard({
                 style={{
                   background: "none",
                   border: "none",
-                  color: "#2563eb",
+                  color: "#0f2942",
                   fontSize: "12px",
                   fontWeight: 600,
                   cursor: "pointer",
@@ -1039,15 +1010,14 @@ export default function GA4OverviewDashboard({
           )}
         </div>
 
-        {/* RIGHT (col-span-5): COMPACT STACKED WIDGETS */}
+        {/* RIGHT: COMPACT STACKED WIDGETS */}
         <div
+          className="telemetry-col-right"
           style={{
-            gridColumn: "span 5",
             display: "flex",
             flexDirection: "column",
             gap: "12px",
           }}
-          className="col-span-12 lg:col-span-5"
         >
           {/* WIDGET 1: AUDIENCE LOCATIONS (Top 5) */}
           <div
@@ -1061,7 +1031,7 @@ export default function GA4OverviewDashboard({
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                <Globe size={15} color="#059669" />
+                <Globe size={15} color="#0f2942" />
                 <h4 style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a", margin: 0 }}>
                   Audience Locations
                 </h4>
@@ -1103,7 +1073,7 @@ export default function GA4OverviewDashboard({
                 .map((loc, idx) => (
                   <div key={idx} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "12px" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                      <MapPin size={12} color="#d97706" />
+                      <MapPin size={12} color="#475569" />
                       <span style={{ fontWeight: 600, color: "#0f172a" }}>{loc.name}</span>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -1129,7 +1099,7 @@ export default function GA4OverviewDashboard({
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                <Monitor size={15} color="#2563eb" />
+                <Monitor size={15} color="#0f2942" />
                 <h4 style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a", margin: 0 }}>
                   Device &amp; Platform Distribution
                 </h4>
@@ -1145,16 +1115,16 @@ export default function GA4OverviewDashboard({
                 <Monitor size={12} color="#0f172a" />
                 <span>Desktop: {ga4.devices.desktop.percent}% ({ga4.devices.desktop.count})</span>
               </div>
-              <div style={{ display: "flex", alignItems: "center", gap: "5px", color: "#d97706", fontWeight: 600 }}>
-                <Smartphone size={12} color="#d97706" />
+              <div style={{ display: "flex", alignItems: "center", gap: "5px", color: "#64748b", fontWeight: 600 }}>
+                <Smartphone size={12} color="#64748b" />
                 <span>Mobile: {ga4.devices.mobile.percent}% ({ga4.devices.mobile.count})</span>
               </div>
             </div>
 
-            {/* Single Compact Segmented Bar */}
+            {/* Single Compact Segmented Bar: Desktop #0f2942, Mobile #94a3b8 */}
             <div style={{ width: "100%", height: "6px", background: "#f1f5f9", borderRadius: "999px", overflow: "hidden", display: "flex" }}>
-              <div style={{ width: `${ga4.devices.desktop.percent}%`, height: "100%", background: "#0f172a" }} />
-              <div style={{ width: `${ga4.devices.mobile.percent}%`, height: "100%", background: "#d97706" }} />
+              <div style={{ width: `${ga4.devices.desktop.percent}%`, height: "100%", background: "#0f2942" }} />
+              <div style={{ width: `${ga4.devices.mobile.percent}%`, height: "100%", background: "#94a3b8" }} />
             </div>
           </div>
 
@@ -1170,7 +1140,7 @@ export default function GA4OverviewDashboard({
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                <Share2 size={15} color="#d97706" />
+                <Share2 size={15} color="#0f2942" />
                 <h4 style={{ fontSize: "13px", fontWeight: 700, color: "#0f172a", margin: 0 }}>
                   Traffic Acquisition &amp; Sources
                 </h4>
@@ -1184,7 +1154,7 @@ export default function GA4OverviewDashboard({
               {mergedAcquisition.map((ch, idx) => (
                 <div key={idx} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "12px" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                    <div style={{ width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <div style={{ width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center", color: "#0f2942" }}>
                       {ch.icon}
                     </div>
                     <div>
@@ -1198,11 +1168,11 @@ export default function GA4OverviewDashboard({
                   <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                     <span
                       style={{
-                        background: "#ecfdf5",
-                        color: "#047857",
+                        background: "#f1f5f9",
+                        color: "#1e293b",
                         fontSize: "10px",
-                        fontWeight: 700,
-                        padding: "1px 5px",
+                        fontWeight: 600,
+                        padding: "1px 6px",
                         borderRadius: "4px",
                       }}
                     >

@@ -751,7 +751,7 @@ export default function AdminDashboardPage() {
                 <div style={{ fontSize: "16px", fontWeight: 800, color: "#123968", letterSpacing: "-0.3px" }}>
                   T &amp; N Designs
                 </div>
-                <div style={{ fontSize: "11px", fontWeight: 700, color: "#059669", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                <div style={{ fontSize: "11px", fontWeight: 700, color: "#0f2942", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                   ● Admin Control Panel
                 </div>
               </div>
@@ -962,8 +962,8 @@ export default function AdminDashboardPage() {
                   fontSize: "10px",
                   padding: "2px 6px",
                   borderRadius: "999px",
-                  background: "#dcfce7",
-                  color: "#166534",
+                  background: "#f1f5f9",
+                  color: "#0f2942",
                   fontWeight: 700,
                 }}
               >
@@ -1071,7 +1071,7 @@ export default function AdminDashboardPage() {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <span style={{ width: "9px", height: "9px", borderRadius: "50%", background: "#10b981", display: "inline-block" }} />
+            <span style={{ width: "9px", height: "9px", borderRadius: "50%", background: "#0f2942", display: "inline-block" }} />
             <span style={{ fontSize: "13px", fontWeight: 700, color: "#123968" }}>
               Verified: <strong style={{ color: "#0284c7" }}>{currentUser.email}</strong>
             </span>
@@ -2697,7 +2697,7 @@ export default function AdminDashboardPage() {
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "20px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                <div style={{ width: "42px", height: "42px", borderRadius: "10px", background: "#fef3c7", display: "flex", alignItems: "center", justifyContent: "center", color: "#d97706" }}>
+                <div style={{ width: "42px", height: "42px", borderRadius: "10px", background: "#f1f5f9", display: "flex", alignItems: "center", justifyContent: "center", color: "#0f2942" }}>
                   <TrendingUp size={22} />
                 </div>
                 <div>
