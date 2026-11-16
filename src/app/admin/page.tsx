@@ -56,6 +56,7 @@ import { trackEvent } from "@/lib/analytics";
 import PostHogAnalyticsDashboard from "@/components/admin/PostHogAnalyticsDashboard";
 import GA4OverviewDashboard from "@/components/admin/GA4OverviewDashboard";
 import RichTextEditor from "@/components/admin/RichTextEditor";
+import AdminAICopilot from "@/components/admin/AdminAICopilot";
 
 interface UserProfile {
   id: string;
@@ -161,7 +162,7 @@ export default function AdminDashboardPage() {
   const router = useRouter();
   // Initialize with verified owner profile so tabs and data are never blank
   const [currentUser, setCurrentUser] = useState<UserProfile>(DEFAULT_OWNER_PROFILE);
-  const [activeTab, setActiveTab] = useState<"overview" | "leads" | "projects" | "blog" | "users" | "analytics">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "leads" | "projects" | "blog" | "users" | "analytics" | "copilot">("overview");
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
@@ -970,6 +971,42 @@ export default function AdminDashboardPage() {
                 LIVE
               </span>
             </button>
+
+            <button
+              onClick={() => { setActiveTab("copilot"); setMobileSidebarOpen(false); }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                padding: "11px 16px",
+                borderRadius: "10px",
+                border: "none",
+                background: activeTab === "copilot" ? "#123968" : "transparent",
+                color: activeTab === "copilot" ? "#ffffff" : "#475569",
+                fontSize: "14px",
+                fontWeight: activeTab === "copilot" ? 700 : 500,
+                cursor: "pointer",
+                textAlign: "left",
+                transition: "all 0.15s ease",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <Sparkles size={18} />
+                <span>AI Copilot</span>
+              </div>
+              <span
+                style={{
+                  fontSize: "10px",
+                  padding: "2px 6px",
+                  borderRadius: "999px",
+                  background: activeTab === "copilot" ? "rgba(255,255,255,0.2)" : "#f1f5f9",
+                  color: activeTab === "copilot" ? "#ffffff" : "#0f2942",
+                  fontWeight: 700,
+                }}
+              >
+                SMART
+              </span>
+            </button>
           </nav>
         </div>
 
@@ -1189,6 +1226,26 @@ export default function AdminDashboardPage() {
                 >
                   <TrendingUp size={15} /> Deep Analytics &amp; GEO
                 </button>
+
+                <button
+                  onClick={() => setActiveTab("copilot")}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "6px",
+                    background: "#ffffff",
+                    color: "#0f2942",
+                    border: "1px solid #cbd5e1",
+                    padding: "7px 14px",
+                    borderRadius: "8px",
+                    fontSize: "13px",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    transition: "all 0.15s ease",
+                  }}
+                >
+                  <Sparkles size={14} color="#0f2942" /> Ask Copilot
+                </button>
               </div>
             </div>
 
@@ -1266,6 +1323,15 @@ export default function AdminDashboardPage() {
                   title="Export filtered inquiries to CSV spreadsheet"
                 >
                   <Download size={15} /> Export CSV
+                </button>
+
+                <button
+                  onClick={() => setActiveTab("copilot")}
+                  className="btn-secondary"
+                  style={{ padding: "8px 14px", fontSize: "13px", display: "inline-flex", alignItems: "center", gap: "6px", fontWeight: 700 }}
+                  title="Analyze inquiries with AI Copilot"
+                >
+                  <Sparkles size={14} color="#0f2942" /> Ask Copilot
                 </button>
               </div>
             </div>
@@ -2143,6 +2209,34 @@ export default function AdminDashboardPage() {
             </div>
             <PostHogAnalyticsDashboard />
           </div>
+        )}
+
+        {/* TAB 7: AI INTELLIGENCE COPILOT */}
+        {activeTab === "copilot" && (
+          <AdminAICopilot
+            inquiries={inquiries}
+            projects={projects}
+            posts={posts}
+            stats={stats}
+            analytics={overviewAnalytics?.ga4 || null}
+            onNavigateTab={(tab, filter) => {
+              if (filter) setLeadStatusFilter(filter);
+              setActiveTab(tab as any);
+            }}
+            onOpenBlogEditor={(draft) => {
+              setCurrentPost({
+                title: draft.title,
+                excerpt: draft.excerpt,
+                content: draft.content,
+                readTime: 6,
+                tags: ["Next.js 15", "Wix Migration", "Architecture"],
+                published: true,
+              });
+              setPostPublishMode("immediate");
+              setScheduledDateTime("");
+              setPostModalOpen(true);
+            }}
+          />
         )}
         </main>
       </div>
