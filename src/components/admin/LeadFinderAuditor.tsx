@@ -1,26 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Search,
-  Globe,
-  Phone,
-  ShieldCheck,
-  ShieldAlert,
-  Smartphone,
-  AlertTriangle,
-  CheckCircle2,
-  ExternalLink,
-  Layers,
-  ArrowRight,
-  Sparkles,
-  Loader2,
-  MapPin,
-  Clock,
-  Send,
-  Zap,
-  Share2,
-} from "lucide-react";
+import { Search, Loader2 } from "lucide-react";
 
 interface LeadFinderProps {
   onNavigateTab: (tab: string, filter?: string) => void;
@@ -62,20 +43,20 @@ export interface BusinessLead {
 }
 
 export const COUNTRIES = [
-  { code: "US", name: "United States", dial: "+1", flag: "🇺🇸" },
-  { code: "GB", name: "United Kingdom", dial: "+44", flag: "🇬🇧" },
-  { code: "PK", name: "Pakistan", dial: "+92", flag: "🇵🇰" },
-  { code: "CA", name: "Canada", dial: "+1", flag: "🇨🇦" },
-  { code: "AU", name: "Australia", dial: "+61", flag: "🇦🇺" },
-  { code: "AE", name: "UAE (Dubai / Abu Dhabi)", dial: "+971", flag: "🇦🇪" },
-  { code: "SA", name: "Saudi Arabia", dial: "+966", flag: "🇸🇦" },
-  { code: "DE", name: "Germany", dial: "+49", flag: "🇩🇪" },
-  { code: "FR", name: "France", dial: "+33", flag: "🇫🇷" },
-  { code: "IN", name: "India", dial: "+91", flag: "🇮🇳" },
-  { code: "SG", name: "Singapore", dial: "+65", flag: "🇸🇬" },
-  { code: "IE", name: "Ireland", dial: "+353", flag: "🇮🇪" },
-  { code: "NZ", name: "New Zealand", dial: "+64", flag: "🇳🇿" },
-  { code: "OTHER", name: "International / Other", dial: "+", flag: "🌐" },
+  { code: "US", name: "United States", dial: "+1" },
+  { code: "GB", name: "United Kingdom", dial: "+44" },
+  { code: "PK", name: "Pakistan", dial: "+92" },
+  { code: "CA", name: "Canada", dial: "+1" },
+  { code: "AU", name: "Australia", dial: "+61" },
+  { code: "AE", name: "UAE (Dubai / Abu Dhabi)", dial: "+971" },
+  { code: "SA", name: "Saudi Arabia", dial: "+966" },
+  { code: "DE", name: "Germany", dial: "+49" },
+  { code: "FR", name: "France", dial: "+33" },
+  { code: "IN", name: "India", dial: "+91" },
+  { code: "SG", name: "Singapore", dial: "+65" },
+  { code: "IE", name: "Ireland", dial: "+353" },
+  { code: "NZ", name: "New Zealand", dial: "+64" },
+  { code: "OTHER", name: "International / Other", dial: "+" },
 ];
 
 const NICHES = [
@@ -91,7 +72,7 @@ const NICHES = [
   { value: "accountant", label: "Accounting & CPAs" },
   { value: "restaurant", label: "Restaurants & Dining" },
   { value: "hvac", label: "HVAC & Cooling" },
-  { value: "other", label: "✨ Other / Custom Industry..." },
+  { value: "other", label: "Other / Custom Industry..." },
 ];
 
 const POPULAR_CITIES = [
@@ -105,6 +86,34 @@ const POPULAR_CITIES = [
   { name: "Dubai", country: "AE" },
   { name: "Toronto", country: "CA" },
 ];
+
+// Clean, deduplicate and limit to at most 3 concise chips
+function getCleanDeduplicatedIssues(rawIssues: string[]): string[] {
+  const seen = new Set<string>();
+  const result: string[] = [];
+
+  for (const raw of rawIssues || []) {
+    let clean = raw.trim();
+    if (/ssl/i.test(clean)) clean = "No SSL";
+    else if (/viewport|mobile/i.test(clean)) clean = "No Mobile Viewport";
+    else if (/ttfb|latency|slow/i.test(clean)) clean = "Slow TTFB >2s";
+    else if (/wordpress/i.test(clean)) clean = "Outdated WordPress";
+    else if (/wix/i.test(clean)) clean = "Wix Builder";
+    else if (/squarespace/i.test(clean)) clean = "Squarespace";
+    else if (/no website/i.test(clean)) clean = "Missing Website";
+    else if (/meta|description/i.test(clean)) clean = "Missing SEO Meta";
+    else if (/schema/i.test(clean)) clean = "Missing Schema.org";
+    else if (/cwv|vitals/i.test(clean)) clean = "Poor Core Web Vitals";
+
+    if (!seen.has(clean)) {
+      seen.add(clean);
+      result.push(clean);
+    }
+    if (result.length >= 3) break;
+  }
+
+  return result.length > 0 ? result : ["Standard Architecture"];
+}
 
 export default function LeadFinderAuditor({ onNavigateTab, onRefreshLeads }: LeadFinderProps) {
   const [selectedNiche, setSelectedNiche] = useState("plumber");
@@ -126,12 +135,11 @@ export default function LeadFinderAuditor({ onNavigateTab, onRefreshLeads }: Lea
     const targetCountryCode = countryOverride || selectedCountry;
     const countryData = COUNTRIES.find((c) => c.code === targetCountryCode) || currentCountryObj;
 
-    // Resolve effective niche
     let effectiveNiche = nicheOverride || selectedNiche;
     if (effectiveNiche === "other") {
       effectiveNiche = customNicheInput.trim();
       if (!effectiveNiche) {
-        setErrorMsg("Please enter your custom industry or business niche (e.g. Gyms, Auto Detailing, Pet Care).");
+        setErrorMsg("Please enter a custom industry or niche name.");
         return;
       }
     }
@@ -160,7 +168,7 @@ export default function LeadFinderAuditor({ onNavigateTab, onRefreshLeads }: Lea
       const data = await res.json();
       if (res.ok && data.success) {
         setLeads(data.leads || []);
-        setActiveDataSource(data.dataSource || "OpenStreetMap / Commercial Index");
+        setActiveDataSource(data.dataSource || "Commercial Business Directory");
         if (data.message && data.leads.length === 0) {
           setErrorMsg(data.message);
         }
@@ -178,13 +186,16 @@ export default function LeadFinderAuditor({ onNavigateTab, onRefreshLeads }: Lea
     setSavingLeadId(lead.id);
 
     try {
-      const socialLines = lead.socials && Object.keys(lead.socials).length > 0
-        ? Object.entries(lead.socials).map(([k, v]) => `  - ${k}: ${v}`).join("\n")
-        : "  - None detected (Opportunity to pitch brand presence)";
+      const socialLines =
+        lead.socials && Object.keys(lead.socials).length > 0
+          ? Object.entries(lead.socials)
+              .map(([k, v]) => `  - ${k}: ${v}`)
+              .join("\n")
+          : "  - None detected";
 
       const auditSummary = `
 Technical Audit Findings for ${lead.name}:
-- Website: ${lead.website || "None (Critical Redesign Need)"}
+- Website: ${lead.website || "None"}
 - Phone: ${lead.phone || "N/A"}
 - Location: ${lead.address} (${lead.city}, ${lead.country || selectedCountry})
 - SSL Security: ${lead.audit.hasSSL ? "Valid HTTPS" : "Insecure (Missing SSL)"}
@@ -236,36 +247,36 @@ ${socialLines}
       <div
         style={{
           background: "#ffffff",
-          borderRadius: "14px",
+          borderRadius: "12px",
           border: "1px solid #e2e8f0",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.03)",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.02)",
           padding: "20px 24px",
         }}
       >
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "12px", marginBottom: "16px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "12px", marginBottom: "18px" }}>
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <h1 style={{ fontSize: "20px", fontWeight: 800, color: "#0f172a", margin: 0 }}>
+              <h1 style={{ fontSize: "19px", fontWeight: 700, color: "#0f172a", margin: 0, letterSpacing: "-0.01em" }}>
                 Lead Finder &amp; Technical Website Auditor
               </h1>
               <span
                 style={{
                   fontSize: "10px",
-                  fontWeight: 700,
-                  background: activeDataSource ? "#f0fdf4" : "#f1f5f9",
-                  color: activeDataSource ? "#166534" : "#0f2942",
-                  padding: "2px 8px",
+                  fontWeight: 600,
+                  background: "#f1f5f9",
+                  color: "#0f172a",
+                  padding: "3px 8px",
                   borderRadius: "999px",
                   textTransform: "uppercase",
-                  letterSpacing: "0.05em",
-                  border: activeDataSource ? "1px solid #bbf7d0" : "1px solid #e2e8f0",
+                  letterSpacing: "0.04em",
+                  border: "1px solid #e2e8f0",
                 }}
               >
-                {activeDataSource || "Live Search Engine"}
+                {activeDataSource || "Commercial Business Directory"}
               </span>
             </div>
             <p style={{ color: "#64748b", fontSize: "13px", margin: "4px 0 0 0" }}>
-              Find commercial businesses in any country or city, scrape social handles, and run automated server-side technical audits to identify high-value redesign opportunities.
+              Locate commercial businesses across global regions and execute server-side technical audits to identify high-conviction redesign prospects.
             </p>
           </div>
         </div>
@@ -274,14 +285,14 @@ ${socialLines}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr)) 180px",
+            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr)) 160px",
             gap: "12px",
             alignItems: "end",
           }}
         >
           {/* Niche Selector */}
           <div>
-            <label style={{ display: "block", fontSize: "12px", fontWeight: 700, color: "#334155", marginBottom: "6px" }}>
+            <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#334155", marginBottom: "6px" }}>
               Target Business Niche
             </label>
             <select
@@ -293,9 +304,9 @@ ${socialLines}
                 borderRadius: "8px",
                 border: "1px solid #cbd5e1",
                 fontSize: "13px",
-                fontWeight: 600,
-                color: selectedNiche === "other" ? "#0f2942" : "#0f172a",
-                background: selectedNiche === "other" ? "#f8fafc" : "#ffffff",
+                fontWeight: 500,
+                color: "#0f172a",
+                background: "#ffffff",
                 outline: "none",
                 cursor: "pointer",
               }}
@@ -310,7 +321,7 @@ ${socialLines}
 
           {/* Country & Dial Code Selector */}
           <div>
-            <label style={{ display: "block", fontSize: "12px", fontWeight: 700, color: "#334155", marginBottom: "6px" }}>
+            <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#334155", marginBottom: "6px" }}>
               Country / Dial Code
             </label>
             <select
@@ -322,7 +333,7 @@ ${socialLines}
                 borderRadius: "8px",
                 border: "1px solid #cbd5e1",
                 fontSize: "13px",
-                fontWeight: 600,
+                fontWeight: 500,
                 color: "#0f172a",
                 background: "#ffffff",
                 outline: "none",
@@ -331,7 +342,7 @@ ${socialLines}
             >
               {COUNTRIES.map((c) => (
                 <option key={c.code} value={c.code}>
-                  {c.flag} {c.name} ({c.dial})
+                  {c.name} ({c.dial})
                 </option>
               ))}
             </select>
@@ -339,29 +350,26 @@ ${socialLines}
 
           {/* City / Location Input */}
           <div>
-            <label style={{ display: "block", fontSize: "12px", fontWeight: 700, color: "#334155", marginBottom: "6px" }}>
+            <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#334155", marginBottom: "6px" }}>
               City or Metropolitan Region
             </label>
-            <div style={{ position: "relative" }}>
-              <input
-                type="text"
-                value={cityInput}
-                onChange={(e) => setCityInput(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                placeholder="e.g. Austin, Miami, London, Lahore..."
-                style={{
-                  width: "100%",
-                  padding: "9px 12px 9px 34px",
-                  borderRadius: "8px",
-                  border: "1px solid #cbd5e1",
-                  fontSize: "13px",
-                  color: "#0f172a",
-                  background: "#ffffff",
-                  outline: "none",
-                }}
-              />
-              <MapPin size={15} color="#94a3b8" style={{ position: "absolute", left: "10px", top: "11px" }} />
-            </div>
+            <input
+              type="text"
+              value={cityInput}
+              onChange={(e) => setCityInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+              placeholder="e.g. Austin, Miami, London..."
+              style={{
+                width: "100%",
+                padding: "9px 12px",
+                borderRadius: "8px",
+                border: "1px solid #cbd5e1",
+                fontSize: "13px",
+                color: "#0f172a",
+                background: "#ffffff",
+                outline: "none",
+              }}
+            />
           </div>
 
           {/* Search Button */}
@@ -373,79 +381,60 @@ ${socialLines}
               color: "#ffffff",
               border: "none",
               borderRadius: "8px",
-              padding: "10px 18px",
+              padding: "10px 16px",
               fontSize: "13px",
-              fontWeight: 700,
+              fontWeight: 600,
               cursor: loading ? "not-allowed" : "pointer",
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
               gap: "6px",
-              opacity: loading ? 0.7 : 1,
-              height: "40px",
-              transition: "all 0.15s ease",
+              opacity: loading ? 0.75 : 1,
+              height: "38px",
+              transition: "background 0.15s ease",
             }}
           >
             {loading ? (
               <>
-                <Loader2 size={15} className="animate-spin" /> Scraping &amp; Auditing...
+                <Loader2 size={14} className="animate-spin" /> Searching...
               </>
             ) : (
-              <>
-                <Search size={15} /> Find &amp; Audit Leads
-              </>
+              "Find & Audit Leads"
             )}
           </button>
         </div>
 
-        {/* Dynamic Additional Input: When "Other" is selected */}
+        {/* Clean Inline Custom Industry Input (When "Other" is selected) */}
         {selectedNiche === "other" && (
-          <div
-            style={{
-              marginTop: "12px",
-              padding: "12px 16px",
-              background: "#f8fafc",
-              border: "1px dashed #cbd5e1",
-              borderRadius: "10px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "6px",
-            }}
-          >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <label style={{ fontSize: "12px", fontWeight: 700, color: "#0f2942" }}>
-                ✨ Custom Business Industry / Niche
-              </label>
-              <span style={{ fontSize: "11px", color: "#64748b" }}>
-                Type any industry to search &amp; audit
-              </span>
-            </div>
+          <div style={{ marginTop: "12px" }}>
+            <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#334155", marginBottom: "6px" }}>
+              Custom Industry or Niche
+            </label>
             <input
               type="text"
               value={customNicheInput}
               onChange={(e) => setCustomNicheInput(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-              placeholder="e.g. Gyms & Fitness, Auto Detailing, Pet Grooming, Landscaping, Bakeries, Luxury Jewelry, Web3 Agencies..."
+              placeholder="e.g. Gyms & Fitness, Auto Detailing, Pet Grooming, Landscaping, Bakeries..."
               autoFocus
               style={{
                 width: "100%",
                 padding: "9px 12px",
                 borderRadius: "8px",
-                border: "1px solid #94a3b8",
+                border: "1px solid #cbd5e1",
                 fontSize: "13px",
-                fontWeight: 600,
+                fontWeight: 500,
                 color: "#0f172a",
                 background: "#ffffff",
                 outline: "none",
-                boxShadow: "0 1px 2px rgba(0,0,0,0.04)",
               }}
             />
           </div>
         )}
 
-        {/* Quick City Pills with Smart Country Auto-Selection */}
+        {/* Quick Metro Pills (Clean, minimal, no emojis or prefixes) */}
         <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "12px", flexWrap: "wrap" }}>
-          <span style={{ fontSize: "11px", color: "#64748b", fontWeight: 600 }}>Quick metros:</span>
+          <span style={{ fontSize: "11px", color: "#64748b", fontWeight: 500 }}>Quick metros:</span>
           {POPULAR_CITIES.map((c) => (
             <button
               key={c.name}
@@ -456,19 +445,16 @@ ${socialLines}
               }}
               style={{
                 fontSize: "11px",
-                fontWeight: 600,
+                fontWeight: 500,
                 background: "#f1f5f9",
-                color: "#334155",
-                border: "none",
+                color: "#475569",
+                border: "1px solid #e2e8f0",
                 borderRadius: "6px",
                 padding: "3px 8px",
                 cursor: "pointer",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "4px",
+                transition: "all 0.15s ease",
               }}
             >
-              <span>{COUNTRIES.find((cnt) => cnt.code === c.country)?.flag}</span>
               {c.name}
             </button>
           ))}
@@ -485,13 +471,9 @@ ${socialLines}
               border: "1px solid #fee2e2",
               color: "#991b1b",
               fontSize: "13px",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
             }}
           >
-            <AlertTriangle size={15} />
-            <span>{errorMsg}</span>
+            {errorMsg}
           </div>
         )}
       </div>
@@ -509,19 +491,18 @@ ${socialLines}
             style={{
               background: "#ffffff",
               padding: "14px 18px",
-              borderRadius: "12px",
+              borderRadius: "10px",
               border: "1px solid #e2e8f0",
-              boxShadow: "0 1px 2px rgba(0,0,0,0.02)",
             }}
           >
-            <div style={{ fontSize: "11px", fontWeight: 700, color: "#64748b", textTransform: "uppercase" }}>
+            <div style={{ fontSize: "11px", fontWeight: 600, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.03em" }}>
               Discovered Leads ({searchedCity})
             </div>
-            <div style={{ fontSize: "22px", fontWeight: 800, color: "#0f172a", marginTop: "4px" }}>
+            <div style={{ fontSize: "22px", fontWeight: 700, color: "#0f172a", marginTop: "4px" }}>
               {totalLeads}
             </div>
             <div style={{ fontSize: "11px", color: "#64748b", marginTop: "2px" }}>
-              Region: {currentCountryObj.flag} {currentCountryObj.dial}
+              {currentCountryObj.name} ({currentCountryObj.dial})
             </div>
           </div>
 
@@ -529,19 +510,18 @@ ${socialLines}
             style={{
               background: "#ffffff",
               padding: "14px 18px",
-              borderRadius: "12px",
+              borderRadius: "10px",
               border: "1px solid #e2e8f0",
-              boxShadow: "0 1px 2px rgba(0,0,0,0.02)",
             }}
           >
-            <div style={{ fontSize: "11px", fontWeight: 700, color: "#64748b", textTransform: "uppercase" }}>
+            <div style={{ fontSize: "11px", fontWeight: 600, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.03em" }}>
               High-Value Prospects
             </div>
-            <div style={{ fontSize: "22px", fontWeight: 800, color: "#0f172a", marginTop: "4px" }}>
+            <div style={{ fontSize: "22px", fontWeight: 700, color: "#0f172a", marginTop: "4px" }}>
               {criticalCount}
             </div>
             <div style={{ fontSize: "11px", color: "#64748b", marginTop: "2px" }}>
-              &gt;65% need redesign
+              Over 65% redesign need
             </div>
           </div>
 
@@ -549,19 +529,18 @@ ${socialLines}
             style={{
               background: "#ffffff",
               padding: "14px 18px",
-              borderRadius: "12px",
+              borderRadius: "10px",
               border: "1px solid #e2e8f0",
-              boxShadow: "0 1px 2px rgba(0,0,0,0.02)",
             }}
           >
-            <div style={{ fontSize: "11px", fontWeight: 700, color: "#64748b", textTransform: "uppercase" }}>
+            <div style={{ fontSize: "11px", fontWeight: 600, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.03em" }}>
               Security Vulnerability
             </div>
-            <div style={{ fontSize: "22px", fontWeight: 800, color: "#0f172a", marginTop: "4px" }}>
+            <div style={{ fontSize: "22px", fontWeight: 700, color: "#0f172a", marginTop: "4px" }}>
               {noSSLCount}
             </div>
             <div style={{ fontSize: "11px", color: "#64748b", marginTop: "2px" }}>
-              Missing HTTPS / Insecure
+              Insecure HTTP protocol
             </div>
           </div>
 
@@ -569,25 +548,24 @@ ${socialLines}
             style={{
               background: "#ffffff",
               padding: "14px 18px",
-              borderRadius: "12px",
+              borderRadius: "10px",
               border: "1px solid #e2e8f0",
-              boxShadow: "0 1px 2px rgba(0,0,0,0.02)",
             }}
           >
-            <div style={{ fontSize: "11px", fontWeight: 700, color: "#64748b", textTransform: "uppercase" }}>
+            <div style={{ fontSize: "11px", fontWeight: 600, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.03em" }}>
               Mobile Responsiveness
             </div>
-            <div style={{ fontSize: "22px", fontWeight: 800, color: "#0f172a", marginTop: "4px" }}>
+            <div style={{ fontSize: "22px", fontWeight: 700, color: "#0f172a", marginTop: "4px" }}>
               {brokenMobileCount}
             </div>
             <div style={{ fontSize: "11px", color: "#64748b", marginTop: "2px" }}>
-              Missing viewport tags
+              Missing viewport tag
             </div>
           </div>
         </div>
       )}
 
-      {/* 3. LEADS AUDIT GRID */}
+      {/* 3. MINIMAL BENTO LEADS AUDIT GRID */}
       {leads.length > 0 && (
         <div
           style={{
@@ -599,30 +577,31 @@ ${socialLines}
           {leads.map((lead) => {
             const isSaved = savedLeadIds[lead.id];
             const isSaving = savingLeadId === lead.id;
+            const cleanTags = getCleanDeduplicatedIssues(lead.audit.issues);
 
             return (
               <div
                 key={lead.id}
                 style={{
                   background: "#ffffff",
-                  borderRadius: "14px",
+                  borderRadius: "12px",
                   border: "1px solid #e2e8f0",
                   padding: "18px 20px",
-                  boxShadow: "0 1px 3px rgba(0,0,0,0.03)",
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.02)",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
-                  gap: "14px",
+                  gap: "12px",
                 }}
               >
                 <div>
-                  {/* Card Header: Name, Score Pill */}
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px", marginBottom: "8px" }}>
+                  {/* Card Header: Business Name & Need Score */}
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px", marginBottom: "6px" }}>
                     <div style={{ minWidth: 0 }}>
                       <h3
                         style={{
                           fontSize: "15px",
-                          fontWeight: 800,
+                          fontWeight: 700,
                           color: "#0f172a",
                           margin: 0,
                           overflow: "hidden",
@@ -633,8 +612,8 @@ ${socialLines}
                       >
                         {lead.name}
                       </h3>
-                      <div style={{ fontSize: "12px", color: "#64748b", display: "flex", alignItems: "center", gap: "4px", marginTop: "2px" }}>
-                        <MapPin size={11} /> {lead.address}
+                      <div style={{ fontSize: "12px", color: "#64748b", marginTop: "2px" }}>
+                        {lead.address}
                       </div>
                     </div>
 
@@ -644,230 +623,213 @@ ${socialLines}
                         padding: "3px 8px",
                         borderRadius: "999px",
                         fontSize: "11px",
-                        fontWeight: 700,
+                        fontWeight: 600,
                         background: lead.audit.opportunityScore >= 65 ? "#0f172a" : "#f1f5f9",
                         color: lead.audit.opportunityScore >= 65 ? "#ffffff" : "#0f172a",
                         textAlign: "right",
                         flexShrink: 0,
+                        letterSpacing: "0.02em",
                       }}
-                      title="Redesign Opportunity Score"
                     >
                       {lead.audit.opportunityScore}% Need
                     </div>
                   </div>
 
-                  {/* Contact Links: Website & International Phone */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: "5px", margin: "10px 0 6px 0" }}>
+                  {/* Contact Details: Clean Typographic Domain & Phone */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "3px", margin: "8px 0 10px 0" }}>
                     {lead.website ? (
                       <a
                         href={lead.website}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "5px",
                           fontSize: "12px",
                           color: "#0f2942",
-                          fontWeight: 700,
+                          fontWeight: 600,
                           textDecoration: "none",
                           overflow: "hidden",
                           textOverflow: "ellipsis",
                           whiteSpace: "nowrap",
                         }}
                       >
-                        <Globe size={13} /> {lead.website.replace(/^https?:\/\//, "").replace(/\/$/, "")} <ExternalLink size={11} />
+                        {lead.website.replace(/^https?:\/\//, "").replace(/\/$/, "")} ↗
                       </a>
                     ) : (
-                      <span style={{ fontSize: "12px", color: "#94a3b8", display: "flex", alignItems: "center", gap: "5px" }}>
-                        <Globe size={13} /> No Website Registered
+                      <span style={{ fontSize: "12px", color: "#94a3b8" }}>
+                        No Website Registered
                       </span>
                     )}
 
                     {lead.phone && lead.phone !== "N/A" && (
-                      <div style={{ fontSize: "12px", color: "#475569", display: "flex", alignItems: "center", gap: "5px", fontWeight: 600 }}>
-                        <Phone size={12} color="#0f2942" /> {lead.phone}
+                      <div style={{ fontSize: "12px", color: "#475569", fontWeight: 500 }}>
+                        {lead.phone}
                       </div>
                     )}
                   </div>
 
-                  {/* Social Media Handles Row */}
-                  <div style={{ margin: "8px 0 10px 0" }}>
+                  {/* Clean Monochrome Social Links */}
+                  <div style={{ margin: "6px 0 10px 0", fontSize: "12px", minHeight: "18px" }}>
                     {lead.socials && Object.keys(lead.socials).length > 0 ? (
-                      <div style={{ display: "flex", alignItems: "center", gap: "5px", flexWrap: "wrap" }}>
-                        <span style={{ fontSize: "10px", fontWeight: 700, color: "#64748b", textTransform: "uppercase", letterSpacing: "0.04em" }}>
-                          Socials:
-                        </span>
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap", color: "#64748b" }}>
                         {lead.socials.instagram && (
                           <a
                             href={lead.socials.instagram}
                             target="_blank"
                             rel="noopener noreferrer"
-                            style={{
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: "3px",
-                              padding: "2px 7px",
-                              borderRadius: "6px",
-                              background: "#fdf2f8",
-                              color: "#9d174d",
-                              fontSize: "11px",
-                              fontWeight: 700,
-                              textDecoration: "none",
-                              border: "1px solid #fbcfe8",
-                            }}
-                            title="Instagram Profile"
+                            style={{ color: "#475569", textDecoration: "none", fontWeight: 500 }}
                           >
-                            <span>📸</span> Instagram
+                            Instagram ↗
                           </a>
+                        )}
+                        {lead.socials.instagram && (lead.socials.facebook || lead.socials.linkedin || lead.socials.twitter) && (
+                          <span>•</span>
                         )}
                         {lead.socials.facebook && (
                           <a
                             href={lead.socials.facebook}
                             target="_blank"
                             rel="noopener noreferrer"
-                            style={{
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: "3px",
-                              padding: "2px 7px",
-                              borderRadius: "6px",
-                              background: "#eff6ff",
-                              color: "#1e40af",
-                              fontSize: "11px",
-                              fontWeight: 700,
-                              textDecoration: "none",
-                              border: "1px solid #bfdbfe",
-                            }}
-                            title="Facebook Page"
+                            style={{ color: "#475569", textDecoration: "none", fontWeight: 500 }}
                           >
-                            <span>📘</span> Facebook
+                            Facebook ↗
                           </a>
+                        )}
+                        {lead.socials.facebook && (lead.socials.linkedin || lead.socials.twitter) && (
+                          <span>•</span>
                         )}
                         {lead.socials.linkedin && (
                           <a
                             href={lead.socials.linkedin}
                             target="_blank"
                             rel="noopener noreferrer"
-                            style={{
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: "3px",
-                              padding: "2px 7px",
-                              borderRadius: "6px",
-                              background: "#f0fdf4",
-                              color: "#166534",
-                              fontSize: "11px",
-                              fontWeight: 700,
-                              textDecoration: "none",
-                              border: "1px solid #bbf7d0",
-                            }}
-                            title="LinkedIn Company"
+                            style={{ color: "#475569", textDecoration: "none", fontWeight: 500 }}
                           >
-                            <span>💼</span> LinkedIn
+                            LinkedIn ↗
                           </a>
+                        )}
+                        {lead.socials.linkedin && lead.socials.twitter && (
+                          <span>•</span>
                         )}
                         {lead.socials.twitter && (
                           <a
                             href={lead.socials.twitter}
                             target="_blank"
                             rel="noopener noreferrer"
-                            style={{
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: "3px",
-                              padding: "2px 7px",
-                              borderRadius: "6px",
-                              background: "#f8fafc",
-                              color: "#0f172a",
-                              fontSize: "11px",
-                              fontWeight: 700,
-                              textDecoration: "none",
-                              border: "1px solid #e2e8f0",
-                            }}
-                            title="X / Twitter"
+                            style={{ color: "#475569", textDecoration: "none", fontWeight: 500 }}
                           >
-                            <span>🐦</span> X
+                            X ↗
                           </a>
                         )}
                       </div>
                     ) : (
-                      <div style={{ fontSize: "11px", color: "#94a3b8", display: "inline-flex", alignItems: "center", gap: "4px" }}>
-                        <span>⚠️</span> No connected socials detected (Outreach angle)
-                      </div>
+                      <span style={{ fontSize: "11px", color: "#94a3b8" }}>
+                        No public socials detected
+                      </span>
                     )}
                   </div>
 
-                  {/* Technical Audit Matrix */}
+                  {/* Technical Audit Box: Borderless bg-slate-50 with 6px status dots */}
                   <div
                     style={{
                       background: "#f8fafc",
-                      borderRadius: "10px",
+                      borderRadius: "8px",
                       padding: "10px 12px",
-                      border: "1px solid #e2e8f0",
                       display: "grid",
                       gridTemplateColumns: "1fr 1fr",
                       gap: "8px",
                       fontSize: "11px",
                     }}
                   >
+                    {/* SSL Indicator */}
                     <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                      {lead.audit.hasSSL ? (
-                        <ShieldCheck size={14} color="#0f2942" />
-                      ) : (
-                        <ShieldAlert size={14} color="#b91c1c" />
-                      )}
-                      <span style={{ color: lead.audit.hasSSL ? "#0f172a" : "#b91c1c", fontWeight: 600 }}>
-                        {lead.audit.hasSSL ? "SSL Valid 🔒" : "No SSL ⚠️"}
+                      <span
+                        style={{
+                          width: "6px",
+                          height: "6px",
+                          borderRadius: "50%",
+                          background: lead.audit.hasSSL ? "#0f2942" : "#dc2626",
+                          display: "inline-block",
+                          flexShrink: 0,
+                        }}
+                      />
+                      <span style={{ color: lead.audit.hasSSL ? "#0f172a" : "#dc2626", fontWeight: 600 }}>
+                        {lead.audit.hasSSL ? "SSL Valid" : "No SSL"}
                       </span>
                     </div>
 
+                    {/* Mobile Viewport Indicator */}
                     <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                      <Smartphone size={14} color={lead.audit.isMobileResponsive ? "#0f2942" : "#b91c1c"} />
-                      <span style={{ color: lead.audit.isMobileResponsive ? "#0f172a" : "#b91c1c", fontWeight: 600 }}>
-                        {lead.audit.isMobileResponsive ? "Mobile Ready" : "No Viewport ❌"}
+                      <span
+                        style={{
+                          width: "6px",
+                          height: "6px",
+                          borderRadius: "50%",
+                          background: lead.audit.isMobileResponsive ? "#0f2942" : "#dc2626",
+                          display: "inline-block",
+                          flexShrink: 0,
+                        }}
+                      />
+                      <span style={{ color: lead.audit.isMobileResponsive ? "#0f172a" : "#dc2626", fontWeight: 600 }}>
+                        {lead.audit.isMobileResponsive ? "Mobile Ready" : "No Viewport"}
                       </span>
                     </div>
 
+                    {/* CMS Indicator */}
                     <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                      <Layers size={14} color="#64748b" />
-                      <span style={{ color: "#334155", fontWeight: 600 }}>
-                        CMS: {lead.audit.cms}
+                      <span
+                        style={{
+                          width: "6px",
+                          height: "6px",
+                          borderRadius: "50%",
+                          background: "#64748b",
+                          display: "inline-block",
+                          flexShrink: 0,
+                        }}
+                      />
+                      <span style={{ color: "#334155", fontWeight: 500 }}>
+                        {lead.audit.cms}
                       </span>
                     </div>
 
+                    {/* TTFB Speed Indicator */}
                     <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                      <Clock size={14} color="#64748b" />
-                      <span style={{ color: "#334155", fontWeight: 600 }}>
+                      <span
+                        style={{
+                          width: "6px",
+                          height: "6px",
+                          borderRadius: "50%",
+                          background: "#64748b",
+                          display: "inline-block",
+                          flexShrink: 0,
+                        }}
+                      />
+                      <span style={{ color: "#334155", fontWeight: 500 }}>
                         {lead.audit.loadTimeMs ? `${(lead.audit.loadTimeMs / 1000).toFixed(1)}s TTFB` : "Unreachable"}
                       </span>
                     </div>
                   </div>
 
-                  {/* Issues tags */}
-                  {lead.audit.issues.length > 0 && (
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "4px", marginTop: "10px" }}>
-                      {lead.audit.issues.map((iss, i) => (
-                        <span
-                          key={i}
-                          style={{
-                            fontSize: "10px",
-                            padding: "2px 6px",
-                            borderRadius: "4px",
-                            background: "#ffffff",
-                            color: "#475569",
-                            border: "1px solid #e2e8f0",
-                            fontWeight: 500,
-                          }}
-                        >
-                          {iss}
-                        </span>
-                      ))}
-                    </div>
-                  )}
+                  {/* Deduplicated Concise Tags (Max 3 Chips) */}
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "5px", marginTop: "10px" }}>
+                    {cleanTags.map((tag, idx) => (
+                      <span
+                        key={idx}
+                        style={{
+                          fontSize: "11px",
+                          padding: "2px 8px",
+                          borderRadius: "6px",
+                          background: "#f1f5f9",
+                          color: "#334155",
+                          fontWeight: 500,
+                        }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Card Actions: Save to Neon CRM & Pitch with AI */}
+                {/* Card Actions: Solid Navy [Save to CRM] and Minimal Outline [Pitch] */}
                 <div style={{ display: "flex", gap: "8px", paddingTop: "12px", borderTop: "1px solid #f1f5f9" }}>
                   <button
                     onClick={() => handleSaveToCRM(lead)}
@@ -878,15 +840,15 @@ ${socialLines}
                       alignItems: "center",
                       justifyContent: "center",
                       gap: "6px",
-                      padding: "8px 12px",
+                      padding: "8px 14px",
                       borderRadius: "8px",
                       border: "none",
                       background: isSaved ? "#f1f5f9" : "#0f2942",
-                      color: isSaved ? "#166534" : "#ffffff",
+                      color: isSaved ? "#0f172a" : "#ffffff",
                       fontSize: "12px",
-                      fontWeight: 700,
+                      fontWeight: 600,
                       cursor: isSaved || isSaving ? "default" : "pointer",
-                      transition: "all 0.15s ease",
+                      transition: "background 0.15s ease",
                     }}
                   >
                     {isSaving ? (
@@ -894,38 +856,31 @@ ${socialLines}
                         <Loader2 size={13} className="animate-spin" /> Saving...
                       </>
                     ) : isSaved ? (
-                      <>
-                        <CheckCircle2 size={13} color="#166534" /> Saved to CRM
-                      </>
+                      "Saved to CRM"
                     ) : (
-                      <>
-                        <Send size={13} /> Save to CRM
-                      </>
+                      "Save to CRM"
                     )}
                   </button>
 
                   <button
-                    onClick={() => {
-                      onNavigateTab("copilot");
-                    }}
+                    onClick={() => onNavigateTab("copilot")}
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      gap: "4px",
-                      padding: "8px 12px",
+                      padding: "8px 14px",
                       borderRadius: "8px",
                       border: "1px solid #e2e8f0",
                       background: "#ffffff",
                       color: "#0f172a",
                       fontSize: "12px",
-                      fontWeight: 700,
+                      fontWeight: 600,
                       cursor: "pointer",
+                      transition: "border-color 0.15s ease",
                     }}
                     title="Send lead info to AI Copilot for outreach drafting"
                   >
-                    <Sparkles size={13} />
-                    <span>Pitch</span>
+                    Pitch
                   </button>
                 </div>
               </div>
@@ -934,37 +889,37 @@ ${socialLines}
         </div>
       )}
 
-      {/* 4. EMPTY HERO STATE (Before search) */}
+      {/* 4. MINIMAL EMPTY HERO STATE */}
       {leads.length === 0 && !loading && (
         <div
           style={{
             background: "#ffffff",
-            borderRadius: "14px",
+            borderRadius: "12px",
             border: "1px solid #e2e8f0",
-            padding: "50px 24px",
+            padding: "48px 24px",
             textAlign: "center",
           }}
         >
           <div
             style={{
-              width: "48px",
-              height: "48px",
-              borderRadius: "12px",
+              width: "44px",
+              height: "44px",
+              borderRadius: "10px",
               background: "#f1f5f9",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              margin: "0 auto 16px auto",
+              margin: "0 auto 14px auto",
               color: "#0f2942",
             }}
           >
-            <Search size={22} />
+            <Search size={20} />
           </div>
-          <h2 style={{ fontSize: "17px", fontWeight: 800, color: "#0f172a", margin: "0 0 6px 0" }}>
-            Discover Local Businesses, Scrape Socials &amp; Audit Outdated Websites
+          <h2 style={{ fontSize: "16px", fontWeight: 700, color: "#0f172a", margin: "0 0 6px 0" }}>
+            Commercial Lead Discovery &amp; Technical Website Auditor
           </h2>
-          <p style={{ color: "#64748b", fontSize: "13px", maxWidth: "520px", margin: "0 auto 20px auto", lineHeight: 1.5 }}>
-            Select any commercial niche (or type a custom industry), pick a country and city. The scraper locates registered businesses, extracts social handles, and tests their live HTML for SSL, mobile responsiveness, and page performance.
+          <p style={{ color: "#64748b", fontSize: "13px", maxWidth: "480px", margin: "0 auto 18px auto", lineHeight: 1.5 }}>
+            Select any industry or enter a custom niche, choose a country and city to audit local business websites for SSL, mobile responsiveness, CMS stack, and latency flaws.
           </p>
           <button
             onClick={() => handleSearch("Miami", "plumber", "US")}
@@ -973,17 +928,13 @@ ${socialLines}
               color: "#ffffff",
               border: "none",
               borderRadius: "8px",
-              padding: "10px 18px",
+              padding: "9px 16px",
               fontSize: "13px",
-              fontWeight: 700,
+              fontWeight: 600,
               cursor: "pointer",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "6px",
             }}
           >
-            <span>Run Demo Search (Plumbers in Miami)</span>
-            <ArrowRight size={14} />
+            Run Demo Search (Plumbers in Miami)
           </button>
         </div>
       )}
