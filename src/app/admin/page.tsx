@@ -57,6 +57,7 @@ import PostHogAnalyticsDashboard from "@/components/admin/PostHogAnalyticsDashbo
 import GA4OverviewDashboard from "@/components/admin/GA4OverviewDashboard";
 import RichTextEditor from "@/components/admin/RichTextEditor";
 import AdminAICopilot from "@/components/admin/AdminAICopilot";
+import LeadFinderAuditor from "@/components/admin/LeadFinderAuditor";
 
 interface UserProfile {
   id: string;
@@ -162,7 +163,7 @@ export default function AdminDashboardPage() {
   const router = useRouter();
   // Initialize with verified owner profile so tabs and data are never blank
   const [currentUser, setCurrentUser] = useState<UserProfile>(DEFAULT_OWNER_PROFILE);
-  const [activeTab, setActiveTab] = useState<"overview" | "leads" | "projects" | "blog" | "users" | "analytics" | "copilot">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "leads" | "projects" | "blog" | "users" | "analytics" | "copilot" | "lead-finder">("overview");
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
@@ -839,6 +840,45 @@ export default function AdminDashboardPage() {
                 {inquiries.length}
               </span>
             </button>
+
+            {canAccessLeads && (
+              <button
+                onClick={() => { setActiveTab("lead-finder"); setMobileSidebarOpen(false); }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "11px 16px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: activeTab === "lead-finder" ? "#123968" : "transparent",
+                  color: activeTab === "lead-finder" ? "#ffffff" : "#475569",
+                  fontSize: "14px",
+                  fontWeight: activeTab === "lead-finder" ? 700 : 500,
+                  cursor: "pointer",
+                  textAlign: "left",
+                  transition: "all 0.15s ease",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                  <Search size={18} />
+                  <span>Lead Finder</span>
+                </div>
+                <span
+                  style={{
+                    fontSize: "10px",
+                    padding: "2px 7px",
+                    borderRadius: "999px",
+                    background: activeTab === "lead-finder" ? "rgba(255,255,255,0.2)" : "#f1f5f9",
+                    color: activeTab === "lead-finder" ? "#ffffff" : "#123968",
+                    fontWeight: 700,
+                    letterSpacing: "0.04em",
+                  }}
+                >
+                  PROSPECT
+                </span>
+              </button>
+            )}
 
             <button
               onClick={() => { setActiveTab("projects"); setMobileSidebarOpen(false); }}
@@ -2236,6 +2276,17 @@ export default function AdminDashboardPage() {
               setScheduledDateTime("");
               setPostModalOpen(true);
             }}
+          />
+        )}
+
+        {/* TAB 8: LEAD FINDER & TECHNICAL AUDITOR */}
+        {activeTab === "lead-finder" && (
+          <LeadFinderAuditor
+            onNavigateTab={(tab, filter) => {
+              if (filter) setLeadStatusFilter(filter);
+              setActiveTab(tab as any);
+            }}
+            onRefreshLeads={loadDashboardData}
           />
         )}
         </main>

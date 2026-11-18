@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import {
   getAllInquiries,
+  createInquiry,
   updateInquiryStatus,
   deleteInquiryById,
 } from "@/repositories/inquiry.repository";
@@ -19,6 +20,45 @@ export async function GET() {
     return apiSuccess({ inquiries });
   } catch (err: unknown) {
     return handleApiError(err, "Failed to load CRM lead inquiries.");
+  }
+}
+
+export async function POST(req: NextRequest) {
+  try {
+    const currentUser = await getCurrentUser();
+    if (!currentUser || (!currentUser.permissions?.canManageLeads && currentUser.role !== "admin")) {
+      return apiError("Unauthorized to create inquiries.", 403);
+    }
+
+    const body = await req.json();
+    const name = sanitizeString(body.name, 255) || "Lead Prospect";
+    const email = sanitizeString(body.email, 255) || "prospect@lead.local";
+    const phone = sanitizeString(body.phone, 50);
+    const company = sanitizeString(body.company, 255);
+    const projectType = sanitizeString(body.projectType, 100) || "Website Redesign & Modernization";
+    const budgetRange = sanitizeString(body.budgetRange, 100) || "To Be Estimated";
+    const timeline = sanitizeString(body.timeline, 100) || "Immediate";
+    const message = sanitizeString(body.message, 3000) || "Discovered via OpenStreetMap Lead Finder.";
+    const sourceUrl = sanitizeString(body.sourceUrl, 500);
+
+    const result = await createInquiry({
+      id: "",
+      name,
+      email,
+      phone,
+      company,
+      projectType,
+      budgetRange,
+      timeline,
+      message,
+      sourceUrl,
+      status: "new",
+      createdAt: new Date().toISOString(),
+    });
+
+    return apiSuccess({ id: result.id, message: "Prospect saved to Neon CRM successfully." });
+  } catch (err: unknown) {
+    return handleApiError(err, "Failed to save inquiry to CRM.");
   }
 }
 
