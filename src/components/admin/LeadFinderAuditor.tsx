@@ -75,6 +75,7 @@ export default function LeadFinderAuditor({ onNavigateTab, onRefreshLeads }: Lea
   const [savingLeadId, setSavingLeadId] = useState<string | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [searchedCity, setSearchedCity] = useState("");
+  const [activeDataSource, setActiveDataSource] = useState<string | null>(null);
 
   const handleSearch = async (cityOverride?: string, nicheOverride?: string) => {
     const targetCity = cityOverride || cityInput.trim();
@@ -99,6 +100,7 @@ export default function LeadFinderAuditor({ onNavigateTab, onRefreshLeads }: Lea
       const data = await res.json();
       if (res.ok && data.success) {
         setLeads(data.leads || []);
+        setActiveDataSource(data.dataSource || "OpenStreetMap / Commercial Index");
         if (data.message && data.leads.length === 0) {
           setErrorMsg(data.message);
         }
@@ -183,19 +185,20 @@ Technical Audit Findings for ${lead.name}:
                 style={{
                   fontSize: "10px",
                   fontWeight: 700,
-                  background: "#f1f5f9",
-                  color: "#0f2942",
+                  background: activeDataSource ? "#f0fdf4" : "#f1f5f9",
+                  color: activeDataSource ? "#166534" : "#0f2942",
                   padding: "2px 8px",
                   borderRadius: "999px",
                   textTransform: "uppercase",
                   letterSpacing: "0.05em",
+                  border: activeDataSource ? "1px solid #bbf7d0" : "1px solid #e2e8f0",
                 }}
               >
-                100% Free Open-Source API
+                {activeDataSource || "Live Search Engine"}
               </span>
             </div>
             <p style={{ color: "#64748b", fontSize: "13px", margin: "4px 0 0 0" }}>
-              Scrape registered businesses in any global metro via OpenStreetMap Overpass API and run automated server-side technical audits to identify high-value redesign opportunities.
+              Find commercial businesses in any global city and run automated server-side technical audits (SSL, Mobile Viewport, CMS, TTFB speed) to identify high-value redesign opportunities.
             </p>
           </div>
         </div>
