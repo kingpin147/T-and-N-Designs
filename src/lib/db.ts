@@ -286,7 +286,7 @@ export const fetchPostBySlug = cache(async (slug: string): Promise<Post | null> 
  */
 export function revalidateProjectsCache() {
   try {
-    revalidateTag("projects");
+    (revalidateTag as any)("projects", "default");
     revalidatePath("/");
     revalidatePath("/admin");
   } catch (err) {
@@ -296,9 +296,9 @@ export function revalidateProjectsCache() {
 
 export function revalidatePostsCache(slug?: string) {
   try {
-    revalidateTag("posts");
+    (revalidateTag as any)("posts", "default");
     if (slug) {
-      revalidateTag(`post-${slug}`);
+      (revalidateTag as any)(`post-${slug}`, "default");
       revalidatePath(`/blog/${slug}`);
     }
     revalidatePath("/blog");
