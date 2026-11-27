@@ -106,38 +106,48 @@ export async function POST(req: NextRequest) {
     let dataSource = "Commercial Business Directory";
 
     // 1. Layer 1: Firecrawl Cloud API (if FIRECRAWL_API_KEY is configured in Vercel environment)
-    if (process.env.FIRECRAWL_API_KEY) {
+    const firecrawlKey = process.env.FIRECRAWL_API_KEY;
+    if (firecrawlKey) {
       try {
-        const firecrawl = new Firecrawl({ apiKey: process.env.FIRECRAWL_API_KEY });
-        const searchQuery = `${rawNiche} services in ${city} ${countryCode !== "OTHER" ? countryCode : ""}`.trim();
+        const firecrawl = new Firecrawl({ apiKey: firecrawlKey });
+        const searchQuery = `${rawNiche} services in ${city} ${countryCode !== "OTHER" ? countryCode : ""} official website`.trim();
         const searchRes: any = await firecrawl.search(searchQuery, {
-          limit: 10,
-          scrapeOptions: {
-            formats: ["markdown"],
-            onlyMainContent: true,
-          },
+          limit: 14,
         });
 
-        const rawItems = Array.isArray(searchRes?.data)
-          ? searchRes.data
-          : Array.isArray(searchRes?.web)
+        // In Firecrawl v2, web results are grouped under .web
+        const rawItems = Array.isArray(searchRes?.web)
           ? searchRes.web
           : Array.isArray(searchRes?.results)
           ? searchRes.results
           : [];
 
+        const AGGREGATOR_DOMAINS = [
+          "yelp.", "reddit.", "angi.", "forbes.", "expertise.", "yellowpages.",
+          "bbb.org", "tripadvisor.", "facebook.com", "instagram.com", "linkedin.com",
+          "twitter.com", "x.com", "youtube.com", "mapquest.com", "google.", "wikipedia.org", "houzz.com"
+        ];
+
         if (rawItems.length > 0) {
           discovered = rawItems
-            .filter((item: any) => item.url && !item.url.includes("google.com") && !item.url.includes("yelp.com"))
+            .filter((item: any) => {
+              if (!item.url) return false;
+              const lower = item.url.toLowerCase();
+              return !AGGREGATOR_DOMAINS.some((agg) => lower.includes(agg));
+            })
             .map((item: any, idx: number) => {
-              const rawTitle = (item.title || "").split(/[-|–:]/)[0].trim() || `${city} ${rawNiche}`;
-              const textContent = `${item.description || ""} ${item.markdown || ""}`;
+              const fullTitle = item.title || "";
+              // Extract clean company name (strip slogans, phone numbers, and location suffixes)
+              let rawTitle = fullTitle.split(/[-|–:•]/)[0].trim() || `${city} ${rawNiche}`;
+              rawTitle = rawTitle.replace(/\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/g, "").trim();
+
+              const textContent = `${item.title || ""} ${item.description || ""} ${item.markdown || ""}`;
               const phoneMatch = textContent.match(/(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/);
               const phone = phoneMatch ? phoneMatch[0].trim() : `${dialCode} (${CITY_AREA_CODES[city.toLowerCase()] || "512"}) 290-${3800 + idx}`;
 
               return {
                 id: `fc-${idx}-${Math.random().toString(36).substring(7)}`,
-                name: rawTitle,
+                name: rawTitle || `${city} ${rawNiche} Specialists`,
                 website: item.url,
                 phone,
                 address: `${city}, ${countryCode}`,
@@ -326,7 +336,7 @@ export async function POST(req: NextRequest) {
         }
 
         // Run technical audit & social handle extraction against live website
-        const { audit, socials: extractedSocials } = await auditTargetWebsite(lead.website);
+        const { audit, socials: extractedSocials, extractedPhone } = await auditTargetWebsite(lead.website);
 
         // Merge any found socials
         const mergedSocials = {
@@ -336,6 +346,7 @@ export async function POST(req: NextRequest) {
 
         return {
           ...lead,
+          phone: extractedPhone || lead.phone,
           socials: Object.keys(mergedSocials).length > 0 ? mergedSocials : undefined,
           audit,
         };
@@ -583,7 +594,7 @@ function generateIntelligentProspects(
 // Fast Server-Side Technical Auditor Function & Social Media Scraper
 async function auditTargetWebsite(
   targetUrl: string
-): Promise<{ audit: LeadAudit; socials: SocialHandles }> {
+): Promise<{ audit: LeadAudit; socials: SocialHandles; extractedPhone?: string }> {
   const issues: string[] = [];
   const hasSSL = targetUrl.startsWith("https://");
   let isMobileResponsive = true;
@@ -593,6 +604,7 @@ async function auditTargetWebsite(
   let hasMetaDescription = false;
   let opportunityScore = 20; // baseline
   const socials: SocialHandles = {};
+  let extractedPhone: string | undefined = undefined;
 
   if (!hasSSL) {
     issues.push("Missing SSL Certificate (Insecure HTTP)");
@@ -614,6 +626,15 @@ async function auditTargetWebsite(
     loadTimeMs = Date.now() - startTime;
     const html = await res.text();
     const lowerHtml = html.toLowerCase();
+
+    // Extract official business phone from tel: links if present
+    const telMatch = html.match(/href=["']tel:([^"']+)["']/i);
+    if (telMatch && telMatch[1]) {
+      const cleanTel = telMatch[1].replace(/[^\d+()-\s]/g, "").trim();
+      if (cleanTel.length >= 7) {
+        extractedPhone = cleanTel;
+      }
+    }
 
     // 1. Social Handles Extraction from live HTML
     // Instagram
@@ -724,5 +745,6 @@ async function auditTargetWebsite(
       issues: issues.length > 0 ? issues : ["Modern / Responsive"],
     },
     socials,
+    extractedPhone,
   };
 }
