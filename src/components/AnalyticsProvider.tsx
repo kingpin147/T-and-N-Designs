@@ -37,21 +37,44 @@ function PageViewTracker() {
 
   useEffect(() => {
     const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : "");
+    const isExtensionRoute = pathname.startsWith("/extension") || pathname.startsWith("/localsop");
+    const extensionName = pathname.includes("localsop") ? "LocalSOP" : "Auto Fill Form";
 
     // Track real pageview across DB and analytics tools
     trackEvent("$pageview", {
       $current_url: url,
       title: typeof document !== "undefined" ? document.title : "",
+      ...(isExtensionRoute
+        ? {
+            is_extension: true,
+            extension_name: extensionName,
+            traffic_channel: "chrome_extension",
+          }
+        : {}),
     });
 
     // Track in Google Analytics 4
     if (typeof (window as any).gtag === "function") {
       (window as any).gtag("config", GA_MEASUREMENT_ID, {
         page_path: url,
+        ...(isExtensionRoute
+          ? {
+              campaign_source: "chrome_extension",
+              campaign_medium: "extension",
+              campaign_name: extensionName,
+            }
+          : {}),
       });
       (window as any).gtag("config", GOOGLE_ADS_ID, {
         page_path: url,
       });
+
+      if (isExtensionRoute) {
+        (window as any).gtag("event", "extension_visit", {
+          extension_name: extensionName,
+          page_path: pathname,
+        });
+      }
     }
   }, [pathname, searchParams]);
 

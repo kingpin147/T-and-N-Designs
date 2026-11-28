@@ -411,6 +411,8 @@ export async function GET(request: Request) {
       const count = parseInt(s.sessions || "0", 10);
       let type = "Direct";
       if (/wix/i.test(srcName)) type = "Referral (Wix)";
+      else if (/chromewebstore|chrome\.google\.com/i.test(srcName)) type = "Chrome Web Store";
+      else if (/chrome-extension/i.test(srcName)) type = "Chrome Extension";
       else if (/google|bing|yahoo/i.test(srcName)) type = "Organic Search";
       else if (/instagram|facebook|linkedin|twitter/i.test(srcName)) type = "Social";
       else if (srcName.startsWith("http")) type = "Referral";
